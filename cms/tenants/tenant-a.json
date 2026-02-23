@@ -1,0 +1,37 @@
+{
+  "id": "tenant-a",
+  "name": "Tenant A - Blue Theme",
+  "logo": "/logos/tenant-a.svg",
+  "theme": {
+    "primaryColor": "#3b82f6",
+    "secondaryColor": "#6b7280",
+    "backgroundColor": "#ffffff",
+    "textColor": "#171717",
+    "borderRadius": "0.5rem"
+  },
+  "layout": [
+    {
+      "type": "header",
+      "props": {
+        "showLogo": true
+      }
+    },
+    {
+      "type": "hero",
+      "props": {
+        "title": "Welcome to Tenant A",
+        "subtitle": "Your payment management solution"
+      }
+    },
+    {
+      "type": "payments-dashboard",
+      "props": {}
+    },
+    {
+      "type": "footer",
+      "props": {
+        "copyright": "2024 Tenant A. All rights reserved."
+      }
+    }
+  ]
+}
