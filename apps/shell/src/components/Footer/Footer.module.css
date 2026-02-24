@@ -1,0 +1,20 @@
+.footer {
+  background-color: var(--color-background-secondary);
+  border-top: 1px solid var(--color-secondary);
+  padding: var(--spacing-8) 0;
+  margin-top: auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  text-align: center;
+}
+
+.copyright {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
