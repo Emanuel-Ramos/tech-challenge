@@ -86,6 +86,16 @@ async function main() {
   const comment = formatReviewComment(context, agentResults, affectedPackages);
   await postComment(prNumber, comment);
 
+  // Check if any agent requested changes (has errors)
+  const hasErrors = agentResults.some(
+    (r) => r.status === "changes_requested" || r.findings?.some((f) => f.severity === "error")
+  );
+
+  if (hasErrors) {
+    console.log("AI Code Review completed with errors - failing CI");
+    process.exit(1);
+  }
+
   console.log("AI Code Review completed successfully");
 }
 
@@ -208,21 +218,15 @@ async function runAgents(agentsToRun, context) {
   const agentPromises = [];
 
   if (agentsToRun.includes("payments")) {
-    agentPromises.push(
-      runPaymentsAgent(context).then((r) => results.push(r))
-    );
+    agentPromises.push(runPaymentsAgent(context).then((r) => results.push(r)));
   }
 
   if (agentsToRun.includes("design-system")) {
-    agentPromises.push(
-      runDesignSystemAgent(context).then((r) => results.push(r))
-    );
+    agentPromises.push(runDesignSystemAgent(context).then((r) => results.push(r)));
   }
 
   if (agentsToRun.includes("best-practices")) {
-    agentPromises.push(
-      runBestPracticesAgent(context).then((r) => results.push(r))
-    );
+    agentPromises.push(runBestPracticesAgent(context).then((r) => results.push(r)));
   }
 
   await Promise.all(agentPromises);
@@ -260,9 +264,7 @@ function formatReviewComment(context, agentResults, affectedPackages) {
   }
 
   lines.push("");
-  lines.push(
-    "*Revisao automatica por Claude. Revisao humana ainda e necessaria.*"
-  );
+  lines.push("*Revisao automatica por Claude. Revisao humana ainda e necessaria.*");
 
   return lines.join("\n");
 }
