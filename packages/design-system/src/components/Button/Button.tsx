@@ -1,9 +1,14 @@
 import type { ButtonProps } from "@shipay/types";
-import styles from "./Button.module.css";
+import styles from "./Button.module.scss";
 
 /**
  * Button component that consumes design tokens.
  * Supports primary, secondary, and ghost variants with accessibility features.
+ *
+ * Uses BEM naming convention:
+ * - .button (block)
+ * - .button--primary, .button--sm (modifiers)
+ * - .button__spinner (elements)
  */
 export function Button({
   children,
@@ -18,9 +23,9 @@ export function Button({
 }: ButtonProps) {
   const classNames = [
     styles.button,
-    styles[variant],
-    styles[size],
-    loading && styles.loading,
+    styles[`button--${variant}`],
+    styles[`button--${size}`],
+    loading && styles["button--loading"],
     className,
   ]
     .filter(Boolean)
@@ -36,9 +41,9 @@ export function Button({
       aria-busy={loading}
     >
       {loading && (
-        <span className={styles.spinner} aria-hidden="true">
+        <span className={styles["button__spinner"]} aria-hidden="true">
           <svg
-            className={styles.spinnerIcon}
+            className={styles["button__spinner-icon"]}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +60,9 @@ export function Button({
           </svg>
         </span>
       )}
-      <span className={loading ? styles.hiddenText : undefined}>{children}</span>
+      <span className={loading ? styles["button__text--hidden"] : undefined}>
+        {children}
+      </span>
     </button>
   );
 }
