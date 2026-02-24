@@ -2,14 +2,34 @@
   "name": "tech-challenge-shipay",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev": "pnpm --filter @shipay/shell dev",
-    "build": "pnpm --filter @shipay/shell build",
+    "dev": "turbo dev",
+    "build": "turbo build",
     "start": "pnpm --filter @shipay/shell start",
-    "lint": "pnpm -r lint",
-    "build:all": "pnpm -r build"
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
-    "typescript": "^5"
+    "@changesets/cli": "^2.29.8",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.3.1",
+    "@vitest/ui": "^1.3.1",
+    "jsdom": "^24.0.0",
+    "react": "^19",
+    "react-dom": "^19",
+    "sass": "^1.97.3",
+    "turbo": "^2.8.10",
+    "typescript": "^5",
+    "vitest": "^1.3.1"
   }
 }
