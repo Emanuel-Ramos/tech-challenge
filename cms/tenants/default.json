@@ -1,13 +1,13 @@
 {
   "id": "default",
-  "name": "Shipay Platform",
+  "name": "Shipay Platform default",
   "logo": "/logos/shipay.svg",
   "theme": {
-    "primaryColor": "#8b5cf6",
+    "primaryColor": "#5ff7c9",
     "secondaryColor": "#64748b",
     "backgroundColor": "#ffffff",
     "textColor": "#1e293b",
-    "borderRadius": "0.5rem"
+    "borderRadius": "0.10rem"
   },
   "layout": [
     {

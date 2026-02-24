@@ -1,0 +1,91 @@
+@use "@shipay/design-system/styles/breakpoints" as *;
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+
+  &__section {
+    background: var(--color-background);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-4);
+
+    @include md {
+      padding: var(--spacing-6);
+    }
+  }
+
+  &__title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0 0 var(--spacing-4);
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--spacing-4);
+
+    @include sm {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  &__label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+
+  &__input {
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+  }
+
+  &__color-row {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+
+  &__color-picker {
+    width: 40px;
+    height: 38px;
+    padding: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__message {
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+
+    &--success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    &--error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  }
+}

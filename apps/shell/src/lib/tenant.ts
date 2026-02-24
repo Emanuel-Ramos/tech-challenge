@@ -107,12 +107,11 @@ export function resolveTenantId(ctx: GetServerSidePropsContext): string {
  * Sets a secure tenant cookie in the response.
  * Use this when a user explicitly selects a tenant.
  */
-export function setTenantCookie(
-  ctx: GetServerSidePropsContext,
-  tenantId: string
-): void {
+export function setTenantCookie(ctx: GetServerSidePropsContext, tenantId: string): void {
   if (!isValidTenant(tenantId)) {
-    console.warn(`Attempted to set invalid tenant cookie: ${tenantId}`);
+    if (process.env.NODE_ENV === "development") {
+      console.warn(`Attempted to set invalid tenant cookie: ${tenantId}`);
+    }
     return;
   }
 
@@ -169,7 +168,9 @@ export async function loadTenantConfig(tenantId: string): Promise<TenantConfig> 
     const content = fs.readFileSync(defaultFile, "utf-8");
     return JSON.parse(content) as TenantConfig;
   } catch (error) {
-    console.error(`Failed to load tenant config for ${safeId}:`, error);
+    if (process.env.NODE_ENV === "development") {
+      console.error(`Failed to load tenant config for ${safeId}:`, error);
+    }
 
     return {
       id: "fallback",
@@ -191,9 +192,7 @@ export async function loadTenantConfig(tenantId: string): Promise<TenantConfig> 
  * Gets tenant configuration based on the request context.
  * Used in getServerSideProps for SSR.
  */
-export async function getTenantConfig(
-  ctx: GetServerSidePropsContext
-): Promise<TenantConfig> {
+export async function getTenantConfig(ctx: GetServerSidePropsContext): Promise<TenantConfig> {
   const tenantId = resolveTenantId(ctx);
   return loadTenantConfig(tenantId);
 }
