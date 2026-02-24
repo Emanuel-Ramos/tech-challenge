@@ -1,44 +1,102 @@
+@use "@shipay/design-system/styles/breakpoints" as *;
+
 .dashboard {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-6);
+  padding: var(--spacing-6) 0;
+
+  @include md {
+    gap: var(--spacing-8);
+    padding: var(--spacing-8) 0;
+  }
 
   &__header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: var(--spacing-3);
+
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   &__title {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--color-text);
     margin: 0;
+
+    @include md {
+      font-size: var(--font-size-2xl);
+    }
   }
 
   &__stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-4);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+
+    @include xs {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-4);
+    }
+
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__stat {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-1);
+    padding: var(--spacing-4);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--border-radius);
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
   }
 
   &__stat-label {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
     color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    @include md {
+      font-size: var(--font-size-sm);
+    }
   }
 
   &__stat-value {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--color-text);
+
+    @include md {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  &__content {
+    display: grid;
+    gap: var(--spacing-6);
+
+    @include lg {
+      grid-template-columns: 2fr 1fr;
+    }
   }
 }
