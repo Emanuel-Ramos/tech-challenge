@@ -1,15 +1,6 @@
 import type { ButtonProps } from "@shipay/types";
 import styles from "./Button.module.scss";
 
-/**
- * Button component that consumes design tokens.
- * Supports primary, secondary, and ghost variants with accessibility features.
- *
- * Uses BEM naming convention:
- * - .button (block)
- * - .button--primary, .button--sm (modifiers)
- * - .button__spinner (elements)
- */
 export function Button({
   children,
   variant = "primary",
@@ -60,9 +51,7 @@ export function Button({
           </svg>
         </span>
       )}
-      <span className={loading ? styles["button__text--hidden"] : undefined}>
-        {children}
-      </span>
+      <span className={loading ? styles["button__text--hidden"] : undefined}>{children}</span>
     </button>
   );
 }

@@ -1,13 +1,6 @@
 import type { CardProps } from "@shipay/types";
 import styles from "./Card.module.scss";
 
-/**
- * Card component for content containers.
- *
- * Uses BEM naming convention:
- * - .card (block)
- * - .card__title, .card__content (elements)
- */
 export function Card({ children, title, className }: CardProps) {
   const classNames = [styles.card, className].filter(Boolean).join(" ");
 

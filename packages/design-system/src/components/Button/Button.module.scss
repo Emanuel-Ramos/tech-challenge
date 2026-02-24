@@ -1,12 +1,3 @@
-/**
- * Button Component Styles
- * Using BEM naming convention: .button, .button--modifier, .button__element
- */
-
-// ==========================================================================
-// Block: .button
-// ==========================================================================
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -24,7 +15,6 @@
     transform var(--transition-fast);
   position: relative;
 
-  // States
   &:focus-visible {
     outline: none;
     box-shadow: var(--focus-ring);
@@ -38,10 +28,6 @@
   &:not(:disabled):active {
     transform: scale(0.98);
   }
-
-  // ==========================================================================
-  // Modifiers: Size variants
-  // ==========================================================================
 
   &--sm {
     padding: var(--spacing-1) var(--spacing-3);
@@ -60,10 +46,6 @@
     font-size: var(--font-size-lg);
     min-height: 3rem;
   }
-
-  // ==========================================================================
-  // Modifiers: Visual variants
-  // ==========================================================================
 
   &--primary {
     background-color: var(--color-primary);
@@ -98,17 +80,9 @@
     }
   }
 
-  // ==========================================================================
-  // Modifiers: State variants
-  // ==========================================================================
-
   &--loading {
     pointer-events: none;
   }
-
-  // ==========================================================================
-  // Elements
-  // ==========================================================================
 
   &__spinner {
     position: absolute;
@@ -127,10 +101,6 @@
     visibility: hidden;
   }
 }
-
-// ==========================================================================
-// Keyframes
-// ==========================================================================
 
 @keyframes button-spin {
   from {

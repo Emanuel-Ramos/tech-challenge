@@ -1,14 +1,17 @@
-/**
- * Design System Base Styles
- * These CSS custom properties can be overridden by tenant themes.
- */
-
-// ==========================================================================
-// CSS Custom Properties (Design Tokens)
-// ==========================================================================
+// Breakpoints - use SCSS mixins from _breakpoints.scss
+// Mobile: < 480px (default)
+// Large Mobile: 480px+ (@include xs)
+// Tablet: 640px+ (@include sm)
+// Small Desktop: 768px+ (@include md)
+// Desktop: 1024px+ (@include lg)
+// Large Desktop: 1280px+ (@include xl)
 
 :root {
-  // Color tokens - tenant-overridable
+  // Container
+  --container-max-width: 1200px;
+  --container-padding: var(--spacing-4);
+  --container-padding-lg: var(--spacing-8);
+
   --color-primary: #3b82f6;
   --color-primary-hover: #2563eb;
   --color-primary-active: #1d4ed8;
@@ -20,19 +23,16 @@
   --color-text-secondary: #6b7280;
   --color-text-inverse: #ffffff;
 
-  // Semantic colors
   --color-success: #22c55e;
   --color-warning: #eab308;
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
-  // Border radius - tenant-overridable
   --border-radius: 0.5rem;
   --border-radius-sm: 0.25rem;
   --border-radius-lg: 0.75rem;
   --border-radius-full: 9999px;
 
-  // Spacing scale
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;
@@ -44,8 +44,9 @@
   --spacing-12: 3rem;
   --spacing-16: 4rem;
 
-  // Typography
-  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
   --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   --font-size-xs: 0.75rem;
@@ -57,30 +58,14 @@
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
 
-  // Shadows
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  // Transitions
   --transition-fast: 150ms ease;
   --transition-normal: 200ms ease;
   --transition-slow: 300ms ease;
 
-  // Focus ring for accessibility
   --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
-}
-
-// ==========================================================================
-// Dark Mode Support
-// ==========================================================================
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #0a0a0a;
-    --color-background-secondary: #171717;
-    --color-text: #ededed;
-    --color-text-secondary: #a3a3a3;
-  }
 }

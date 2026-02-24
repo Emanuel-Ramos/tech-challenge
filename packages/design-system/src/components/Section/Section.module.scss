@@ -1,0 +1,56 @@
+@use "../../styles/breakpoints" as *;
+
+.section {
+  width: 100%;
+
+  // Variants
+  &--default {
+    background-color: var(--color-background);
+  }
+
+  &--muted {
+    background-color: var(--color-background-secondary);
+  }
+
+  &--primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    color: var(--color-text-inverse);
+  }
+
+  // Sizes (padding)
+  &--sm {
+    padding: var(--spacing-6) 0;
+
+    @include lg {
+      padding: var(--spacing-8) 0;
+    }
+  }
+
+  &--md {
+    padding: var(--spacing-8) 0;
+
+    @include lg {
+      padding: var(--spacing-12) 0;
+    }
+  }
+
+  &--lg {
+    padding: var(--spacing-12) 0;
+
+    @include lg {
+      padding: var(--spacing-16) 0;
+    }
+  }
+
+  // Container
+  &__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
+
+    @include lg {
+      padding: 0 var(--container-padding-lg);
+    }
+  }
+}

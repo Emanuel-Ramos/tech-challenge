@@ -1,23 +1,6 @@
 import type { ChartProps } from "@shipay/types";
 import styles from "./Chart.module.scss";
 
-/**
- * Generic Chart component with loading, empty, and error states.
- * Uses a simple bar chart visualization that can be replaced with Recharts.
- *
- * Uses BEM naming convention:
- * - .chart (block)
- * - .chart__title, .chart__bar, .chart__loading (elements)
- *
- * @example
- * <Chart
- *   data={transactions}
- *   mapDataPoint={(t) => ({ label: t.date, value: t.amount })}
- *   formatValue={(v) => `R$ ${v.toFixed(2)}`}
- *   title="Monthly Revenue"
- *   aria-label="Bar chart showing monthly revenue"
- * />
- */
 export function Chart<T>({
   data,
   state,
@@ -27,7 +10,6 @@ export function Chart<T>({
   "aria-label": ariaLabel,
   height = 300,
 }: ChartProps<T>) {
-  // Loading state
   if (state?.loading) {
     return (
       <div
@@ -46,10 +28,8 @@ export function Chart<T>({
     );
   }
 
-  // Error state
   if (state?.error) {
-    const errorMessage =
-      typeof state.error === "string" ? state.error : state.error.message;
+    const errorMessage = typeof state.error === "string" ? state.error : state.error.message;
 
     return (
       <div
@@ -67,12 +47,7 @@ export function Chart<T>({
             aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-            <path
-              d="M12 8v4m0 4h.01"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
           <span className={styles["chart__error-text"]}>{errorMessage}</span>
         </div>
@@ -80,7 +55,6 @@ export function Chart<T>({
     );
   }
 
-  // Empty state
   if (!data || data.length === 0) {
     return (
       <div
@@ -115,7 +89,6 @@ export function Chart<T>({
     );
   }
 
-  // Data state - render bar chart
   const dataPoints = data.map(mapDataPoint);
   const maxValue = Math.max(...dataPoints.map((d) => d.value));
 
@@ -137,9 +110,7 @@ export function Chart<T>({
 
             return (
               <div key={index} className={styles["chart__bar-group"]}>
-                <div className={styles["chart__bar-value"]}>
-                  {formatValue(point.value)}
-                </div>
+                <div className={styles["chart__bar-value"]}>{formatValue(point.value)}</div>
                 <div className={styles["chart__bar-wrapper"]}>
                   <div
                     className={styles["chart__bar"]}
