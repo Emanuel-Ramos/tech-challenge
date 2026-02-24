@@ -1,0 +1,22 @@
+# CODEOWNERS - Define ownership por área do código
+# Cada time é responsável por aprovar PRs em suas áreas
+
+# Core - Time responsável pelo shell e infraestrutura
+/apps/shell/                    @shipay/team-core
+/packages/types/                @shipay/team-core
+/.github/                       @shipay/team-core
+/turbo.json                     @shipay/team-core
+/package.json                   @shipay/team-core
+
+# Design System - Time responsável por componentes UI
+/packages/design-system/        @shipay/team-design
+
+# Payments - Time responsável pelo módulo de pagamentos
+/packages/payments-module/      @shipay/team-payments
+
+# CMS/Tenants - Requer aprovação do Core + time relevante
+/cms/tenants/                   @shipay/team-core
+
+# Documentação - Qualquer time pode contribuir
+/docs/                          @shipay/team-core
+/README.md                      @shipay/team-core
