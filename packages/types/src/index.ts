@@ -18,7 +18,7 @@ export interface TenantConfig {
 }
 
 // Layout Block Types
-export type BlockType = "header" | "hero" | "payments-dashboard" | "footer";
+export type BlockType = "header" | "hero" | "payments-dashboard" | "footer" | (string & {});
 
 export interface LayoutBlock {
   type: BlockType;
@@ -52,14 +52,6 @@ export interface ChartProps<T> {
 }
 
 // Payment Types
-export interface PaymentTransaction {
-  id: string;
-  date: string;
-  amount: number;
-  status: "completed" | "pending" | "failed";
-  method: string;
-}
-
 export interface PaymentSummary {
   period: string;
   total: number;
