@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+.turbo/
+dist/
+
+# Generated
+pnpm-lock.yaml
+*.min.js
+*.min.css
+
+# Coverage
+coverage/
