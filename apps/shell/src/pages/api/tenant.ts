@@ -51,7 +51,7 @@ export default function handler(
       if (!allowedTenants.includes(tenant)) {
         return res.status(403).json({
           success: false,
-          message: `Invalid tenant. Allowed: ${allowedTenants.join(", ")}`,
+          message: "Invalid tenant identifier",
         });
       }
 

@@ -65,7 +65,9 @@ export function BlockRenderer({
             );
 
           default:
-            console.warn(`Unknown block type: ${block.type}`);
+            if (process.env.NODE_ENV === "development") {
+              console.warn(`[BlockRenderer] Unknown block type: ${block.type}`);
+            }
             return null;
         }
       })}
