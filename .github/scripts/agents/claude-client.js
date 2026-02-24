@@ -8,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 
 const CLAUDE_API_URL = "https://api.anthropic.com/v1/messages";
-const MODEL = "claude-3-5-sonnet-20241022";
+const MODEL = "claude-3-haiku-20240307";
 const MAX_TOKENS = 4096;
 
 /**
@@ -17,7 +17,7 @@ const MAX_TOKENS = 4096;
  * @returns {string} The prompt content
  */
 function loadPrompt(promptName) {
-  const promptPath = path.join(__dirname, "..", "prompts", `${promptName}.md`);
+  const promptPath = path.join(__dirname, "..", "..", "prompts", `${promptName}.md`);
   return fs.readFileSync(promptPath, "utf-8");
 }
 
