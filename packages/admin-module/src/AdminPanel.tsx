@@ -1,7 +1,9 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import type { TenantConfig, TenantTheme } from "@shipay/types";
 import { Button } from "@shipay/design-system";
 import styles from "./AdminPanel.module.scss";
+
+const STORAGE_KEY = "shipay_admin_config";
 
 export interface AdminPanelProps {
   initialConfig: TenantConfig;
@@ -10,39 +12,43 @@ export interface AdminPanelProps {
 /**
  * Simple admin panel to edit tenant configuration.
  * Demonstrates the CMS white-label capability.
+ * Changes are saved to localStorage.
  */
 export function AdminPanel({ initialConfig }: AdminPanelProps) {
   const [name, setName] = useState(initialConfig.name);
   const [theme, setTheme] = useState<TenantTheme>(initialConfig.theme);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error" | "warning";
+    text: string;
+  } | null>({
+    type: "warning",
+    text: "Demo mode: changes are saved to your browser only.",
+  });
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.name) setName(parsed.name);
+        if (parsed.theme) setTheme((prev) => ({ ...prev, ...parsed.theme }));
+      } catch {
+        // ignore invalid JSON
+      }
+    }
+  }, []);
 
   const handleThemeChange = (key: keyof TenantTheme) => (e: ChangeEvent<HTMLInputElement>) => {
     setTheme((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
-
-    try {
-      const res = await fetch("/api/admin/config", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, theme }),
-      });
-
-      if (res.ok) {
-        setMessage({ type: "success", text: "Saved! Reload the page to see changes." });
-      } else {
-        setMessage({ type: "error", text: "Failed to save." });
-      }
-    } catch {
-      setMessage({ type: "error", text: "Network error." });
-    } finally {
-      setLoading(false);
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, theme }));
+    setMessage({ type: "success", text: "Saved! Reload the page to see changes." });
+    setLoading(false);
   };
 
   const colorFields: { key: keyof TenantTheme; label: string }[] = [

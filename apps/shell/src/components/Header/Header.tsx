@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./Header.module.scss";
 
 interface HeaderProps {
@@ -25,12 +26,9 @@ export function Header({ logo, tenantName, showLogo = true }: HeaderProps) {
           <span className={styles["header__name"]}>{tenantName}</span>
         </div>
         <nav className={styles["header__nav"]}>
-          <a href="#dashboard" className={styles["header__nav-link"]}>
-            Dashboard
-          </a>
-          <a href="#payments" className={styles["header__nav-link"]}>
-            Payments
-          </a>
+          <Link href="/admin" className={styles["header__nav-link"]}>
+            Admin
+          </Link>
         </nav>
       </div>
     </header>
