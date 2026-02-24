@@ -4,7 +4,7 @@
   "commit": false,
   "fixed": [],
   "linked": [
-    ["@shipay/design-system", "@shipay/payments-module", "@shipay/types"]
+    ["@shipay/design-system", "@shipay/payments-module", "@shipay/admin-module", "@shipay/types"]
   ],
   "access": "restricted",
   "baseBranch": "master",

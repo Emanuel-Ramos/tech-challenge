@@ -14,15 +14,6 @@ export interface TenantConfig {
   name: string;
   logo: string;
   theme: TenantTheme;
-  layout: LayoutBlock[];
-}
-
-// Layout Block Types
-export type BlockType = "header" | "hero" | "payments-dashboard" | "footer" | (string & {});
-
-export interface LayoutBlock {
-  type: BlockType;
-  props?: Record<string, unknown>;
 }
 
 // Chart Types

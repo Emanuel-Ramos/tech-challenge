@@ -1,5 +1,5 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import type { TenantConfig } from "@shipay/types";
+import type { TenantConfig, PaymentSummary } from "@shipay/types";
 import fs from "fs";
 import path from "path";
 
@@ -183,7 +183,6 @@ export async function loadTenantConfig(tenantId: string): Promise<TenantConfig> 
         textColor: "#171717",
         borderRadius: "0.5rem",
       },
-      layout: [],
     };
   }
 }
@@ -234,4 +233,43 @@ export function withTenant<P extends TenantPageProps>(
       } as P,
     };
   };
+}
+
+/**
+ * Mock payment data per tenant.
+ * In production, this would come from a database or API.
+ */
+const MOCK_PAYMENTS: Record<string, PaymentSummary[]> = {
+  "tenant-a": [
+    { period: "Jan", total: 45200, count: 156 },
+    { period: "Feb", total: 52800, count: 189 },
+    { period: "Mar", total: 48100, count: 167 },
+    { period: "Apr", total: 61500, count: 215 },
+    { period: "May", total: 58900, count: 203 },
+    { period: "Jun", total: 72300, count: 248 },
+  ],
+  "tenant-b": [
+    { period: "Jan", total: 8500, count: 32 },
+    { period: "Feb", total: 12200, count: 45 },
+    { period: "Mar", total: 9800, count: 38 },
+    { period: "Apr", total: 15100, count: 58 },
+    { period: "May", total: 11500, count: 42 },
+    { period: "Jun", total: 18300, count: 67 },
+  ],
+  default: [
+    { period: "Jan", total: 12500, count: 45 },
+    { period: "Feb", total: 18200, count: 62 },
+    { period: "Mar", total: 15800, count: 53 },
+    { period: "Apr", total: 22100, count: 78 },
+    { period: "May", total: 19500, count: 67 },
+    { period: "Jun", total: 25300, count: 89 },
+  ],
+};
+
+/**
+ * Gets mock payment data for a tenant.
+ * Simulates API call with realistic data per tenant.
+ */
+export function getMockPaymentData(tenantId: string): PaymentSummary[] {
+  return MOCK_PAYMENTS[tenantId] ?? MOCK_PAYMENTS.default;
 }

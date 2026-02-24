@@ -2,7 +2,7 @@ import type { InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { ThemeProvider, Section } from "@shipay/design-system";
 import { Header } from "@/components/Header";
-import { AdminPanel } from "@/components/AdminPanel";
+import { AdminPanel } from "@shipay/admin-module";
 import { withTenant, type TenantPageProps } from "@/lib/tenant";
 
 export const getServerSideProps = withTenant<TenantPageProps>();

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@shipay/admin-module": "workspace:*",
     "@shipay/design-system": "workspace:*",
     "@shipay/payments-module": "workspace:*",
     "@shipay/types": "workspace:*",

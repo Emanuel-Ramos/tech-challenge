@@ -77,6 +77,9 @@ importers:
 
   apps/shell:
     dependencies:
+      '@shipay/admin-module':
+        specifier: workspace:*
+        version: link:../../packages/admin-module
       '@shipay/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
@@ -111,6 +114,31 @@ importers:
       eslint-config-next:
         specifier: 14.2.21
         version: 14.2.21(eslint@8.57.1)(typescript@5.9.3)
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  packages/admin-module:
+    dependencies:
+      '@shipay/design-system':
+        specifier: workspace:*
+        version: link:../design-system
+      '@shipay/types':
+        specifier: workspace:*
+        version: link:../types
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: ^18
+        version: 18.3.28
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.7(@types/react@18.3.28)
       typescript:
         specifier: ^5
         version: 5.9.3

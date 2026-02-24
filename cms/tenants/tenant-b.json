@@ -8,30 +8,5 @@
     "backgroundColor": "#fafafa",
     "textColor": "#18181b",
     "borderRadius": "0.75rem"
-  },
-  "layout": [
-    {
-      "type": "header",
-      "props": {
-        "showLogo": true
-      }
-    },
-    {
-      "type": "hero",
-      "props": {
-        "title": "Welcome to Tenant B",
-        "subtitle": "Streamlined payments for your business"
-      }
-    },
-    {
-      "type": "payments-dashboard",
-      "props": {}
-    },
-    {
-      "type": "footer",
-      "props": {
-        "copyright": "2024 Tenant B. All rights reserved."
-      }
-    }
-  ]
+  }
 }

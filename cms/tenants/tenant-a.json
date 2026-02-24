@@ -8,30 +8,5 @@
     "backgroundColor": "#ffffff",
     "textColor": "#171717",
     "borderRadius": "0.5rem"
-  },
-  "layout": [
-    {
-      "type": "header",
-      "props": {
-        "showLogo": true
-      }
-    },
-    {
-      "type": "hero",
-      "props": {
-        "title": "Welcome to Tenant A",
-        "subtitle": "Your payment management solution"
-      }
-    },
-    {
-      "type": "payments-dashboard",
-      "props": {}
-    },
-    {
-      "type": "footer",
-      "props": {
-        "copyright": "2024 Tenant A. All rights reserved."
-      }
-    }
-  ]
+  }
 }

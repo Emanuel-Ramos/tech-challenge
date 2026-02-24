@@ -3,7 +3,7 @@ import type { TenantConfig, TenantTheme } from "@shipay/types";
 import { Button } from "@shipay/design-system";
 import styles from "./AdminPanel.module.scss";
 
-interface AdminPanelProps {
+export interface AdminPanelProps {
   initialConfig: TenantConfig;
 }
 

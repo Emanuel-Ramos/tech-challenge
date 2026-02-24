@@ -1,6 +1,6 @@
 {
   "id": "default",
-  "name": "Shipay Platform default",
+  "name": "Shipay Platform",
   "logo": "/logos/shipay.svg",
   "theme": {
     "primaryColor": "#5ff7c9",
@@ -8,30 +8,5 @@
     "backgroundColor": "#ffffff",
     "textColor": "#1e293b",
     "borderRadius": "0.10rem"
-  },
-  "layout": [
-    {
-      "type": "header",
-      "props": {
-        "showLogo": true
-      }
-    },
-    {
-      "type": "hero",
-      "props": {
-        "title": "Welcome to Shipay Platform",
-        "subtitle": "Multi-tenant payment management"
-      }
-    },
-    {
-      "type": "payments-dashboard",
-      "props": {}
-    },
-    {
-      "type": "footer",
-      "props": {
-        "copyright": "2024 Shipay. All rights reserved."
-      }
-    }
-  ]
+  }
 }
