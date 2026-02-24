@@ -1,6 +1,6 @@
 import { Card, Chart, Button } from "@shipay/design-system";
 import type { PaymentSummary, ChartState } from "@shipay/types";
-import styles from "./PaymentsDashboard.module.css";
+import styles from "./PaymentsDashboard.module.scss";
 
 interface PaymentsDashboardProps {
   data: PaymentSummary[];
@@ -8,10 +8,6 @@ interface PaymentsDashboardProps {
   onRefresh?: () => void;
 }
 
-/**
- * Payments Dashboard microfrontend component.
- * Displays a chart of payment summaries with loading, error, and empty states.
- */
 export function PaymentsDashboard({
   data,
   state,
@@ -28,8 +24,8 @@ export function PaymentsDashboard({
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Payments Dashboard</h2>
+      <div className={styles["dashboard__header"]}>
+        <h2 className={styles["dashboard__title"]}>Payments Dashboard</h2>
         {onRefresh && (
           <Button
             variant="secondary"
@@ -42,17 +38,19 @@ export function PaymentsDashboard({
         )}
       </div>
 
-      <div className={styles.stats}>
+      <div className={styles["dashboard__stats"]}>
         <Card>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>Total Revenue</span>
-            <span className={styles.statValue}>{formatCurrency(totalRevenue)}</span>
+          <div className={styles["dashboard__stat"]}>
+            <span className={styles["dashboard__stat-label"]}>Total Revenue</span>
+            <span className={styles["dashboard__stat-value"]}>
+              {formatCurrency(totalRevenue)}
+            </span>
           </div>
         </Card>
         <Card>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>Transactions</span>
-            <span className={styles.statValue}>{totalTransactions}</span>
+          <div className={styles["dashboard__stat"]}>
+            <span className={styles["dashboard__stat-label"]}>Transactions</span>
+            <span className={styles["dashboard__stat-value"]}>{totalTransactions}</span>
           </div>
         </Card>
       </div>
