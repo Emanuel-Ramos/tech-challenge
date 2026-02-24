@@ -1,16 +1,16 @@
-import styles from "./Footer.module.css";
+import styles from "./Footer.module.scss";
 
 interface FooterProps {
   copyright?: string;
 }
 
 export function Footer({
-  copyright = "2024 Shipay. All rights reserved.",
+  copyright = `${new Date().getFullYear()} Shipay. All rights reserved.`,
 }: FooterProps) {
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
-        <p className={styles.copyright}>{copyright}</p>
+      <div className={styles["footer__container"]}>
+        <p className={styles["footer__copyright"]}>{copyright}</p>
       </div>
     </footer>
   );

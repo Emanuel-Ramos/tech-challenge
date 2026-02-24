@@ -1,0 +1,55 @@
+.header {
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-secondary);
+  padding: var(--spacing-4) 0;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  &__logo {
+    height: 32px;
+    width: auto;
+  }
+
+  &__name {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  &__nav {
+    display: flex;
+    gap: var(--spacing-6);
+  }
+
+  &__nav-link {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: var(--border-radius-sm);
+    }
+  }
+}

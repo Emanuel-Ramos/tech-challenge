@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./Header.module.css";
+import styles from "./Header.module.scss";
 
 interface HeaderProps {
   logo: string;
@@ -10,25 +10,25 @@ interface HeaderProps {
 export function Header({ logo, tenantName, showLogo = true }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.brand}>
+      <div className={styles["header__container"]}>
+        <div className={styles["header__brand"]}>
           {showLogo && (
             <Image
               src={logo}
               alt={`${tenantName} logo`}
               width={120}
               height={32}
-              className={styles.logo}
+              className={styles["header__logo"]}
               priority
             />
           )}
-          <span className={styles.name}>{tenantName}</span>
+          <span className={styles["header__name"]}>{tenantName}</span>
         </div>
-        <nav className={styles.nav}>
-          <a href="#dashboard" className={styles.navLink}>
+        <nav className={styles["header__nav"]}>
+          <a href="#dashboard" className={styles["header__nav-link"]}>
             Dashboard
           </a>
-          <a href="#payments" className={styles.navLink}>
+          <a href="#payments" className={styles["header__nav-link"]}>
             Payments
           </a>
         </nav>

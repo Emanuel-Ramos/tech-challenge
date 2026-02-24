@@ -1,0 +1,43 @@
+.hero {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+  padding: var(--spacing-16) 0;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+    text-align: center;
+  }
+
+  &__title {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    color: var(--color-text-inverse);
+    margin: 0 0 var(--spacing-4);
+  }
+
+  &__subtitle {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-xl);
+    color: var(--color-text-inverse);
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    &__title {
+      font-size: var(--font-size-2xl);
+    }
+
+    &__subtitle {
+      font-size: var(--font-size-lg);
+    }
+  }
+}

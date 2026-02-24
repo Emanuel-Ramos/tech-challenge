@@ -1,4 +1,4 @@
-import styles from "./Hero.module.css";
+import styles from "./Hero.module.scss";
 
 interface HeroProps {
   title?: string;
@@ -11,9 +11,9 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className={styles.hero}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>{title}</h1>
-        <p className={styles.subtitle}>{subtitle}</p>
+      <div className={styles["hero__container"]}>
+        <h1 className={styles["hero__title"]}>{title}</h1>
+        <p className={styles["hero__subtitle"]}>{subtitle}</p>
       </div>
     </section>
   );
