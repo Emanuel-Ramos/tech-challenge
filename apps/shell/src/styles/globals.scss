@@ -1,4 +1,4 @@
-@import "@shipay/design-system/styles/base.css";
+@use "@shipay/design-system/styles/base.scss";
 
 html,
 body {
@@ -25,7 +25,6 @@ a {
   text-decoration: none;
 }
 
-/* App layout */
 .app {
   min-height: 100vh;
   display: flex;

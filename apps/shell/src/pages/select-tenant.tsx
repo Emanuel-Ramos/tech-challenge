@@ -11,7 +11,7 @@ import {
   getAllowedTenants,
   loadTenantConfig,
 } from "@/lib/tenant";
-import styles from "@/styles/SelectTenant.module.css";
+import styles from "@/styles/SelectTenant.module.scss";
 
 interface TenantOption {
   id: string;
@@ -110,30 +110,36 @@ export default function SelectTenant({
           />
 
           <main className="main">
-            <div className={styles.container}>
-              <h1 className={styles.title}>Select Your Organization</h1>
-              <p className={styles.subtitle}>
+            <div className={styles["select-tenant"]}>
+              <h1 className={styles["select-tenant__title"]}>
+                Select Your Organization
+              </h1>
+              <p className={styles["select-tenant__subtitle"]}>
                 Choose a tenant to customize your experience. Your selection
                 will be securely stored in a cookie.
               </p>
 
               {error && (
-                <div className={styles.error} role="alert">
+                <div className={styles["select-tenant__error"]} role="alert">
                   {error}
                 </div>
               )}
 
-              <div className={styles.grid}>
+              <div className={styles["select-tenant__grid"]}>
                 {availableTenants.map((tenant) => (
                   <Card key={tenant.id}>
-                    <div className={styles.tenantCard}>
+                    <div className={styles["select-tenant__card"]}>
                       <div
-                        className={styles.colorPreview}
+                        className={styles["select-tenant__color-preview"]}
                         style={{ backgroundColor: tenant.primaryColor }}
                         aria-hidden="true"
                       />
-                      <h3 className={styles.tenantName}>{tenant.name}</h3>
-                      <p className={styles.tenantId}>ID: {tenant.id}</p>
+                      <h3 className={styles["select-tenant__tenant-name"]}>
+                        {tenant.name}
+                      </h3>
+                      <p className={styles["select-tenant__tenant-id"]}>
+                        ID: {tenant.id}
+                      </p>
                       <Button
                         variant={
                           currentTenant.id === tenant.id ? "secondary" : "primary"
@@ -150,7 +156,7 @@ export default function SelectTenant({
                 ))}
               </div>
 
-              <div className={styles.actions}>
+              <div className={styles["select-tenant__actions"]}>
                 <Button
                   variant="ghost"
                   onClick={handleClearTenant}
@@ -162,7 +168,7 @@ export default function SelectTenant({
               </div>
 
               <Card title="How Tenant Resolution Works">
-                <div className={styles.info}>
+                <div className={styles["select-tenant__info"]}>
                   <p>
                     <strong>Priority Order:</strong>
                   </p>
@@ -182,7 +188,7 @@ export default function SelectTenant({
                       <strong>Default</strong>: If nothing matches
                     </li>
                   </ol>
-                  <p className={styles.security}>
+                  <p className={styles["select-tenant__security"]}>
                     The cookie is <code>HttpOnly</code>, <code>Secure</code>, and{" "}
                     <code>SameSite=Strict</code> for security.
                   </p>
