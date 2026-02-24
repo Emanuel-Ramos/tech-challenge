@@ -1,43 +1,81 @@
+@use "@shipay/design-system/styles/breakpoints" as *;
+
 .hero {
   background: linear-gradient(
     135deg,
     var(--color-primary) 0%,
+    var(--color-primary-hover) 50%,
     var(--color-secondary) 100%
   );
-  padding: var(--spacing-16) 0;
+  padding: var(--spacing-10) 0;
+  position: relative;
+  overflow: hidden;
+
+  @include md {
+    padding: var(--spacing-16) 0;
+  }
+
+  // Decorative background pattern
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
 
   &__container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 var(--spacing-4);
+    padding: 0 var(--container-padding);
     text-align: center;
+    position: relative;
+    z-index: 1;
+
+    @include lg {
+      padding: 0 var(--container-padding-lg);
+    }
   }
 
   &__title {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-2xl);
     font-weight: 700;
     color: var(--color-text-inverse);
-    margin: 0 0 var(--spacing-4);
+    margin: 0 0 var(--spacing-3);
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @include sm {
+      font-size: var(--font-size-3xl);
+      margin: 0 0 var(--spacing-4);
+    }
+
+    @include lg {
+      font-size: var(--font-size-4xl);
+    }
   }
 
   &__subtitle {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-base);
     color: var(--color-text-inverse);
     opacity: 0.9;
-    margin: 0;
-  }
-}
+    margin: 0 auto;
+    max-width: 600px;
+    line-height: 1.6;
 
-@media (max-width: 768px) {
-  .hero {
-    &__title {
-      font-size: var(--font-size-2xl);
+    @include sm {
+      font-size: var(--font-size-lg);
     }
 
-    &__subtitle {
-      font-size: var(--font-size-lg);
+    @include lg {
+      font-size: var(--font-size-xl);
     }
   }
 }

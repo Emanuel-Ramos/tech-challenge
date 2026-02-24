@@ -1,55 +1,93 @@
+@use "@shipay/design-system/styles/breakpoints" as *;
+
 .header {
   background-color: var(--color-background);
-  border-bottom: 1px solid var(--color-secondary);
-  padding: var(--spacing-4) 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-3) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+
+  @include md {
+    padding: var(--spacing-4) 0;
+  }
 
   &__container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 var(--spacing-4);
+    padding: 0 var(--container-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include lg {
+      padding: 0 var(--container-padding-lg);
+    }
   }
 
   &__brand {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--spacing-2);
+
+    @include md {
+      gap: var(--spacing-3);
+    }
   }
 
   &__logo {
-    height: 32px;
+    height: 28px;
     width: auto;
+
+    @include md {
+      height: 36px;
+    }
   }
 
   &__name {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--color-text);
+
+    @include md {
+      font-size: var(--font-size-lg);
+    }
   }
 
   &__nav {
-    display: flex;
-    gap: var(--spacing-6);
+    display: none;
+    gap: var(--spacing-4);
+
+    @include md {
+      display: flex;
+      gap: var(--spacing-6);
+    }
   }
 
   &__nav-link {
     font-family: var(--font-family-sans);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
     color: var(--color-text-secondary);
     text-decoration: none;
-    transition: color var(--transition-fast);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+
+    @include md {
+      font-size: var(--font-size-base);
+    }
 
     &:hover {
       color: var(--color-primary);
+      background-color: var(--color-background-secondary);
     }
 
     &:focus-visible {
       outline: 2px solid var(--color-primary);
       outline-offset: 2px;
-      border-radius: var(--border-radius-sm);
     }
   }
 }
