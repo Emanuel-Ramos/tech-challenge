@@ -109,7 +109,7 @@ export function Chart<T>({
             const barHeight = maxValue > 0 ? (point.value / maxValue) * 100 : 0;
 
             return (
-              <div key={index} className={styles["chart__bar-group"]}>
+              <div key={point.label} className={styles["chart__bar-group"]}>
                 <div className={styles["chart__bar-value"]}>{formatValue(point.value)}</div>
                 <div className={styles["chart__bar-wrapper"]}>
                   <div
