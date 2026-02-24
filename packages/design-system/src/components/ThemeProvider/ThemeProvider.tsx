@@ -14,9 +14,5 @@ interface ThemeProviderProps {
 export function ThemeProvider({ theme, children }: ThemeProviderProps) {
   const cssVariables = generateCSSVariables(theme);
 
-  return (
-    <div style={cssVariables as React.CSSProperties}>
-      {children}
-    </div>
-  );
+  return <div style={cssVariables as React.CSSProperties}>{children}</div>;
 }

@@ -1,43 +1,23 @@
-import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import type { TenantConfig, TenantTheme } from "@shipay/types";
 import { Button } from "@shipay/design-system";
 import styles from "./AdminPanel.module.scss";
-
-const STORAGE_KEY = "shipay_admin_config";
 
 export interface AdminPanelProps {
   initialConfig: TenantConfig;
 }
 
 /**
- * Simple admin panel to edit tenant configuration.
- * Demonstrates the CMS white-label capability.
- * Changes are saved to localStorage.
+ * Admin panel UI demo for tenant configuration.
+ * Dynamic theme changes are not yet implemented.
  */
 export function AdminPanel({ initialConfig }: AdminPanelProps) {
   const [name, setName] = useState(initialConfig.name);
   const [theme, setTheme] = useState<TenantTheme>(initialConfig.theme);
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error" | "warning";
     text: string;
-  } | null>({
-    type: "warning",
-    text: "Demo mode: changes are saved to your browser only.",
-  });
-
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.name) setName(parsed.name);
-        if (parsed.theme) setTheme((prev) => ({ ...prev, ...parsed.theme }));
-      } catch {
-        // ignore invalid JSON
-      }
-    }
-  }, []);
+  } | null>(null);
 
   const handleThemeChange = (key: keyof TenantTheme) => (e: ChangeEvent<HTMLInputElement>) => {
     setTheme((prev) => ({ ...prev, [key]: e.target.value }));
@@ -45,10 +25,10 @@ export function AdminPanel({ initialConfig }: AdminPanelProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, theme }));
-    setMessage({ type: "success", text: "Saved! Reload the page to see changes." });
-    setLoading(false);
+    setMessage({
+      type: "warning",
+      text: "Dynamic theme changes are not yet implemented. Our team is working on it!",
+    });
   };
 
   const colorFields: { key: keyof TenantTheme; label: string }[] = [
@@ -122,9 +102,7 @@ export function AdminPanel({ initialConfig }: AdminPanelProps) {
       </div>
 
       <div className={styles["admin-panel__actions"]}>
-        <Button type="submit" loading={loading}>
-          Save Configuration
-        </Button>
+        <Button type="submit">Save Configuration</Button>
       </div>
     </form>
   );
