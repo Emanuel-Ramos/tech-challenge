@@ -235,8 +235,6 @@ Definidos em `packages/design-system/src/styles/_breakpoints.scss`:
 
 ---
 
-## Qualidade de Abstração
-
 ### Design Tokens
 
 Tokens organizados em `packages/design-system/src/tokens/`:
@@ -274,15 +272,6 @@ interface ChartProps<T> {
 }
 ```
 
-### Fluxo de Abstração
-
-```
-Props (TypeScript) → CSS Variables (tokens) → SCSS + BEM (estilos)
-```
-
-Componentes mapeiam props para classes BEM (`button--primary`), que consomem CSS variables (`var(--color-primary)`).
-
----
 
 ## Decisões Arquiteturais (ADRs)
 
