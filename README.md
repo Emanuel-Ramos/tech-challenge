@@ -6,15 +6,14 @@
 
 ## Para o Avaliador
 
-| Criterio                     | Como foi atendido                                                                                                                          |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Arquitetura e Trade-offs** | Arquitetura [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) e 6 ADRs documentando decisoes ([docs/adr/](docs/adr/)).                          |
-| **Qualidade de Abstracao**   | `ChartProps<T>` generico com `mapDataPoint: (item: T) => ChartDataPoint`. Props tipadas com `aria-label` em todas interfaces.              |
-| **Pragmatismo**              | MVP com Build-time Federation (simples) para entrega do teste. Arquitetura preparada para escalar com Module Federation quando necessario. |
-| **Boas Praticas**            | BEM + SCSS, CONTRIBUTING.md, conventional commits, changeset, acessibilidade (WCAG 2.1 AA), 78+ testes automatizados.                      |
+| Criterio                     | Como foi atendido                                                                                                                                                                           |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Arquitetura e Trade-offs** | Arquitetura [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) e 6 ADRs documentando decisoes ([docs/adr/](docs/adr/)).                                                                           |
+| **Qualidade de Abstracao**   | `ChartProps<T>` generico com `mapDataPoint: (item: T) => ChartDataPoint`. Props tipadas com `aria-label` em todas interfaces. Mais detalhes em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| **Pragmatismo**              | MVP com Build-time Federation (simples) para entrega do teste. Arquitetura preparada para escalar com Module Federation quando necessario.                                                  |
+| **Boas Praticas**            | BEM + SCSS, CONTRIBUTING.md, conventional commits, changeset, acessibilidade (WCAG 2.1 AA), 78+ testes automatizados.                                                                       |
 
 **Links rapidos:** [Arquitetura](docs/ARCHITECTURE.md) | [ADRs](docs/adr/) | [Guia de Avaliacao](docs/EVALUATION-GUIDE.md)
-
 
 **Ver funcionando:**
 
