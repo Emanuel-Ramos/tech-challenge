@@ -18,7 +18,6 @@ export default function AdminPage({
     <>
       <Head>
         <title>Admin - {tenant.name}</title>
-        <meta name="robots" content="noindex" />
       </Head>
       <ThemeProvider theme={tenant.theme}>
         <Header logo={tenant.logo} tenantName={tenant.name} showLogo />
