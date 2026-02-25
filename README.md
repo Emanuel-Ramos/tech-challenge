@@ -100,15 +100,15 @@ https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
 
 Alem dos requisitos, este projeto inclui:
 
-| Extra                                   | Descricao                                                                   |
-| --------------------------------------- | --------------------------------------------------------------------------- |
-| **Testes automatizados gerados por IA** | Vitest + Testing Library (78+ testes) sendo gerados por uma skill do claude |
-| **AI Code Review**                      | GitHub Action com Claude para review automatizado                           |
-| **CI/CD Pipeline**                      | Lint, typecheck, build, test em cada PR                                     |
-| **Git Hooks**                           | Husky + Commitlint (conventional commits)                                   |
-| **Changesets**                          | Versionamento semantico automatizado                                        |
-| **ADRs**                                | 6 decisoes arquiteturais documentadas                                       |
-| **Acessibilidade**                      | WCAG 2.1 AA (aria-labels, focus-visible, contraste)                         |
+| Extra                                   | Descricao                                                                                                                                                                                                   |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Testes automatizados gerados por IA** | Vitest + Testing Library (78+ testes) sendo gerados por uma skill do claude                                                                                                                                 |
+| **AI Code Review**                      | GitHub Action com Claude para review automatizado ([exemplo aprovado](https://github.com/Emanuel-Ramos/tech-challenge/pull/8), [exemplo reprovado](https://github.com/Emanuel-Ramos/tech-challenge/pull/7)) |
+| **CI/CD Pipeline**                      | Lint, typecheck, build, test em cada PR                                                                                                                                                                     |
+| **Git Hooks**                           | Husky + Commitlint (conventional commits)                                                                                                                                                                   |
+| **Changesets**                          | Versionamento semantico automatizado                                                                                                                                                                        |
+| **ADRs**                                | 6 decisoes arquiteturais documentadas                                                                                                                                                                       |
+| **Acessibilidade**                      | WCAG 2.1 AA (aria-labels, focus-visible, contraste)                                                                                                                                                         |
 
 ---
 
