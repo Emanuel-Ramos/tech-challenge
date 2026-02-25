@@ -31,6 +31,12 @@ export function AdminPanel({ initialConfig }: AdminPanelProps) {
     });
   };
 
+  const handleReset = () => {
+    setName(initialConfig.name);
+    setTheme(initialConfig.theme);
+    setMessage(null);
+  };
+
   const colorFields: { key: keyof TenantTheme; label: string }[] = [
     { key: "primaryColor", label: "Primary Color" },
     { key: "secondaryColor", label: "Secondary Color" },
@@ -102,6 +108,21 @@ export function AdminPanel({ initialConfig }: AdminPanelProps) {
       </div>
 
       <div className={styles["admin-panel__actions"]}>
+        <button
+          type="button"
+          onClick={handleReset}
+          style={{
+            backgroundColor: "#6b7280",
+            color: "#ffffff",
+            padding: "8px 16px",
+            borderRadius: "4px",
+            border: "none",
+            cursor: "pointer",
+            marginRight: "12px",
+          }}
+        >
+          Reset
+        </button>
         <Button type="submit">Save Configuration</Button>
       </div>
     </form>
