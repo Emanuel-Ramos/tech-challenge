@@ -8,16 +8,15 @@ Este documento mapeia cada requisito do desafio para sua implementacao no codigo
 
 ### Desafio 1: Microfrontends & SSR
 
-| Requisito                | Implementacao                                          | Como Testar                                          |
-| ------------------------ | ------------------------------------------------------ | ---------------------------------------------------- |
-| Shell com SSR            | `apps/shell/` (Next.js 14 Pages Router)                | `pnpm dev` e ver source da pagina                    |
-| Pagina recebendo Tenant  | `apps/shell/src/lib/tenant.ts`                         | Acessar `?tenant=tenant-a`                           |
-| 4 metodos de resolucao   | `resolveTenantId()` linhas 18-45                       | Ver prioridade: subdomain > cookie > query > default |
-| White Label 2+ clientes  | `cms/tenants/tenant-a.json`, `tenant-b.json`           | Comparar cores e logos                               |
-| Admin Page (CMS)         | `apps/shell/src/pages/admin.tsx`                       | Acessar `/admin?tenant=tenant-a`                     |
-| Mudanca de logo          | `apps/shell/public/logos/`                             | Ver Header em cada tenant                            |
-| Mudanca de cor primaria  | `packages/design-system/.../ThemeProvider.tsx`         | Botoes mudam de cor por tenant                       |
-| Documentacao Remote Apps | `docs/ARCHITECTURE.md` secao "Adicionando Novo Modulo" | Ler documentacao                                     |
+| Requisito               | Implementacao                                  | Como Testar                                            |
+| ----------------------- | ---------------------------------------------- | ------------------------------------------------------ |
+| Shell com SSR           | `apps/shell/` (Next.js 14 Pages Router)        | deploy de produção ou local vendo source da pagina     |
+| Pagina recebendo Tenant | `apps/shell/src/lib/tenant.ts`                 | Acessar subdominios ou usando param `?tenant=tenant-a` |
+| 4 metodos de resolucao  | `resolveTenantId()` linhas 18-45               | Ver prioridade: subdomain > cookie > query > default   |
+| White Label 2+ clientes | `cms/tenants/tenant-a.json`, `tenant-b.json`   | Comparar cores e logos                                 |
+| Admin Page (CMS)        | `apps/shell/src/pages/admin.tsx`               | Acessar `/admin`                                       |
+| Mudanca de logo         | `apps/shell/public/logos/`                     | Ver Header em cada tenant                              |
+| Mudanca de cor primaria | `packages/design-system/.../ThemeProvider.tsx` | Botoes mudam de cor por tenant                         |
 
 **Arquivos-chave:**
 

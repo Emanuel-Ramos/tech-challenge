@@ -1,11 +1,3 @@
-// Breakpoints - use SCSS mixins from _breakpoints.scss
-// Mobile: < 480px (default)
-// Large Mobile: 480px+ (@include xs)
-// Tablet: 640px+ (@include sm)
-// Small Desktop: 768px+ (@include md)
-// Desktop: 1024px+ (@include lg)
-// Large Desktop: 1280px+ (@include xl)
-
 :root {
   // Container
   --container-max-width: 1200px;

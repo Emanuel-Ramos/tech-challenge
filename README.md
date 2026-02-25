@@ -14,38 +14,21 @@
 
 **Ver funcionando:**
 
-# https://tenant-a.shipay.emanuel.app.br/ (tema azul)
+https://tenant-a.shipay.emanuel.app.br/ (tema azul)
 
-# https://tenant-b.shipay.emanuel.app.br/ (tema verde)
+https://tenant-b.shipay.emanuel.app.br/ (tema verde)
 
-# https://tenant-a.shipay.emanuel.app.br/admin (CMS)
+https://tenant-a.shipay.emanuel.app.br/admin (CMS)
 
-# https://tenant-b.shipay.emanuel.app.br/admin (CMS)
+https://tenant-b.shipay.emanuel.app.br/admin (CMS)
 
 ou
 
-# https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
+https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
 
-# https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
+https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
 
-# https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
-
-**Guia completo de avaliacao:** [docs/EVALUATION-GUIDE.md](docs/EVALUATION-GUIDE.md)
-
----
-
-## Quick Start
-
-```bash
-# Requisitos: node >= 20, pnpm >= 9
-
-pnpm install
-pnpm dev
-
-# Acessar: http://localhost:3000?tenant=tenant-a
-```
-
----
+https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
 
 ## Requisitos Atendidos
 
@@ -114,31 +97,7 @@ cms/tenants/             # Configuracoes JSON dos tenants
 
 **Detalhes completos:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
----
-
-## Decisoes Tecnicas
-
-Os 3 principais trade-offs deste projeto:
-
-### 1. Pages Router vs App Router
-
-**Escolha:** Pages Router
-**Motivo:** Estabilidade e simplicidade. `getServerSideProps` funciona perfeitamente para resolver tenant no servidor.
-**ADR:** [ADR-004](docs/adr/ADR-004-pages-router.md)
-
-### 2. CSS Variables vs CSS-in-JS
-
-**Escolha:** CSS Variables + SCSS
-**Motivo:** Zero runtime overhead, tema instantaneo sem JavaScript, SSR nativo.
-**ADR:** [ADR-002](docs/adr/ADR-002-css-variables.md)
-
-### 3. Build-time vs Runtime Federation
-
-**Escolha:** Build-time (monorepo)
-**Motivo:** Type safety completo, simplicidade. Preparado para migrar para runtime se necessario.
-**ADR:** [ADR-003](docs/adr/ADR-003-build-time-federation.md)
-
-**Todas as decisoes:** [docs/adr/](docs/adr/)
+**Guia completo de avaliacao:** [docs/EVALUATION-GUIDE.md](docs/EVALUATION-GUIDE.md)
 
 ---
 
@@ -146,15 +105,15 @@ Os 3 principais trade-offs deste projeto:
 
 Alem dos requisitos, este projeto inclui:
 
-| Extra                    | Descricao                                           |
-| ------------------------ | --------------------------------------------------- |
-| **Testes automatizados** | Vitest + Testing Library (78+ testes)               |
-| **AI Code Review**       | GitHub Action com Claude para review automatizado   |
-| **CI/CD Pipeline**       | Lint, typecheck, build, test em cada PR             |
-| **Git Hooks**            | Husky + Commitlint (conventional commits)           |
-| **Changesets**           | Versionamento semantico automatizado                |
-| **ADRs**                 | 6 decisoes arquiteturais documentadas               |
-| **Acessibilidade**       | WCAG 2.1 AA (aria-labels, focus-visible, contraste) |
+| Extra                                   | Descricao                                                                   |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| **Testes automatizados gerados por IA** | Vitest + Testing Library (78+ testes) sendo gerados por uma skill do claude |
+| **AI Code Review**                      | GitHub Action com Claude para review automatizado                           |
+| **CI/CD Pipeline**                      | Lint, typecheck, build, test em cada PR                                     |
+| **Git Hooks**                           | Husky + Commitlint (conventional commits)                                   |
+| **Changesets**                          | Versionamento semantico automatizado                                        |
+| **ADRs**                                | 6 decisoes arquiteturais documentadas                                       |
+| **Acessibilidade**                      | WCAG 2.1 AA (aria-labels, focus-visible, contraste)                         |
 
 ---
 
