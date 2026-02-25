@@ -129,12 +129,6 @@ A migracao de build-time para runtime federation **nao e trivial**:
 | **CI/CD**                        | Pipeline separado por modulo + orquestracao de releases          |
 | **Debugging**                    | Stack traces cruzam boundaries de rede                           |
 
-### Por que nao usamos agora
+### Por que nao utilizei agora
 
-Para um MVP com 1-2 desenvolvedores, Module Federation adiciona complexidade sem beneficio:
-
-- Nao ha times paralelos
-- Nao ha necessidade de deploy independente
-- O custo de setup e manutencao nao se paga
-
-**A decisao correta e comecar simples.** Quando a escala justificar, a migracao tera custo, mas comecar com essa complexidade agora seria desperdicio.
+Para um MVP para a avaliação, Module Federation adiciona complexidade sem beneficio.

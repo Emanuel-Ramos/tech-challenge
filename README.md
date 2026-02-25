@@ -59,21 +59,21 @@ Cada time trabalha em seu próprio módulo de forma independente:
 
 ## Requisitos Atendidos
 
-| Requisito do Desafio                     | Status | Implementacao                                |
-| ---------------------------------------- | ------ | -------------------------------------------- |
-| **Shell com SSR (Next.js)**              | ✅     | Next.js 14 com Pages Router                  |
-| **Pagina recebendo Tenant (URL/Cookie)** | ✅     | 4 metodos: subdomain, cookie, query, default |
-| **White Label para 2+ clientes**         | ✅     | tenant-a, tenant-b, default                  |
-| **Admin Page (CMS)**                     | ✅     | /admin - edita config do tenant              |
-| **Mudanca de logo por tenant**           | ✅     | `/logos/tenant-a.svg`, `/logos/tenant-b.svg` |
-| **Mudanca de cor primaria por tenant**   | ✅     | CSS Variables dinamicas via ThemeProvider    |
-| **Design Tokens (JSON/CSS)**             | ✅     | TypeScript + CSS Variables + SCSS            |
-| **Componente consumindo tokens**         | ✅     | Button, Card, Chart                          |
-| **Versionamento documentado**            | ✅     | Semantic Versioning + Changesets             |
-| **Governanca documentada**               | ✅     | CONTRIBUTING.md + ADRs                       |
-| **Interface TypeScript para graficos**   | ✅     | `ChartProps<T>` generico                     |
-| **Componente agnostico ao provedor**     | ✅     | `mapDataPoint: (item: T) => ChartDataPoint`  |
-| **Estados Loading/Empty/Error**          | ✅     | Todos implementados com acessibilidade       |
+| Requisito do Desafio                     | Implementacao                                |
+| ---------------------------------------- | -------------------------------------------- |
+| **Shell com SSR (Next.js)**              | Next.js 14 com Pages Router                  |
+| **Pagina recebendo Tenant (URL/Cookie)** | 4 metodos: subdomain, cookie, query, default |
+| **White Label para 2+ clientes**         | tenant-a, tenant-b, default                  |
+| **Admin Page (CMS)**                     | /admin - edita config do tenant              |
+| **Mudanca de logo por tenant**           | `/logos/tenant-a.svg`, `/logos/tenant-b.svg` |
+| **Mudanca de cor primaria por tenant**   | CSS Variables dinamicas via ThemeProvider    |
+| **Design Tokens (JSON/CSS)**             | TypeScript + CSS Variables + SCSS            |
+| **Componente consumindo tokens**         | Button, Card, Chart                          |
+| **Versionamento documentado**            | Semantic Versioning + Changesets             |
+| **Governanca documentada**               | CONTRIBUTING.md + ADRs                       |
+| **Interface TypeScript para graficos**   | `ChartProps<T>` generico                     |
+| **Componente agnostico ao provedor**     | `mapDataPoint: (item: T) => ChartDataPoint`  |
+| **Estados Loading/Empty/Error**          | Todos implementados com acessibilidade       |
 
 ---
 

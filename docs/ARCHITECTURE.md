@@ -71,12 +71,6 @@ Aplicacao principal Next.js que:
 - Injeta tema via CSS variables
 - Renderiza paginas com componentes fixos
 
-**Arquivos importantes:**
-
-- `lib/tenant.ts` - Resolucao de tenant
-- `pages/index.tsx` - Pagina principal
-- `pages/admin.tsx` - Pagina de administracao
-
 **Tecnologias:** Next.js 14 (LTS), React 18, Pages Router
 
 ### @shipay/design-system (packages/design-system)
