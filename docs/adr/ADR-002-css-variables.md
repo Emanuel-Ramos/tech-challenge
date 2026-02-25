@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Aceito
 
 ## Contexto
 
@@ -26,11 +26,15 @@ Uso **CSS Custom Properties (CSS Variables)** para theming.
 }
 ```
 
-A troca de tema e feita atualizando CSS variables no elemento document:
+A troca de tema e feita via inline styles no ThemeProvider, que injeta CSS variables no elemento wrapper:
 
-```typescript
-document.documentElement.style.setProperty("--color-primary", "#newColor");
+```tsx
+// ThemeProvider.tsx
+const cssVariables = generateCSSVariables(theme);
+return <div style={cssVariables as React.CSSProperties}>{children}</div>;
 ```
+
+Isso permite que as variaveis sejam aplicadas via SSR sem depender de JavaScript no cliente.
 
 ## Justificativa
 

@@ -301,16 +301,7 @@ Ver [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md) para padroes de codigo detalhados.
 
 ## Decisoes Arquiteturais
 
-Todas as decisoes importantes estao documentadas em ADRs:
-
-| ADR                                                      | Decisao                           |
-| -------------------------------------------------------- | --------------------------------- |
-| [ADR-001](docs/adr/ADR-001-tenant-resolution.md)         | Estrategia de Resolucao de Tenant |
-| [ADR-002](docs/adr/ADR-002-css-variables.md)             | CSS Variables para theming        |
-| [ADR-003](docs/adr/ADR-003-build-time-federation.md)     | Build-time federation             |
-| [ADR-004](docs/adr/ADR-004-pages-router.md)              | Next.js Pages Router              |
-| [ADR-005](docs/adr/ADR-005-scss-bem-methodology.md)      | SCSS + BEM                        |
-| [ADR-006](docs/adr/ADR-006-stable-framework-versions.md) | Next.js 14 LTS (versoes estaveis) |
+Decisoes importantes estao documentadas em ADRs em [docs/adr/](docs/adr/).
 
 ---
 

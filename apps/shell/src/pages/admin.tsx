@@ -9,7 +9,7 @@ export const getServerSideProps = withTenant<TenantPageProps>();
 
 /**
  * Simple admin page to demonstrate CMS white-label capability.
- * Edit tenant name and theme colors, then see changes on reload.
+ * Edit tenant name and theme colors.
  */
 export default function AdminPage({
   tenant,
@@ -23,7 +23,7 @@ export default function AdminPage({
       <ThemeProvider theme={tenant.theme}>
         <Header logo={tenant.logo} tenantName={tenant.name} showLogo />
         <Section as="main" size="md">
-          <h1 style={{ marginBottom: "var(--spacing-6)" }}>Admin: {tenant.name}</h1>
+          <h1>Admin: {tenant.name}</h1>
           <AdminPanel initialConfig={tenant} />
         </Section>
       </ThemeProvider>

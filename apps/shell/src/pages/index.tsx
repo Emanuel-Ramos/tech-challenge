@@ -27,7 +27,7 @@ export default function Home({
   const handleRefresh = useCallback(() => {
     setChartState({ loading: true });
 
-    // Simulate API refresh with slight random variation
+    // Simulate API
     setTimeout(() => {
       const newData = initialPaymentData.map((item) => ({
         ...item,

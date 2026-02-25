@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Aceito
 
 ## Contexto
 
@@ -27,14 +27,13 @@ export const getServerSideProps = withTenant(async (ctx, tenant) => {
 ### Por que Pages Router?
 
 1. **Simplicidade para SSR**
-   - `getServerSideProps` e direto
+   - `getServerSideProps` é direto
    - Separacao clara entre codigo servidor e cliente
    - Padroes bem documentados
 
 2. **Necessidades de Resolucao de Tenant**
    - Precisamos ler cookies/headers em cada request
    - Pages Router torna isso explicito e simples
-   - Sem complexidade de fluxo de dados RSC
 
 3. **Estabilidade**
    - Pages Router e maduro e battle-tested

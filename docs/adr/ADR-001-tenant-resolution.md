@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Aceito
 
 ## Contexto
 
@@ -27,14 +27,13 @@ Implementei uma **resolucao de tenant em tres camadas** com a seguinte prioridad
    - Permite persistencia de sessao quando subdominio nao esta disponivel
    - Expiracao de 30 dias
 
-3. **Query Parameter** (Apenas Desenvolvimento)
+3. **Query Parameter**
    - `?tenant=tenant-a`
-   - Funciona apenas em modo de desenvolvimento
-   - Facilita testes locais sem configuracao de DNS
+   - Facilita testes e demonstracoes sem configuracao de DNS
 
 ## Medidas de Seguranca
 
-- **Validacao por whitelist**: Apenas tenant IDs pre-aprovados sao aceitos
+- **Validacao por lista de permitidos**: Apenas tenant IDs pre-aprovados sao aceitos
 - **Sanitizacao de input**: Regex remove caracteres especiais
 - **Seguranca de cookie**: HttpOnly previne XSS, SameSite previne CSRF
 
@@ -42,14 +41,14 @@ Implementei uma **resolucao de tenant em tres camadas** com a seguinte prioridad
 
 ### Positivas
 
-- Separacao clara entre producao (subdominio) e desenvolvimento (query param)
+- Separacao clara entre producao (subdominio) e desenvolvimento/testes (query param)
 - Seguro por padrao com multiplas camadas de protecao
-- Facil adicionar novos tenants (basta adicionar na whitelist e criar arquivo de config)
+- Facil adicionar novos tenants (basta adicionar na lista e criar arquivo de config)
 
 ### Negativas
 
 - Requer configuracao de DNS wildcard para producao
-- Whitelist precisa ser mantida (poderia migrar para banco de dados)
+- Lista de tenants precisa ser mantida (poderia migrar para banco de dados)
 
 ## Implementacao
 

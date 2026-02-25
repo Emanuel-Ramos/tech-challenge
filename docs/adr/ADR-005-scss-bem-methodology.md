@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Aceito
 
 ## Contexto
 
@@ -17,70 +17,6 @@ Opcoes consideradas:
 ## Decisao
 
 Uso **SCSS com BEM (Block Element Modifier)** para estilizacao de componentes.
-
-### Convencao de Nomenclatura BEM
-
-```scss
-// Block: componente standalone
-.button {
-}
-
-// Element: parte do bloco (underscore duplo)
-.button__spinner {
-}
-.button__text {
-}
-
-// Modifier: variacao do bloco ou elemento (hifen duplo)
-.button--primary {
-}
-.button--sm {
-}
-.button--loading {
-}
-```
-
-### Exemplo de Implementacao
-
-```scss
-// Button.module.scss
-.button {
-  display: inline-flex;
-  align-items: center;
-  transition: var(--transition-fast);
-
-  // Modifiers
-  &--primary {
-    background-color: var(--color-primary);
-    color: var(--color-text-inverse);
-  }
-
-  &--secondary {
-    background-color: transparent;
-    border: 1px solid var(--color-primary);
-  }
-
-  &--sm {
-    padding: var(--spacing-1) var(--spacing-3);
-    font-size: var(--font-size-sm);
-  }
-
-  // Elements
-  &__spinner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__text {
-    &--hidden {
-      visibility: hidden;
-    }
-  }
-}
-```
 
 ## Justificativa
 
@@ -123,15 +59,6 @@ Uso **SCSS com BEM (Block Element Modifier)** para estilizacao de componentes.
 - **Nomenclatura manual**: Requer disciplina para seguir convencoes
 - **Sem estilos dinamicos**: Valores dinamicos complexos precisam de inline styles
 
-## Diretrizes de Implementacao
-
-1. **Um bloco por arquivo**: Cada componente tem seu proprio `.module.scss`
-2. **Seletores planos**: Evitar nesting alem de `&--modifier` e `&__element`
-3. **Usar CSS variables**: Referenciar design tokens para cores, espacamento, etc.
-4. **Modifiers para estados**: Usar modifiers `--loading`, `--disabled`, `--active`
-5. **Manter especificidade baixa**: Usar seletores de classe unica sempre que possivel
-6. **Usar mixins de breakpoint**: Importar e usar SCSS mixins para design responsivo
-
 ## Breakpoints Responsivos
 
 CSS custom properties nao podem ser usadas em media queries, entao uso SCSS mixins:
@@ -159,9 +86,3 @@ CSS custom properties nao podem ser usadas em media queries, entao uso SCSS mixi
 | `@include md` | >= 768px   |
 | `@include lg` | >= 1024px  |
 | `@include xl` | >= 1280px  |
-
-## Referencias
-
-- [BEM Methodology](https://getbem.com/)
-- [CSS Modules](https://github.com/css-modules/css-modules)
-- [SCSS Documentation](https://sass-lang.com/documentation/)

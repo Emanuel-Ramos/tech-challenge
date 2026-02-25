@@ -67,7 +67,7 @@ function isValidTenant(tenantId: string): boolean {
  * Priority:
  * 1. Subdomain (production): tenant-a.shipay.com
  * 2. Secure Cookie (fallback): For session persistence
- * 3. Query param (dev only): ?tenant=x for testing
+ * 3. Query param: ?tenant=x for testing/demo
  * 4. Default tenant
  *
  * Security measures:
@@ -76,8 +76,6 @@ function isValidTenant(tenantId: string): boolean {
  * - Cookie is HttpOnly, Secure, SameSite=Strict
  */
 export function resolveTenantId(ctx: GetServerSidePropsContext): string {
-  const isDev = process.env.NODE_ENV === "development";
-
   // 1. Check subdomain (primary method for production)
   const host = ctx.req.headers.host;
   const subdomainTenant = extractTenantFromSubdomain(host);
@@ -91,12 +89,10 @@ export function resolveTenantId(ctx: GetServerSidePropsContext): string {
     return cookieTenant;
   }
 
-  // 3. Check query parameter (only in development for testing)
-  if (isDev) {
-    const queryTenant = ctx.query.tenant;
-    if (typeof queryTenant === "string" && isValidTenant(queryTenant)) {
-      return queryTenant;
-    }
+  // 3. Check query parameter (for testing and demo purposes)
+  const queryTenant = ctx.query.tenant;
+  if (typeof queryTenant === "string" && isValidTenant(queryTenant)) {
+    return queryTenant;
   }
 
   // 4. Return default tenant

@@ -40,7 +40,7 @@ font-src 'self'
 
 ```bash
 # Verificar headers de segurança
-curl -I https://seu-projeto.vercel.app
+curl -I https://shipay.emanuel.app.br
 
 # Deve mostrar:
 # x-content-type-options: nosniff
@@ -57,22 +57,22 @@ curl -I https://seu-projeto.vercel.app
 
 ```bash
 # Editar tenant-a
-http://localhost:3000/admin?tenant=tenant-a
+http://shipay.emanuel.app.br/admin?tenant=tenant-a
 
 # Editar tenant-b
-http://localhost:3000/admin?tenant=tenant-b
+http://shipay.emanuel.app.br/admin?tenant=tenant-b
 ```
 
 ### Producao
 
 **IMPORTANTE:** A pagina `/admin` nao possui autenticacao no exemplo.
-Em producao, adicionar uma das opcoes:
+Em producao, deve existir uma das opcoes:
 
 1. **Autenticacao via middleware** - Verificar sessao antes de renderizar
 2. **Proteger rota no edge** - Usar Vercel Edge Middleware
 3. **Remover da build de producao** - Se nao for necessario CMS publico
 
-### API
+### API (arquitetura)
 
 | Endpoint            | Metodo | Descricao                      |
 | ------------------- | ------ | ------------------------------ |
@@ -127,126 +127,3 @@ Adicione um CNAME no seu provedor DNS:
 
 1. Acesse Project Settings → Domains
 2. Adicione: `novo-tenant.seu-dominio.com`
-
----
-
-## Troubleshooting
-
-### Tenant não está sendo resolvido
-
-**Sintomas**: Usuário vê o tenant "default" ao invés do esperado.
-
-**Verificações**:
-
-1. Verifique se o tenant está na whitelist
-2. Verifique se o arquivo JSON existe em `cms/tenants/`
-3. Verifique se o DNS está configurado corretamente
-4. Verifique se o cookie não está definido com outro tenant
-
-**Comandos úteis**:
-
-```bash
-# Verificar DNS
-dig tenant-a.seu-dominio.com
-
-# Verificar cookie no navegador
-# DevTools → Application → Cookies → shipay_tenant
-```
-
-### Tema não está sendo aplicado
-
-**Sintomas**: Cores padrão aparecem ao invés das cores do tenant.
-
-**Verificações**:
-
-1. Inspecione as CSS Variables no DevTools
-2. Verifique se o ThemeProvider está envolvendo o componente
-3. Verifique se o JSON do tenant tem o campo `theme` correto
-
-### Build falhando
-
-**Sintomas**: CI/CD falha na etapa de build.
-
-**Verificações**:
-
-```bash
-# Rodar localmente
-pnpm install
-pnpm build
-
-# Verificar TypeScript
-pnpm -r exec tsc --noEmit
-
-# Verificar lint
-pnpm -r lint
-```
-
----
-
-## Health Checks
-
-### Endpoints de verificação
-
-| Endpoint            | Esperado | Verifica             |
-| ------------------- | -------- | -------------------- |
-| `/`                 | 200 OK   | Página principal     |
-| `/admin`            | 200 OK   | Página admin (CMS)   |
-| `/api/tenant`       | 200 JSON | API de tenant        |
-| `/api/admin/config` | 200 JSON | API de config        |
-| `/demo`             | 200 OK   | Demo dos componentes |
-
-### Script de verificação
-
-```bash
-#!/bin/bash
-BASE_URL="https://seu-projeto.vercel.app"
-
-# Verificar endpoint principal
-curl -s -o /dev/null -w "%{http_code}" "$BASE_URL" | grep -q "200" && echo "✅ Main page OK" || echo "❌ Main page FAILED"
-
-# Verificar API
-curl -s -o /dev/null -w "%{http_code}" "$BASE_URL/api/tenant" | grep -q "200" && echo "✅ API OK" || echo "❌ API FAILED"
-
-# Verificar tenants (via query param)
-for tenant in tenant-a tenant-b; do
-  curl -s -o /dev/null -w "%{http_code}" "$BASE_URL?tenant=$tenant" | grep -q "200" && echo "✅ $tenant OK" || echo "❌ $tenant FAILED"
-done
-```
-
----
-
-## Métricas e Monitoramento
-
-### Vercel Analytics
-
-Acessar: https://vercel.com/[org]/[project]/analytics
-
-### Logs
-
-```bash
-# Ver logs em tempo real
-vercel logs --follow
-
-# Ver logs de um deploy específico
-vercel logs [deployment-url]
-```
-
----
-
-## Rollback
-
-### Via Vercel Dashboard
-
-1. Acesse Deployments
-2. Encontre o deploy anterior funcionando
-3. Clique em "..." → "Promote to Production"
-
-### Via CLI
-
-```bash
-# Listar deploys
-vercel ls
-
-# Promover deploy específico
-vercel promote [deployment-url]
-```

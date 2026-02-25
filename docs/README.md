@@ -1,36 +1,51 @@
 # Documentacao
 
-## Guias
+## Navegacao Rapida
 
-| Documento                                | Descricao                                         |
-| ---------------------------------------- | ------------------------------------------------- |
-| [ARCHITECTURE.md](ARCHITECTURE.md)       | Visao geral da arquitetura, fluxos e decisoes     |
-| [STYLEGUIDE.md](STYLEGUIDE.md)           | Padroes de codigo (TypeScript, SCSS, BEM, Testes) |
-| [runbook.md](runbook.md)                 | Deploy, seguranca, troubleshooting                |
-| [../CONTRIBUTING.md](../CONTRIBUTING.md) | Como contribuir, commits, PRs                     |
+| Voce quer...                    | Leia                                       |
+| ------------------------------- | ------------------------------------------ |
+| Avaliar o desafio               | [EVALUATION-GUIDE.md](EVALUATION-GUIDE.md) |
+| Entender a arquitetura          | [ARCHITECTURE.md](ARCHITECTURE.md)         |
+| Codar seguindo padroes          | [STYLEGUIDE.md](STYLEGUIDE.md)             |
+| Entender uma decisao tecnica    | [adr/](adr/)                               |
+| Fazer deploy ou troubleshooting | [runbook.md](runbook.md)                   |
+| Contribuir com o projeto        | [CONTRIBUTING.md](../CONTRIBUTING.md)      |
 
-## ADRs (Architecture Decision Records)
+---
 
-| ADR                                                 | Decisao                           |
-| --------------------------------------------------- | --------------------------------- |
-| [ADR-001](adr/ADR-001-tenant-resolution.md)         | Resolucao de Tenant               |
-| [ADR-002](adr/ADR-002-css-variables.md)             | CSS Variables vs CSS-in-JS        |
-| [ADR-003](adr/ADR-003-build-time-federation.md)     | Build-time vs Runtime Federation  |
-| [ADR-004](adr/ADR-004-pages-router.md)              | Pages Router vs App Router        |
-| [ADR-005](adr/ADR-005-scss-bem-methodology.md)      | SCSS + BEM Methodology            |
-| [ADR-006](adr/ADR-006-stable-framework-versions.md) | Next.js 14 LTS (versoes estaveis) |
+## Indice Completo
 
-## Quick Links
+### Guias
 
-- [README principal](../README.md)
-- [Package: design-system](../packages/design-system/)
-- [Package: payments-module](../packages/payments-module/)
-- [Package: types](../packages/types/)
-- [CMS: tenants](../cms/tenants/)
+| Documento                                  | Descricao                                    |
+| ------------------------------------------ | -------------------------------------------- |
+| [EVALUATION-GUIDE.md](EVALUATION-GUIDE.md) | Mapeamento desafio → codigo para avaliadores |
+| [ARCHITECTURE.md](ARCHITECTURE.md)         | Arquitetura, fluxos, diagramas               |
+| [STYLEGUIDE.md](STYLEGUIDE.md)             | Padroes: TypeScript, SCSS, BEM, Testes       |
+| [runbook.md](runbook.md)                   | Deploy, seguranca, troubleshooting           |
+| [../CONTRIBUTING.md](../CONTRIBUTING.md)   | Git workflow, commits, PRs                   |
 
-## Como usar esta documentacao
+### ADRs (Architecture Decision Records)
 
-1. **Novo no projeto?** Comece por [ARCHITECTURE.md](ARCHITECTURE.md)
-2. **Vai codar?** Leia [STYLEGUIDE.md](STYLEGUIDE.md)
-3. **Vai contribuir?** Leia [CONTRIBUTING.md](../CONTRIBUTING.md)
-4. **Quer entender uma decisao?** Veja os ADRs
+| ADR                                             | Decisao               | Resumo                               |
+| ----------------------------------------------- | --------------------- | ------------------------------------ |
+| [001](adr/ADR-001-tenant-resolution.md)         | Resolucao de Tenant   | Subdomain > Cookie > Query > Default |
+| [002](adr/ADR-002-css-variables.md)             | CSS Variables         | Zero runtime overhead para theming   |
+| [003](adr/ADR-003-build-time-federation.md)     | Build-time Federation | Type safety, simplicidade para MVP   |
+| [004](adr/ADR-004-pages-router.md)              | Pages Router          | Estabilidade, SSR simples            |
+| [005](adr/ADR-005-scss-bem-methodology.md)      | SCSS + BEM            | Nomenclatura clara, CSS padrão       |
+| [006](adr/ADR-006-stable-framework-versions.md) | Next.js 14 LTS        | Versoes estaveis em producao         |
+
+---
+
+## Links do Projeto
+
+| Recurso           | Caminho                                                      |
+| ----------------- | ------------------------------------------------------------ |
+| README principal  | [../README.md](../README.md)                                 |
+| Design System     | [../packages/design-system/](../packages/design-system/)     |
+| Payments Module   | [../packages/payments-module/](../packages/payments-module/) |
+| Admin Module      | [../packages/admin-module/](../packages/admin-module/)       |
+| Types             | [../packages/types/](../packages/types/)                     |
+| Shell (Next.js)   | [../apps/shell/](../apps/shell/)                             |
+| Configs de Tenant | [../cms/tenants/](../cms/tenants/)                           |
