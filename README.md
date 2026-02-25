@@ -45,7 +45,7 @@ Cada time trabalha em seu próprio módulo de forma independente:
 | Admin      | `@shipay/admin-module`    | CMS e configuração         |
 | Core       | `@shipay/design-system`   | Componentes compartilhados |
 
-**Como plugar um novo Remote App:**
+**Como plugar um novo Package:**
 
 1. Criar package em `packages/meu-modulo/`
 2. Consumir `@shipay/types` para contratos
