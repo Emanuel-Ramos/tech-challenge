@@ -125,8 +125,10 @@ Alem dos requisitos, este projeto inclui:
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)         | Arquitetura detalhada          |
 | [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md)             | Padroes de codigo              |
 | [docs/runbook.md](docs/runbook.md)                   | Deploy e producao              |
-| [CONTRIBUTING.md](CONTRIBUTING.md)                   | Como contribuir                |
+| [CONTRIBUTING.md](CONTRIBUTING.md)                   | Governanca e padroes           |
 | [docs/adr/](docs/adr/)                               | Decisoes arquiteturais         |
+
+> **Nota:** O [CONTRIBUTING.md](CONTRIBUTING.md) estabelece regras de padronizacao de codigo, conventional commits e fluxo de trabalho para orquestrar o desenvolvimento entre multiplos desenvolvedores de forma consistente.
 
 ---
 

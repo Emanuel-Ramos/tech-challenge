@@ -68,13 +68,14 @@ A ideia e: **comecar simples, escalar quando necessario**.
 
 ### Por que Build-Time (vs Runtime)?
 
-| Aspecto        | Build-Time          | Runtime (Module Fed.) |
-| -------------- | ------------------- | --------------------- |
-| Type Safety    | 100% (compile time) | Parcial (runtime)     |
-| Performance    | Bundle otimizado    | Requests extras       |
-| Complexidade   | Baixa               | Alta                  |
-| Deploy         | Atomico             | Independente          |
-| Falhas de rede | Impossivel          | Possivel              |
+| Aspecto        | Build-Time          | Runtime (Module Fed.)     |
+| -------------- | ------------------- | ------------------------- |
+| Type Safety    | 100% (compile time) | Parcial (runtime)         |
+| Performance    | Bundle otimizado    | Requests extras           |
+| Complexidade   | Baixa               | Alta                      |
+| Deploy         | Atomico             | Independente              |
+| Falhas de rede | Impossivel          | Possivel                  |
+| Stacks         | Apenas React        | React, Vue, Angular, etc. |
 
 ---
 
@@ -93,6 +94,7 @@ A ideia e: **comecar simples, escalar quando necessario**.
 - **Deploy Atomico**: Todos os modulos deployam juntos
 - **Build Completo**: Mudanca em types rebuilda todos os dependentes
 - **Escalabilidade de Time**: Mais de ~10 devs pode gerar conflitos de merge
+- **Stack Unica**: Todos os modulos precisam usar React nao e possivel ter um microfrontend em Vue ou Angular, pois tudo e buildado junto pelo Next.js. Com Module Federation em runtime, cada microfrontend pode usar sua propria stack.
 
 ### Mitigacoes
 
