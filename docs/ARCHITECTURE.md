@@ -2,6 +2,8 @@
 
 ## Visao Geral
 
+<img width="1024" height="1536" alt="mermaid-flow" src="https://github.com/user-attachments/assets/08ae88d1-a6ab-4a2e-a091-b6e8611bab11" />
+
 ---
 
 ## Estrutura do Projeto
