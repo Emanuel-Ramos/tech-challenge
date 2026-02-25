@@ -1,9 +1,5 @@
 # Guia de Avaliacao
 
-Mapeamento direto: requisito → arquivo.
-
----
-
 ## Desafio 1: Microfrontends & SSR
 
 | Requisito           | Arquivo                                        |
