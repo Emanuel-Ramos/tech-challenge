@@ -113,22 +113,6 @@ export function setTenantCookie(ctx: GetServerSidePropsContext, tenantId: string
 }
 
 /**
- * Clears the tenant cookie.
- * Use this for logout or tenant switching.
- */
-export function clearTenantCookie(ctx: GetServerSidePropsContext): void {
-  const cookieOptions = [
-    `${TENANT_COOKIE_NAME}=`,
-    "Max-Age=0",
-    "Path=/",
-    "HttpOnly",
-    "SameSite=Strict",
-  ].join("; ");
-
-  ctx.res.setHeader("Set-Cookie", cookieOptions);
-}
-
-/**
  * Loads tenant configuration from the CMS JSON files.
  * Validates tenant ID before loading for security.
  */
