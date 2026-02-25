@@ -48,7 +48,7 @@ Alem dos requisitos, este projeto inclui:
 | **CI/CD Pipeline**                      | Lint, typecheck, build, test em cada PR                                                                                                                                                                     |
 | **Git Hooks**                           | Husky + Commitlint (conventional commits)                                                                                                                                                                   |
 | **Changesets**                          | Versionamento semantico automatizado                                                                                                                                                                        |
-| **ADRs**                                | 6 decisoes arquiteturais documentadas                                                                                                                                                                       |
+|                                         |
 | **Acessibilidade**                      | WCAG 2.1 AA (aria-labels, focus-visible, contraste)                                                                                                                                                         |
 
 ---
