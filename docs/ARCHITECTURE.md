@@ -235,6 +235,55 @@ Definidos em `packages/design-system/src/styles/_breakpoints.scss`:
 
 ---
 
+## Qualidade de Abstração
+
+### Design Tokens
+
+Tokens organizados em `packages/design-system/src/tokens/`:
+
+| Arquivo         | Conteúdo                          |
+| --------------- | --------------------------------- |
+| `colors.ts`     | Paleta neutral, brand e semântica |
+| `spacing.ts`    | Escala de espaçamento (base 4px)  |
+| `typography.ts` | Fontes, tamanhos e pesos          |
+
+A função `generateCSSVariables(theme)` converte 5 cores do tenant em CSS variables, derivando automaticamente variantes (opacidade, inversão).
+
+### Interfaces (Props)
+
+Centralizadas em `@shipay/types` para garantir consistência entre packages:
+
+```typescript
+// Variantes com union types e defaults
+interface ButtonProps {
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
+}
+
+// Estados assíncronos padronizados
+interface ChartState {
+  loading?: boolean;
+  error?: Error | string | null;
+  empty?: { message: string };
+}
+
+// Genéricos para dados agnósticos
+interface ChartProps<T> {
+  data: T[];
+  mapDataPoint: (item: T) => ChartDataPoint;
+}
+```
+
+### Fluxo de Abstração
+
+```
+Props (TypeScript) → CSS Variables (tokens) → SCSS + BEM (estilos)
+```
+
+Componentes mapeiam props para classes BEM (`button--primary`), que consomem CSS variables (`var(--color-primary)`).
+
+---
+
 ## Decisões Arquiteturais (ADRs)
 
 | ADR                                             | Decisão                                  |
