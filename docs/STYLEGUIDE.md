@@ -398,16 +398,6 @@ afterEach(() => {
 });
 ```
 
-### Testes Existentes
-
-| Componente    | Arquivo                                             | Testes |
-| ------------- | --------------------------------------------------- | ------ |
-| Button        | `packages/design-system/.../Button.test.tsx`        | 19     |
-| Card          | `packages/design-system/.../Card.test.tsx`          | 12     |
-| Chart         | `packages/design-system/.../Chart.test.tsx`         | 18     |
-| ThemeProvider | `packages/design-system/.../ThemeProvider.test.tsx` | 15     |
-| tenant.ts     | `apps/shell/src/lib/tenant.test.ts`                 | 14     |
-
 ## Imports
 
 ### Ordem
@@ -438,13 +428,6 @@ feature/nome-da-feature
 fix/descricao-do-bug
 refactor/area-refatorada
 ```
-
-### Nao commitar
-
-- `node_modules/`
-- `.env` com secrets
-- `.next/`
-- Arquivos de build
 
 ## Checklist antes do PR
 
