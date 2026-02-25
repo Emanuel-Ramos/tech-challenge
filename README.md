@@ -6,26 +6,36 @@
 
 ## Para o Avaliador
 
+| Criterio                     | Como foi atendido                                                                                                                          |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Arquitetura e Trade-offs** | Arquitetura [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) e 6 ADRs documentando decisoes ([docs/adr/](docs/adr/)).                          |
+| **Qualidade de Abstracao**   | `ChartProps<T>` generico com `mapDataPoint: (item: T) => ChartDataPoint`. Props tipadas com `aria-label` em todas interfaces.              |
+| **Pragmatismo**              | MVP com Build-time Federation (simples) para entrega do teste. Arquitetura preparada para escalar com Module Federation quando necessario. |
+| **Boas Praticas**            | BEM + SCSS, CONTRIBUTING.md, conventional commits, changeset, acessibilidade (WCAG 2.1 AA), 78+ testes automatizados.                      |
+
+**Links rapidos:** [Arquitetura](docs/ARCHITECTURE.md) | [ADRs](docs/adr/) | [Guia de Avaliacao](docs/EVALUATION-GUIDE.md)
+
+---
+
 ## Requisitos Atendidos
 
-| Requisito do Desafio                     | Status | Implementacao                                   |
-| ---------------------------------------- | ------ | ----------------------------------------------- |
-| **Shell com SSR (Next.js)**              | ✅     | Next.js 14 com Pages Router                     |
-| **Pagina recebendo Tenant (URL/Cookie)** | ✅     | 4 metodos: subdomain, cookie, query, default    |
-| **White Label para 2+ clientes**         | ✅     | tenant-a, tenant-b, default                     |
-| **Admin Page (CMS)**                     | ✅     | /admin - edita config do tenant                 |
-| **Mudanca de logo por tenant**           | ✅     | `/logos/tenant-a.svg`, `/logos/tenant-b.svg`    |
-| **Mudanca de cor primaria por tenant**   | ✅     | CSS Variables dinamicas via ThemeProvider       |
-| **Documentacao de Remote Apps**          | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)    |
-| **Design Tokens (JSON/CSS)**             | ✅     | TypeScript + CSS Variables + SCSS               |
-| **Componente consumindo tokens**         | ✅     | Button, Card, Chart                             |
-| **Versionamento documentado**            | ✅     | Semantic Versioning + Changesets                |
-| **Governanca documentada**               | ✅     | CONTRIBUTING.md + ADRs                          |
-| **Interface TypeScript para graficos**   | ✅     | `ChartProps<T>` generico                        |
-| **Componente agnostico ao provedor**     | ✅     | `mapDataPoint: (item: T) => ChartDataPoint`     |
-| **Estados Loading/Empty/Error**          | ✅     | Todos implementados com acessibilidade          |
-| **README Estrategico**                   | ✅     | Trade-offs e decisoes em [docs/adr/](docs/adr/) |
-| **Diagrama de Arquitetura**              | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)    |
+| Requisito do Desafio                             | Status | Implementacao                                   |
+| ------------------------------------------------ | ------ | ----------------------------------------------- |
+| **Shell com SSR (Next.js)**                      | ✅     | Next.js 14 com Pages Router                     |
+| **Pagina recebendo Tenant (URL/Cookie)**         | ✅     | 4 metodos: subdomain, cookie, query, default    |
+| **White Label para 2+ clientes**                 | ✅     | tenant-a, tenant-b, default                     |
+| **Admin Page (CMS)**                             | ✅     | /admin - edita config do tenant                 |
+| **Mudanca de logo por tenant**                   | ✅     | `/logos/tenant-a.svg`, `/logos/tenant-b.svg`    |
+| **Mudanca de cor primaria por tenant**           | ✅     | CSS Variables dinamicas via ThemeProvider       |
+| **Documentacao de Arquitetura e escalabilidade** | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)    |
+| **Design Tokens (JSON/CSS)**                     | ✅     | TypeScript + CSS Variables + SCSS               |
+| **Componente consumindo tokens**                 | ✅     | Button, Card, Chart                             |
+| **Versionamento documentado**                    | ✅     | Semantic Versioning + Changesets                |
+| **Governanca documentada**                       | ✅     | CONTRIBUTING.md + ADRs                          |
+| **Interface TypeScript para graficos**           | ✅     | `ChartProps<T>` generico                        |
+| **Componente agnostico ao provedor**             | ✅     | `mapDataPoint: (item: T) => ChartDataPoint`     |
+| **Estados Loading/Empty/Error**                  | ✅     | Todos implementados com acessibilidade          |
+| **README Estrategico**                           | ✅     | Trade-offs e decisoes em [docs/adr/](docs/adr/) |
 
 ---
 
