@@ -29,10 +29,7 @@ Uso **SCSS com BEM (Block Element Modifier)** para estilizacao de componentes.
 
 ### Por que nao CSS-in-JS?
 
-- **Overhead em runtime**: Gera estilos em JavaScript em runtime
-- **Complexidade de SSR**: Requer tratamento cuidadoso de hydration
-- **Tamanho do bundle**: Adiciona peso de biblioteca em cada page load
-- **Debug no DevTools**: Mais dificil inspecionar class names gerados
+Ver [ADR-002](ADR-002-css-variables.md) para justificativa detalhada.
 
 ### Por que SCSS + BEM?
 

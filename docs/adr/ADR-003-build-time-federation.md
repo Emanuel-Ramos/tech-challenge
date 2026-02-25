@@ -43,7 +43,7 @@ Esta decisao foi tomada especificamente para o contexto de um **MVP**. Implement
 - Necessidade de deploy independente
 - Escala que justifique a complexidade adicional
 
-**Se o projeto escalar, o ideal e migrar para Module Federation** — e a arquitetura atual foi desenhada para facilitar essa transicao. Os modulos ja estao isolados em packages independentes, os contratos ja estao definidos em `@shipay/types`, e o design system ja e consumido como dependencia externa.
+**Se o projeto escalar, o ideal e migrar para Module Federation** e a arquitetura atual foi desenhada para facilitar essa transicao. Os modulos ja estao isolados em packages independentes, os contratos ja estao definidos em `@shipay/types`, e o design system ja e consumido como dependencia externa.
 
 A ideia e: **comecar simples, escalar quando necessario**.
 
@@ -104,62 +104,37 @@ A ideia e: **comecar simples, escalar quando necessario**.
 
 ---
 
-## Migracao para Module Federation (Quando Escalar)
+## Quando usar Module Federation
 
-**Module Federation e a solucao ideal para projetos em escala** com multiplos times e necessidade de deploy independente. A arquitetura atual foi desenhada para facilitar essa migracao — quando o projeto crescer, a transicao sera simples porque tudo ja esta preparado.
+Module Federation seria a escolha ideal para este projeto se:
 
-### Por que a migracao e facil?
+| Cenario                                   | Por que Module Federation                                   |
+| ----------------------------------------- | ----------------------------------------------------------- |
+| **+3 times desenvolvendo em paralelo**    | Cada time deploya independente, sem esperar outros          |
+| **Releases frequentes e desacopladas**    | Time A pode fazer hotfix sem rebuildar modulos B e C        |
+| **Modulos com ciclos de vida diferentes** | Pagamentos atualiza diariamente, Admin atualiza mensalmente |
+| **Necessidade de rollback granular**      | Reverter apenas o modulo com problema                       |
+| **Stacks diferentes por modulo**          | Um time quer usar Vue, outro React                          |
 
-1. **Contratos ja definidos**: As interfaces em `@shipay/types` funcionam como contratos entre modulos
-2. **Modulos isolados**: Cada package ja e independente (`@shipay/payments-module`, `@shipay/admin-module`)
-3. **Design system compartilhado**: `@shipay/design-system` ja e consumido como dependencia externa
+### Custo real da migracao
 
-### O que muda
+A migracao de build-time para runtime federation **nao e trivial**:
 
-| Aspecto     | Atual (Build-time)                     | Futuro (Runtime)                       |
-| ----------- | -------------------------------------- | -------------------------------------- |
-| Import      | `import { X } from "@shipay/payments"` | `const X = await import("payments/X")` |
-| Bundle      | Tudo junto no build do shell           | Cada modulo em URL separada            |
-| Deploy      | Um deploy para tudo                    | Cada modulo deploya independente       |
-| Repositorio | Monorepo unico                         | Multi-repo (opcional)                  |
+| Aspecto                          | Complexidade                                                     |
+| -------------------------------- | ---------------------------------------------------------------- |
+| **Versionamento de shared deps** | React, design-system - garantir mesma versao em todos os remotes |
+| **Error boundaries**             | Cada modulo remoto pode falhar independentemente                 |
+| **Loading states**               | UI precisa lidar com modulos carregando async                    |
+| **Testes de integracao**         | Como testar shell + modulos remotos? Mocks? Staging?             |
+| **CI/CD**                        | Pipeline separado por modulo + orquestracao de releases          |
+| **Debugging**                    | Stack traces cruzam boundaries de rede                           |
 
-### Passos da migracao
+### Por que nao usamos agora
 
-```
-1. Publicar @shipay/types e @shipay/design-system no npm (ou registry privado)
+Para um MVP com 1-2 desenvolvedores, Module Federation adiciona complexidade sem beneficio:
 
-2. Extrair modulo para repo separado:
-   - git clone payments-module
-   - npm install @shipay/design-system @shipay/types
+- Nao ha times paralelos
+- Nao ha necessidade de deploy independente
+- O custo de setup e manutencao nao se paga
 
-3. Configurar Module Federation no modulo:
-   - exposes: { "./PaymentsDashboard": "./src/PaymentsDashboard" }
-   - shared: ["react", "@shipay/design-system"]
-
-4. Configurar Shell para consumir remoto:
-   - remotes: { payments: "payments@https://cdn.exemplo.com/remoteEntry.js" }
-
-5. Trocar import estatico por dinamico:
-   - antes: import { PaymentsDashboard } from "@shipay/payments-module"
-   - depois: const { PaymentsDashboard } = await import("payments/PaymentsDashboard")
-```
-
-### O que permanece igual
-
-- **Interfaces TypeScript**: Continuam em `@shipay/types`
-- **Design System**: Continua compartilhado via `@shipay/design-system`
-- **Estrutura dos componentes**: Codigo interno dos modulos nao muda
-- **API dos componentes**: Props e comportamento permanecem identicos
-
----
-
-## Resumo
-
-| Fase do Projeto | Arquitetura Recomendada | Motivo                                          |
-| --------------- | ----------------------- | ----------------------------------------------- |
-| **MVP**         | Build-time (atual)      | Simplicidade, type safety, sem over-engineering |
-| **Escala**      | Module Federation       | Deploy independente, times autonomos            |
-
-A decisao atual prioriza **entregar valor rapido** sem complexidade desnecessaria. Quando a escala justificar, a migracao para Module Federation pode ser feita de forma incremental, modulo por modulo, sem reescrever o codigo existente.
-
----
+**A decisao correta e comecar simples.** Quando a escala justificar, a migracao tera custo, mas comecar com essa complexidade agora seria desperdicio.

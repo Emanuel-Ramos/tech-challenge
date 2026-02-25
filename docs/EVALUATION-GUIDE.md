@@ -89,18 +89,3 @@ export interface ChartProps<T> {
   "aria-label"?: string;
 }
 ```
-
-## Links Rapidos
-
-| O que voce quer ver?          | Onde encontrar                                         |
-| ----------------------------- | ------------------------------------------------------ |
-| Como tenant é resolvido       | `apps/shell/src/lib/tenant.ts`                         |
-| Como tema é injetado          | `packages/design-system/.../ThemeProvider.tsx`         |
-| Interface generica do Chart   | `packages/types/src/index.ts`                          |
-| Componente Chart              | `packages/design-system/.../Chart/Chart.tsx`           |
-| Design Tokens (CSS Variables) | `packages/design-system/src/styles/base.scss`          |
-| Breakpoints (SCSS mixins)     | `packages/design-system/src/styles/_breakpoints.scss`  |
-| Exemplo de componente BEM     | `packages/design-system/.../Button/Button.module.scss` |
-| Decisoes arquiteturais        | `docs/adr/ADR-*.md`                                    |
-| Como adicionar novo modulo    | `docs/ARCHITECTURE.md` secao final                     |
-| Testes unitarios              | `*.test.tsx` em cada componente                        |
