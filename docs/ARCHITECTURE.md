@@ -2,59 +2,6 @@
 
 ## Visao Geral
 
-```mermaid
-flowchart TB
-    subgraph Browser["Browser"]
-        URL["URL ?tenant=X"]
-        Cookie["Cookie tenant=X"]
-    end
-
-    subgraph Shell["Shell (Next.js SSR)"]
-        SSR["getServerSideProps"]
-        TR["Tenant Resolver"]
-        TP["ThemeProvider"]
-
-        subgraph Blocks["Dynamic Blocks"]
-            Header["Header"]
-            Hero["Hero"]
-            PD["Payments Dashboard"]
-            Footer["Footer"]
-        end
-    end
-
-    subgraph Packages["Shared Packages"]
-        DS["@shipay/design-system"]
-        Types["@shipay/types"]
-        PM["@shipay/payments-module"]
-        AM["@shipay/admin-module"]
-    end
-
-    subgraph CMS["CMS (JSON)"]
-        TA["tenant-a.json"]
-        TB["tenant-b.json"]
-        TD["default.json"]
-    end
-
-    URL --> SSR
-    Cookie --> SSR
-    SSR --> TR
-    TR --> CMS
-    CMS --> TP
-    TP --> Blocks
-
-    DS --> Header
-    DS --> Hero
-    DS --> Footer
-    PM --> PD
-    AM --> Blocks
-    Types --> DS
-    Types --> PM
-    Types --> AM
-    Types --> Shell
-```
-
-### Diagrama ASCII (alternativo)
-
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                         Browser                              │

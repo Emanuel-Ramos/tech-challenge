@@ -6,30 +6,6 @@
 
 ## Para o Avaliador
 
-**Em 30 segundos:**
-
-- Plataforma multi-tenant com SSR (Next.js 14)
-- Design System escalavel com tokens e componentes
-- Componente Chart generico (`Chart<T>`) com interface TypeScript
-
-**Ver funcionando:**
-
-https://tenant-a.shipay.emanuel.app.br/ (tema azul)
-
-https://tenant-b.shipay.emanuel.app.br/ (tema verde)
-
-https://tenant-a.shipay.emanuel.app.br/admin (CMS)
-
-https://tenant-b.shipay.emanuel.app.br/admin (CMS)
-
-ou
-
-https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
-
-https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
-
-https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
-
 ## Requisitos Atendidos
 
 | Requisito do Desafio                     | Status | Implementacao                                |
@@ -55,32 +31,33 @@ https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
 
 ## Arquitetura
 
-```mermaid
-flowchart TB
-    subgraph Browser["Browser"]
-        URL["URL ?tenant=X"]
-    end
-
-    subgraph Shell["Shell (Next.js SSR)"]
-        SSR["getServerSideProps"]
-        TR["Tenant Resolver"]
-        TP["ThemeProvider"]
-    end
-
-    subgraph Packages["Shared Packages"]
-        DS["@shipay/design-system"]
-        PM["@shipay/payments-module"]
-        AM["@shipay/admin-module"]
-    end
-
-    subgraph CMS["CMS (JSON)"]
-        Tenants["tenant-a.json / tenant-b.json"]
-    end
-
-    URL --> SSR --> TR --> CMS --> TP
-    DS --> Shell
-    PM --> Shell
-    AM --> Shell
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         Browser                             │
+│         URL (?tenant=X) / Cookie / Subdomain                │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Shell (Next.js SSR)                      │
+│  ┌─────────────────┐    ┌─────────────────┐                 │
+│  │ Tenant Resolver │───▶│   Load Config   │                 │
+│  └─────────────────┘    └────────┬────────┘                 │
+│                                  │                          │
+│                                  ▼                          │
+│                    ┌─────────────────────────┐              │
+│                    │     ThemeProvider       │              │
+│                    │  (CSS Variables)        │              │
+│                    └─────────────────────────┘              │
+└─────────────────────────────────────────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+│ @shipay/      │ │ @shipay/      │ │ @shipay/      │
+│ design-system │ │ payments-     │ │ admin-        │
+│               │ │ module        │ │ module        │
+└───────────────┘ └───────────────┘ └───────────────┘
 ```
 
 **Estrutura do monorepo:**
@@ -94,6 +71,24 @@ packages/
   types/                 # Tipos TypeScript compartilhados
 cms/tenants/             # Configuracoes JSON dos tenants
 ```
+
+**Ver funcionando:**
+
+https://tenant-a.shipay.emanuel.app.br/ (tema azul)
+
+https://tenant-b.shipay.emanuel.app.br/ (tema verde)
+
+https://tenant-a.shipay.emanuel.app.br/admin (CMS)
+
+https://tenant-b.shipay.emanuel.app.br/admin (CMS)
+
+ou
+
+https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
+
+https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
+
+https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
 
 **Detalhes completos:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
