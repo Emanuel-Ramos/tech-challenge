@@ -15,6 +15,25 @@
 
 **Links rapidos:** [Arquitetura](docs/ARCHITECTURE.md) | [ADRs](docs/adr/) | [Guia de Avaliacao](docs/EVALUATION-GUIDE.md)
 
+
+**Ver funcionando:**
+
+https://tenant-a.shipay.emanuel.app.br/ (tema azul)
+
+https://tenant-b.shipay.emanuel.app.br/ (tema verde)
+
+https://tenant-a.shipay.emanuel.app.br/admin (CMS)
+
+https://tenant-b.shipay.emanuel.app.br/admin (CMS)
+
+ou
+
+https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
+
+https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
+
+https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
+
 ---
 
 ## Colaboração entre Times
