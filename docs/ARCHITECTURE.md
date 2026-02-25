@@ -2,43 +2,6 @@
 
 ## Visao Geral
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Browser                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │ URL Query   │  │   Cookie    │  │     Subdomain       │  │
-│  │ ?tenant=X   │  │  tenant=X   │  │  tenant-a.app.com   │  │
-│  └──────┬──────┘  └──────┬──────┘  └──────────┬──────────┘  │
-└─────────┼────────────────┼────────────────────┼─────────────┘
-          │                │                    │
-          ▼                ▼                    ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Shell (Next.js SSR)                       │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │              getServerSideProps                         │ │
-│  │  ┌──────────────┐    ┌──────────────┐                  │ │
-│  │  │ Tenant       │───▶│ Load Config  │                  │ │
-│  │  │ Resolver     │    │ (JSON)       │                  │ │
-│  │  └──────────────┘    └──────────────┘                  │ │
-│  └────────────────────────────────────────────────────────┘ │
-│                            │                                 │
-│                            ▼                                 │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │                   ThemeProvider                         │ │
-│  │            (CSS Variables injection)                    │ │
-│  └────────────────────────────────────────────────────────┘ │
-│                            │                                 │
-│                            ▼                                 │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │                      Pages                              │ │
-│  │  ┌────────┐ ┌────────┐ ┌────────────┐ ┌────────┐      │ │
-│  │  │ Header │ │  Hero  │ │ Payments   │ │ Footer │      │ │
-│  │  └────────┘ └────────┘ │ Dashboard  │ └────────┘      │ │
-│  │                        └────────────┘                   │ │
-│  └────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
-
 ---
 
 ## Estrutura do Projeto
@@ -92,6 +55,37 @@ tech-challenge-shipay/
     ├── STYLEGUIDE.md
     └── adr/                      # Architectural Decision Records
 ```
+
+---
+
+## Escalabilidade
+
+### Arquitetura Atual (MVP)
+
+Build-time Federation com monorepo (pnpm + Turborepo):
+
+- **1 repo, 1 deploy, 1 pipeline** - simplicidade operacional
+- **Type safety total** - erros detectados em build, não em produção
+- **Bundle otimizado** - tree-shaking, sem overhead de runtime
+
+### Quando Migrar para Module Federation
+
+| Cenário                              | Por que Module Federation                         |
+| ------------------------------------ | ------------------------------------------------- |
+| +3 times desenvolvendo em paralelo   | Cada time deploya independente                    |
+| Releases frequentes e desacopladas   | Hotfix sem rebuildar outros módulos               |
+| Módulos com ciclos de vida distintos | Pagamentos atualiza diário, Admin atualiza mensal |
+| Rollback granular                    | Reverter apenas o módulo com problema             |
+
+### O que já está preparado
+
+A arquitetura atual facilita a migração futura:
+
+- **Módulos isolados**: `@shipay/payments-module`, `@shipay/admin-module` são packages independentes
+- **Contratos definidos**: Interfaces em `@shipay/types` funcionam como contratos
+- **Design system externo**: `@shipay/design-system` já é consumido como dependência
+
+> Ver [ADR-003](adr/ADR-003-build-time-federation.md) para análise completa dos trade-offs e custos reais de migração.
 
 ---
 
@@ -273,3 +267,16 @@ Definidos em `packages/design-system/src/styles/_breakpoints.scss`:
 ```
 
 > CSS variables nao funcionam em media queries, por isso uso SCSS mixins.
+
+---
+
+## Decisões Arquiteturais (ADRs)
+
+| ADR                                             | Decisão                                  |
+| ----------------------------------------------- | ---------------------------------------- |
+| [ADR-001](adr/ADR-001-monorepo-structure.md)    | Estrutura monorepo com pnpm workspaces   |
+| [ADR-002](adr/ADR-002-design-tokens.md)         | Design tokens via CSS Variables          |
+| [ADR-003](adr/ADR-003-build-time-federation.md) | Build-time Federation para MVP           |
+| [ADR-004](adr/ADR-004-tenant-resolution.md)     | Resolução de tenant via subdomain/cookie |
+| [ADR-005](adr/ADR-005-chart-abstraction.md)     | Interface genérica para gráficos         |
+| [ADR-006](adr/ADR-006-scss-bem.md)              | SCSS com BEM para estilos                |

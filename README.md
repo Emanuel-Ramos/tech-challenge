@@ -17,6 +17,27 @@
 
 ---
 
+## Colaboração entre Times
+
+Cada time trabalha em seu próprio módulo de forma independente:
+
+| Time       | Package                   | Responsabilidade           |
+| ---------- | ------------------------- | -------------------------- |
+| Pagamentos | `@shipay/payments-module` | Dashboard de transações    |
+| Admin      | `@shipay/admin-module`    | CMS e configuração         |
+| Core       | `@shipay/design-system`   | Componentes compartilhados |
+
+**Como plugar um novo Remote App:**
+
+1. Criar package em `packages/meu-modulo/`
+2. Consumir `@shipay/types` para contratos
+3. Usar `@shipay/design-system` para UI
+4. Integrar no Shell via import
+
+> Ver [ADR-003](docs/adr/ADR-003-build-time-federation.md) para trade-offs de Build-time vs Runtime Federation.
+
+---
+
 ## Requisitos Atendidos
 
 | Requisito do Desafio                     | Status | Implementacao                                |
@@ -52,37 +73,6 @@ Alem dos requisitos, este projeto inclui:
 
 ---
 
-## Escalabilidade
-
-### Arquitetura Atual (MVP)
-
-Build-time Federation com monorepo (pnpm + Turborepo):
-
-- **1 repo, 1 deploy, 1 pipeline** - simplicidade operacional
-- **Type safety total** - erros detectados em build, não em produção
-- **Bundle otimizado** - tree-shaking, sem overhead de runtime
-
-### Quando Migrar para Module Federation
-
-| Cenário                              | Por que Module Federation                         |
-| ------------------------------------ | ------------------------------------------------- |
-| +3 times desenvolvendo em paralelo   | Cada time deploya independente                    |
-| Releases frequentes e desacopladas   | Hotfix sem rebuildar outros módulos               |
-| Módulos com ciclos de vida distintos | Pagamentos atualiza diário, Admin atualiza mensal |
-| Rollback granular                    | Reverter apenas o módulo com problema             |
-
-### O que já está preparado
-
-A arquitetura atual facilita a migração futura:
-
-- **Módulos isolados**: `@shipay/payments-module`, `@shipay/admin-module` são packages independentes
-- **Contratos definidos**: Interfaces em `@shipay/types` funcionam como contratos
-- **Design system externo**: `@shipay/design-system` já é consumido como dependência
-
-> Ver [ADR-003](docs/adr/ADR-003-build-time-federation.md) para análise completa dos trade-offs e custos reais de migração.
-
----
-
 ## Documentacao
 
 | Documento                                            | Descricao                      |
@@ -90,7 +80,6 @@ A arquitetura atual facilita a migração futura:
 | [docs/EVALUATION-GUIDE.md](docs/EVALUATION-GUIDE.md) | Guia para avaliacao do desafio |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)         | Arquitetura detalhada          |
 | [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md)             | Padroes de codigo              |
-| [docs/runbook.md](docs/runbook.md)                   | Deploy e producao              |
 | [CONTRIBUTING.md](CONTRIBUTING.md)                   | Governanca e padroes           |
 | [docs/adr/](docs/adr/)                               | Decisoes arquiteturais         |
 
@@ -98,17 +87,15 @@ A arquitetura atual facilita a migração futura:
 
 ---
 
-## Comandos
+## Quick Start
 
 ```bash
+pnpm install      # Instalar dependências
 pnpm dev          # Desenvolvimento
-pnpm build        # Build producao
-pnpm test         # Testes (watch)
-pnpm test:run     # Testes (single run)
-pnpm lint         # ESLint
-pnpm typecheck    # TypeScript
 pnpm validate     # Build + Test + Lint
 ```
+
+> **Todos os comandos:** [CONTRIBUTING.md](CONTRIBUTING.md#comandos)
 
 ---
 
