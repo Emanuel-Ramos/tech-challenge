@@ -8,24 +8,24 @@
 
 ## Requisitos Atendidos
 
-| Requisito do Desafio                     | Status | Implementacao                                |
-| ---------------------------------------- | ------ | -------------------------------------------- |
-| **Shell com SSR (Next.js)**              | ✅     | Next.js 14 com Pages Router                  |
-| **Pagina recebendo Tenant (URL/Cookie)** | ✅     | 4 metodos: subdomain, cookie, query, default |
-| **White Label para 2+ clientes**         | ✅     | tenant-a, tenant-b, default                  |
-| **Admin Page (CMS)**                     | ✅     | /admin - edita config do tenant              |
-| **Mudanca de logo por tenant**           | ✅     | `/logos/tenant-a.svg`, `/logos/tenant-b.svg` |
-| **Mudanca de cor primaria por tenant**   | ✅     | CSS Variables dinamicas via ThemeProvider    |
-| **Documentacao de Remote Apps**          | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| **Design Tokens (JSON/CSS)**             | ✅     | TypeScript + CSS Variables + SCSS            |
-| **Componente consumindo tokens**         | ✅     | Button, Card, Chart                          |
-| **Versionamento documentado**            | ✅     | Semantic Versioning + Changesets             |
-| **Governanca documentada**               | ✅     | CONTRIBUTING.md + ADRs                       |
-| **Interface TypeScript para graficos**   | ✅     | `ChartProps<T>` generico                     |
-| **Componente agnostico ao provedor**     | ✅     | `mapDataPoint: (item: T) => ChartDataPoint`  |
-| **Estados Loading/Empty/Error**          | ✅     | Todos implementados com acessibilidade       |
-| **README Estrategico**                   | ✅     | Trade-offs e decisoes documentados           |
-| **Diagrama de Arquitetura**              | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| Requisito do Desafio                     | Status | Implementacao                                   |
+| ---------------------------------------- | ------ | ----------------------------------------------- |
+| **Shell com SSR (Next.js)**              | ✅     | Next.js 14 com Pages Router                     |
+| **Pagina recebendo Tenant (URL/Cookie)** | ✅     | 4 metodos: subdomain, cookie, query, default    |
+| **White Label para 2+ clientes**         | ✅     | tenant-a, tenant-b, default                     |
+| **Admin Page (CMS)**                     | ✅     | /admin - edita config do tenant                 |
+| **Mudanca de logo por tenant**           | ✅     | `/logos/tenant-a.svg`, `/logos/tenant-b.svg`    |
+| **Mudanca de cor primaria por tenant**   | ✅     | CSS Variables dinamicas via ThemeProvider       |
+| **Documentacao de Remote Apps**          | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)    |
+| **Design Tokens (JSON/CSS)**             | ✅     | TypeScript + CSS Variables + SCSS               |
+| **Componente consumindo tokens**         | ✅     | Button, Card, Chart                             |
+| **Versionamento documentado**            | ✅     | Semantic Versioning + Changesets                |
+| **Governanca documentada**               | ✅     | CONTRIBUTING.md + ADRs                          |
+| **Interface TypeScript para graficos**   | ✅     | `ChartProps<T>` generico                        |
+| **Componente agnostico ao provedor**     | ✅     | `mapDataPoint: (item: T) => ChartDataPoint`     |
+| **Estados Loading/Empty/Error**          | ✅     | Todos implementados com acessibilidade          |
+| **README Estrategico**                   | ✅     | Trade-offs e decisoes em [docs/adr/](docs/adr/) |
+| **Diagrama de Arquitetura**              | ✅     | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)    |
 
 ---
 
