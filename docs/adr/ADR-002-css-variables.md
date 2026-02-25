@@ -38,12 +38,6 @@ Isso permite que as variaveis sejam aplicadas via SSR sem depender de JavaScript
 
 ## Justificativa
 
-### Por que nao CSS-in-JS?
-
-- **Overhead em runtime**: Gera estilos em JavaScript
-- **Complexidade de SSR**: Requer tratamento cuidadoso de hydration
-- **Tamanho do bundle**: Adiciona peso de biblioteca em cada pagina
-
 ### Por que CSS Variables?
 
 - **Zero runtime JavaScript**: Mudancas de tema nao disparam re-renders do React
