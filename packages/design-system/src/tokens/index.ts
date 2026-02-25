@@ -31,7 +31,6 @@ export function generateCSSVariables(theme: {
     "--color-background": theme.backgroundColor,
     "--color-text": theme.textColor,
     "--border-radius": theme.borderRadius,
-    // Derived variables for component consistency
     "--color-text-secondary": hexToRgba(theme.textColor, 0.7),
     "--color-background-secondary": hexToRgba(theme.backgroundColor, 0.95),
     "--color-text-inverse": theme.backgroundColor,
