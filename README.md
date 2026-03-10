@@ -1,122 +1,103 @@
-# Tech Challenge Shipay - Plataforma Multi-tenant com Microfrontends
+# Shipay - Multi-tenant Platform with Microfrontends
 
-> **Desafio Techlead Front-End Engineer Shipay**
-
----
-
-## Para o Avaliador
-
-| Criterio                     | Como foi atendido                                                                                                                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Arquitetura e Trade-offs** | Arquitetura [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) e 6 ADRs documentando decisoes ([docs/adr/](docs/adr/)).                                                                           |
-| **Qualidade de Abstracao**   | `ChartProps<T>` generico com `mapDataPoint: (item: T) => ChartDataPoint`. Props tipadas com `aria-label` em todas interfaces. Mais detalhes em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| **Pragmatismo**              | MVP com Build-time Federation (simples) para entrega do teste. Arquitetura preparada para escalar com Module Federation quando necessario.                                                  |
-| **Boas Praticas**            | BEM + SCSS, CONTRIBUTING.md, conventional commits, changeset, acessibilidade (WCAG 2.1 AA), 78+ testes automatizados.                                                                       |
-
-**Links rapidos:** [Arquitetura](docs/ARCHITECTURE.md) | [ADRs](docs/adr/) | [Guia de Avaliacao](docs/EVALUATION-GUIDE.md)
-
-**Ver funcionando:**
-
-https://tenant-a.shipay.emanuel.app.br/ (tema azul)
-
-https://tenant-b.shipay.emanuel.app.br/ (tema verde)
-
-https://tenant-a.shipay.emanuel.app.br/admin (CMS)
-
-https://tenant-b.shipay.emanuel.app.br/admin (CMS)
-
-ou
-
-https://shipay.emanuel.app.br/?tenant=tenant-a (tema azul)
-
-https://shipay.emanuel.app.br/?tenant=tenant-b (tema verde)
-
-https://shipay.emanuel.app.br/admin?tenant=tenant-a (CMS)
+A white-label multi-tenant platform built with Next.js, featuring microfrontend architecture and a shared design system.
 
 ---
 
-## Colaboração entre Times
+## Live Demo
 
-Cada time trabalha em seu próprio módulo de forma independente:
+**Tenant A (blue theme):** https://tenant-a.shipay.emanuel.app.br/
 
-| Time       | Package                   | Responsabilidade           |
-| ---------- | ------------------------- | -------------------------- |
-| Pagamentos | `@shipay/payments-module` | Dashboard de transações    |
-| Admin      | `@shipay/admin-module`    | CMS e configuração         |
-| Core       | `@shipay/design-system`   | Componentes compartilhados |
+**Tenant B (green theme):** https://tenant-b.shipay.emanuel.app.br/
 
-**Como plugar um novo Package:**
+**Admin CMS:** https://tenant-a.shipay.emanuel.app.br/admin
 
-1. Criar package em `packages/meu-modulo/`
-2. Consumir `@shipay/types` para contratos
-3. Usar `@shipay/design-system` para UI
-4. Integrar no Shell via import
+Alternative URLs:
 
-> Ver [ADR-003](docs/adr/ADR-003-build-time-federation.md) para trade-offs de Build-time vs Runtime Federation.
+- https://shipay.emanuel.app.br/?tenant=tenant-a
+- https://shipay.emanuel.app.br/?tenant=tenant-b
 
 ---
 
-## Requisitos Atendidos
+## Team Collaboration
 
-| Requisito do Desafio                     | Implementacao                                |
-| ---------------------------------------- | -------------------------------------------- |
-| **Shell com SSR (Next.js)**              | Next.js 14 com Pages Router                  |
-| **Pagina recebendo Tenant (URL/Cookie)** | 4 metodos: subdomain, cookie, query, default |
-| **White Label para 2+ clientes**         | tenant-a, tenant-b, default                  |
-| **Admin Page (CMS)**                     | /admin - edita config do tenant              |
-| **Mudanca de logo por tenant**           | `/logos/tenant-a.svg`, `/logos/tenant-b.svg` |
-| **Mudanca de cor primaria por tenant**   | CSS Variables dinamicas via ThemeProvider    |
-| **Design Tokens (JSON/CSS)**             | TypeScript + CSS Variables + SCSS            |
-| **Componente consumindo tokens**         | Button, Card, Chart                          |
-| **Versionamento documentado**            | Semantic Versioning + Changesets             |
-| **Governanca documentada**               | CONTRIBUTING.md + ADRs                       |
-| **Interface TypeScript para graficos**   | `ChartProps<T>` generico                     |
-| **Componente agnostico ao provedor**     | `mapDataPoint: (item: T) => ChartDataPoint`  |
-| **Estados Loading/Empty/Error**          | Todos implementados com acessibilidade       |
+Each team works on their own module independently:
 
----
+| Team     | Package                   | Responsibility        |
+| -------- | ------------------------- | --------------------- |
+| Payments | `@shipay/payments-module` | Transaction dashboard |
+| Admin    | `@shipay/admin-module`    | CMS and configuration |
+| Core     | `@shipay/design-system`   | Shared components     |
 
-## Extras Implementados
+**How to plug in a new Package:**
 
-Alem dos requisitos, este projeto inclui:
+1. Create package in `packages/my-module/`
+2. Consume `@shipay/types` for contracts
+3. Use `@shipay/design-system` for UI
+4. Integrate in Shell via import
 
-| Extra                                   | Descricao                                                                                                                                                                                                   |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Testes automatizados gerados por IA** | Vitest + Testing Library (78+ testes) sendo gerados por uma skill do claude                                                                                                                                 |
-| **AI Code Review**                      | GitHub Action com Claude para review automatizado ([exemplo aprovado](https://github.com/Emanuel-Ramos/tech-challenge/pull/8), [exemplo reprovado](https://github.com/Emanuel-Ramos/tech-challenge/pull/7)) |
-| **CI/CD Pipeline**                      | Lint, typecheck, build, test em cada PR                                                                                                                                                                     |
-| **Git Hooks**                           | Husky + Commitlint (conventional commits)                                                                                                                                                                   |
-| **Changesets**                          | Versionamento semantico automatizado                                                                                                                                                                        |
-| **Acessibilidade**                      | WCAG 2.1 AA (aria-labels, focus-visible, contraste)                                                                                                                                                         |
+> See [ADR-003](docs/adr/ADR-003-build-time-federation.md) for Build-time vs Runtime Federation trade-offs.
 
 ---
 
-## Documentacao
+## Features
 
-| Documento                                            | Descricao                      |
-| ---------------------------------------------------- | ------------------------------ |
-| [docs/EVALUATION-GUIDE.md](docs/EVALUATION-GUIDE.md) | Guia para avaliacao do desafio |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)         | Arquitetura detalhada          |
-| [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md)             | Padroes de codigo              |
-| [CONTRIBUTING.md](CONTRIBUTING.md)                   | Governanca e padroes           |
-| [docs/adr/](docs/adr/)                               | Decisoes arquiteturais         |
+| Feature                            | Implementation                               |
+| ---------------------------------- | -------------------------------------------- |
+| **SSR Shell (Next.js)**            | Next.js 14 with Pages Router                 |
+| **Tenant Resolution (URL/Cookie)** | 4 methods: subdomain, cookie, query, default |
+| **White Label for 2+ clients**     | tenant-a, tenant-b, default                  |
+| **Admin Page (CMS)**               | /admin - edits tenant config                 |
+| **Logo per tenant**                | `/logos/tenant-a.svg`, `/logos/tenant-b.svg` |
+| **Primary color per tenant**       | Dynamic CSS Variables via ThemeProvider      |
+| **Design Tokens (JSON/CSS)**       | TypeScript + CSS Variables + SCSS            |
+| **Token-consuming components**     | Button, Card, Chart                          |
+| **Documented versioning**          | Semantic Versioning + Changesets             |
+| **Documented governance**          | CONTRIBUTING.md + ADRs                       |
+| **TypeScript chart interface**     | Generic `ChartProps<T>`                      |
+| **Provider-agnostic component**    | `mapDataPoint: (item: T) => ChartDataPoint`  |
+| **Loading/Empty/Error states**     | All implemented with accessibility           |
 
-> **Nota:** O [CONTRIBUTING.md](CONTRIBUTING.md) estabelece regras de padronizacao de codigo, conventional commits e fluxo de trabalho para orquestrar o desenvolvimento entre multiplos desenvolvedores de forma consistente.
+---
+
+## Additional Features
+
+| Feature                | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| **AI-generated tests** | Vitest + Testing Library (78+ tests)               |
+| **AI Code Review**     | GitHub Action with Claude for automated review     |
+| **CI/CD Pipeline**     | Lint, typecheck, build, test on each PR            |
+| **Git Hooks**          | Husky + Commitlint (conventional commits)          |
+| **Changesets**         | Automated semantic versioning                      |
+| **Accessibility**      | WCAG 2.1 AA (aria-labels, focus-visible, contrast) |
+
+---
+
+## Documentation
+
+| Document                                     | Description              |
+| -------------------------------------------- | ------------------------ |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Detailed architecture    |
+| [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md)     | Code standards           |
+| [CONTRIBUTING.md](CONTRIBUTING.md)           | Governance and standards |
+| [docs/adr/](docs/adr/)                       | Architectural decisions  |
+
+> **Note:** The [CONTRIBUTING.md](CONTRIBUTING.md) establishes code standardization rules, conventional commits, and workflow for orchestrating development among multiple developers consistently.
 
 ---
 
 ## Quick Start
 
 ```bash
-pnpm install      # Instalar dependências
-pnpm dev          # Desenvolvimento
+pnpm install      # Install dependencies
+pnpm dev          # Development
 pnpm validate     # Build + Test + Lint
 ```
 
-> **Todos os comandos:** [CONTRIBUTING.md](CONTRIBUTING.md#comandos)
+> **All commands:** [CONTRIBUTING.md](CONTRIBUTING.md#commands)
 
 ---
 
 **Stack:** Next.js 14 | React 18 | TypeScript | SCSS | pnpm workspaces | Vitest
 
-**Autor:** Emanuel - Tech Challenge Shipay
+**Author:** Emanuel

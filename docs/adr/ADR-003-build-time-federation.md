@@ -1,134 +1,134 @@
-# ADR-003: Arquitetura de Microfrontends com Build-Time Federation
+# ADR-003: Microfrontend Architecture with Build-Time Federation
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-### O Problema
+### The Problem
 
-O desafio requer uma arquitetura que suporte **multiplos times** desenvolvendo modulos independentes (microfrontends) para um painel administrativo multi-tenant. Cada time seria responsavel por uma area funcional:
+The project requires an architecture that supports **multiple teams** developing independent modules (microfrontends) for a multi-tenant admin panel. Each team would be responsible for a functional area:
 
-- **Time de Pagamentos**: Dashboard de transacoes, relatorios
-- **Time de Usuarios**: Gestao de contas, permissoes
-- **Time de Configuracoes**: Editor de tema, CMS
+- **Payments Team**: Transaction dashboard, reports
+- **Users Team**: Account management, permissions
+- **Settings Team**: Theme editor, CMS
 
-### Requisitos
+### Requirements
 
-1. **Isolamento**: Cada modulo deve ser desenvolvido de forma independente
-2. **Consistencia**: Todos os modulos devem usar o mesmo design system
-3. **Type Safety**: Interfaces compartilhadas entre modulos
-4. **Escalabilidade**: Facilitar adicao de novos modulos/times
+1. **Isolation**: Each module must be developed independently
+2. **Consistency**: All modules must use the same design system
+3. **Type Safety**: Shared interfaces between modules
+4. **Scalability**: Facilitate adding new modules/teams
 
-### Opcoes Consideradas
+### Options Considered
 
-| Opcao                    | Deploy       | Complexidade | Type Safety |
-| ------------------------ | ------------ | ------------ | ----------- |
-| Monorepo + Build-time    | Atomico      | Baixa        | Total       |
-| Multi-repo + Module Fed. | Independente | Alta         | Parcial     |
-| Monorepo + Runtime Fed.  | Independente | Media        | Parcial     |
-
----
-
-## Decisao
-
-Adotei **Monorepo com Build-Time Federation** usando pnpm workspaces + Turborepo.
-
-### Decisao para MVP, sem over-engineering
-
-Esta decisao foi tomada especificamente para o contexto de um **MVP**. Implementar Module Federation desde o inicio seria over-engineering para um projeto que ainda nao tem:
-
-- Multiplos times trabalhando em paralelo
-- Necessidade de deploy independente
-- Escala que justifique a complexidade adicional
-
-**Se o projeto escalar, o ideal e migrar para Module Federation** e a arquitetura atual foi desenhada para facilitar essa transicao. Os modulos ja estao isolados em packages independentes, os contratos ja estao definidos em `@shipay/types`, e o design system ja e consumido como dependencia externa.
-
-A ideia e: **comecar simples, escalar quando necessario**.
+| Option                   | Deploy      | Complexity | Type Safety |
+| ------------------------ | ----------- | ---------- | ----------- |
+| Monorepo + Build-time    | Atomic      | Low        | Full        |
+| Multi-repo + Module Fed. | Independent | High       | Partial     |
+| Monorepo + Runtime Fed.  | Independent | Medium     | Partial     |
 
 ---
 
-## Justificativas Tecnicas
+## Decision
 
-### Por que pnpm?
+I adopted **Monorepo with Build-Time Federation** using pnpm workspaces + Turborepo.
 
-| Caracteristica         | pnpm                | npm/yarn       |
-| ---------------------- | ------------------- | -------------- |
-| Instalacao             | Hard links (rapido) | Copias (lento) |
-| Dependencias fantasma  | Bloqueadas          | Permitidas     |
-| Protocolo de workspace | `workspace:*`       | `*` ou `link:` |
-| Uso de disco           | Compartilhado       | Duplicado      |
+### Pragmatic Decision for MVP
 
-### Por que Turborepo?
+This decision was made specifically for an **MVP** context. Implementing Module Federation from the start would be over-engineering for a project that doesn't yet have:
 
-1. **Cache Inteligente**: Nao rebuilda packages que nao mudaram
-2. **Paralelizacao**: Roda tasks em paralelo quando possivel
-3. **Ordem Topologica**: Respeita dependencias entre packages
+- Multiple teams working in parallel
+- Need for independent deployment
+- Scale that justifies the additional complexity
 
-### Por que Build-Time (vs Runtime)?
+**If the project scales, the ideal path is to migrate to Module Federation**, and the current architecture was designed to facilitate this transition. The modules are already isolated in independent packages, contracts are already defined in `@shipay/types`, and the design system is already consumed as an external dependency.
 
-| Aspecto        | Build-Time          | Runtime (Module Fed.)     |
-| -------------- | ------------------- | ------------------------- |
-| Type Safety    | 100% (compile time) | Parcial (runtime)         |
-| Performance    | Bundle otimizado    | Requests extras           |
-| Complexidade   | Baixa               | Alta                      |
-| Deploy         | Atomico             | Independente              |
-| Falhas de rede | Impossivel          | Possivel                  |
-| Stacks         | Apenas React        | React, Vue, Angular, etc. |
+The idea is: **start simple, scale when necessary**.
 
 ---
 
-## Consequencias
+## Technical Rationale
 
-### Positivas
+### Why pnpm?
 
-- **Simplicidade**: Um repo, um CI/CD, um deploy
-- **Type Safety Total**: Erros de interface detectados em build
-- **Refactoring Seguro**: Mudancas propagam automaticamente
-- **DX Excelente**: `pnpm install` e `pnpm dev` funcionam imediatamente
-- **Performance**: Bundle otimizado, sem overhead de runtime
+| Characteristic       | pnpm              | npm/yarn       |
+| -------------------- | ----------------- | -------------- |
+| Installation         | Hard links (fast) | Copies (slow)  |
+| Phantom dependencies | Blocked           | Allowed        |
+| Workspace protocol   | `workspace:*`     | `*` or `link:` |
+| Disk usage           | Shared            | Duplicated     |
 
-### Negativas
+### Why Turborepo?
 
-- **Deploy Atomico**: Todos os modulos deployam juntos
-- **Build Completo**: Mudanca em types rebuilda todos os dependentes
-- **Escalabilidade de Time**: Mais de ~10 devs pode gerar conflitos de merge
-- **Stack Unica**: Todos os modulos precisam usar React nao e possivel ter um microfrontend em Vue ou Angular, pois tudo e buildado junto pelo Next.js. Com Module Federation em runtime, cada microfrontend pode usar sua propria stack.
+1. **Smart Cache**: Doesn't rebuild packages that haven't changed
+2. **Parallelization**: Runs tasks in parallel when possible
+3. **Topological Order**: Respects dependencies between packages
 
-### Mitigacoes
+### Why Build-Time (vs Runtime)?
 
-- **CODEOWNERS**: Definir owners por diretorio para code review
-- **Feature Flags**: Desacoplar deploy de release
-- **Trunk-Based Development**: Branches curtas, merge frequente
+| Aspect        | Build-Time          | Runtime (Module Fed.)     |
+| ------------- | ------------------- | ------------------------- |
+| Type Safety   | 100% (compile time) | Partial (runtime)         |
+| Performance   | Optimized bundle    | Extra requests            |
+| Complexity    | Low                 | High                      |
+| Deploy        | Atomic              | Independent               |
+| Network Fails | Impossible          | Possible                  |
+| Stacks        | React only          | React, Vue, Angular, etc. |
 
 ---
 
-## Quando usar Module Federation
+## Consequences
 
-Module Federation seria a escolha ideal para este projeto se:
+### Positive
 
-| Cenario                                   | Por que Module Federation                                   |
-| ----------------------------------------- | ----------------------------------------------------------- |
-| **+3 times desenvolvendo em paralelo**    | Cada time deploya independente, sem esperar outros          |
-| **Releases frequentes e desacopladas**    | Time A pode fazer hotfix sem rebuildar modulos B e C        |
-| **Modulos com ciclos de vida diferentes** | Pagamentos atualiza diariamente, Admin atualiza mensalmente |
-| **Necessidade de rollback granular**      | Reverter apenas o modulo com problema                       |
-| **Stacks diferentes por modulo**          | Um time quer usar Vue, outro React                          |
+- **Simplicity**: One repo, one CI/CD, one deploy
+- **Full Type Safety**: Interface errors detected at build
+- **Safe Refactoring**: Changes propagate automatically
+- **Excellent DX**: `pnpm install` and `pnpm dev` work immediately
+- **Performance**: Optimized bundle, no runtime overhead
 
-### Custo real da migracao
+### Negative
 
-A migracao de build-time para runtime federation **nao e trivial**:
+- **Atomic Deploy**: All modules deploy together
+- **Full Build**: Change in types rebuilds all dependents
+- **Team Scalability**: More than ~10 devs may cause merge conflicts
+- **Single Stack**: All modules need to use React - not possible to have a microfrontend in Vue or Angular, as everything is built together by Next.js. With runtime Module Federation, each microfrontend can use its own stack.
 
-| Aspecto                          | Complexidade                                                     |
-| -------------------------------- | ---------------------------------------------------------------- |
-| **Versionamento de shared deps** | React, design-system - garantir mesma versao em todos os remotes |
-| **Error boundaries**             | Cada modulo remoto pode falhar independentemente                 |
-| **Loading states**               | UI precisa lidar com modulos carregando async                    |
-| **Testes de integracao**         | Como testar shell + modulos remotos? Mocks? Staging?             |
-| **CI/CD**                        | Pipeline separado por modulo + orquestracao de releases          |
-| **Debugging**                    | Stack traces cruzam boundaries de rede                           |
+### Mitigations
 
-### Por que nao utilizei agora
+- **CODEOWNERS**: Define owners per directory for code review
+- **Feature Flags**: Decouple deploy from release
+- **Trunk-Based Development**: Short branches, frequent merges
 
-Para um MVP para a avaliação, Module Federation adiciona complexidade sem beneficio.
+---
+
+## When to Use Module Federation
+
+Module Federation would be the ideal choice for this project if:
+
+| Scenario                              | Why Module Federation                                |
+| ------------------------------------- | ---------------------------------------------------- |
+| **3+ teams developing in parallel**   | Each team deploys independently, no waiting          |
+| **Frequent and decoupled releases**   | Team A can hotfix without rebuilding modules B and C |
+| **Modules with different lifecycles** | Payments updates daily, Admin updates monthly        |
+| **Need for granular rollback**        | Revert only the problematic module                   |
+| **Different stacks per module**       | One team wants Vue, another React                    |
+
+### Real Migration Cost
+
+Migration from build-time to runtime federation **is not trivial**:
+
+| Aspect                     | Complexity                                                    |
+| -------------------------- | ------------------------------------------------------------- |
+| **Shared deps versioning** | React, design-system - ensure same version across all remotes |
+| **Error boundaries**       | Each remote module can fail independently                     |
+| **Loading states**         | UI needs to handle modules loading async                      |
+| **Integration tests**      | How to test shell + remote modules? Mocks? Staging?           |
+| **CI/CD**                  | Separate pipeline per module + release orchestration          |
+| **Debugging**              | Stack traces cross network boundaries                         |
+
+### Why Not Use It Now
+
+For an MVP, Module Federation adds complexity without benefit.

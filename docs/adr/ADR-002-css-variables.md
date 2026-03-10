@@ -1,20 +1,20 @@
-# ADR-002: CSS Variables para Theming
+# ADR-002: CSS Variables for Theming
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-Precisamos de um sistema de temas que permita troca de tema em runtime para white-labeling multi-tenant. Opcoes consideradas:
+We need a theming system that allows runtime theme switching for multi-tenant white-labeling. Options considered:
 
 - CSS-in-JS (styled-components, emotion)
-- CSS Modules com temas estaticos
+- CSS Modules with static themes
 - CSS Custom Properties (CSS Variables)
 
-## Decisao
+## Decision
 
-Uso **CSS Custom Properties (CSS Variables)** para theming.
+I use **CSS Custom Properties (CSS Variables)** for theming.
 
 ```css
 :root {
@@ -26,7 +26,7 @@ Uso **CSS Custom Properties (CSS Variables)** para theming.
 }
 ```
 
-A troca de tema e feita via inline styles no ThemeProvider, que injeta CSS variables no elemento wrapper:
+Theme switching is done via inline styles in ThemeProvider, which injects CSS variables into the wrapper element:
 
 ```tsx
 // ThemeProvider.tsx
@@ -34,32 +34,32 @@ const cssVariables = generateCSSVariables(theme);
 return <div style={cssVariables as React.CSSProperties}>{children}</div>;
 ```
 
-Isso permite que as variaveis sejam aplicadas via SSR sem depender de JavaScript no cliente.
+This allows variables to be applied via SSR without depending on client-side JavaScript.
 
-## Justificativa
+## Rationale
 
-### Por que CSS Variables?
+### Why CSS Variables?
 
-- **Zero runtime JavaScript**: Mudancas de tema nao disparam re-renders do React
-- **Suporte nativo do browser**: Nenhuma biblioteca necessaria
-- **Troca instantanea**: Browser trata atualizacoes eficientemente
-- **SSR-friendly**: Variables podem ser injetadas server-side
+- **Zero runtime JavaScript**: Theme changes don't trigger React re-renders
+- **Native browser support**: No library needed
+- **Instant switching**: Browser handles updates efficiently
+- **SSR-friendly**: Variables can be injected server-side
 
-## Consequencias
+## Consequences
 
-### Positivas
+### Positive
 
-- Troca de tema instantanea sem execucao de JavaScript
-- Bundle menor
-- Melhor performance (sem recalculo de estilos em JS)
-- Funciona com qualquer metodologia CSS
+- Instant theme switching without JavaScript execution
+- Smaller bundle
+- Better performance (no style recalculation in JS)
+- Works with any CSS methodology
 
-### Negativas
+### Negative
 
-- Limitado a valores expressaveis em CSS (sem logica complexa)
-- Suporte a browsers antigos requer fallbacks (IE11)
+- Limited to values expressible in CSS (no complex logic)
+- Legacy browser support requires fallbacks (IE11)
 
-## Implementacao
+## Implementation
 
-Veja `packages/design-system/src/tokens/` para definicoes de tokens.
-Veja `packages/design-system/src/components/ThemeProvider/` para o provider.
+See `packages/design-system/src/tokens/` for token definitions.
+See `packages/design-system/src/components/ThemeProvider/` for the provider.

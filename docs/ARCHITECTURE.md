@@ -1,58 +1,58 @@
 # Architecture
 
-## Visao Geral
+## Overview
 
 <img width="1024" height="1536" alt="mermaid-flow" src="https://github.com/user-attachments/assets/08ae88d1-a6ab-4a2e-a091-b6e8611bab11" />
 
 ---
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
-tech-challenge-shipay/
+shipay-platform/
 ├── apps/
 │   └── shell/                    # Next.js SSR Shell Application
 │       ├── src/
-│       │   ├── components/       # Componentes do Shell (BEM)
+│       │   ├── components/       # Shell Components (BEM)
 │       │   │   ├── Header/
 │       │   │   ├── Hero/
 │       │   │   └── Footer/
 │       │   ├── lib/
-│       │   │   └── tenant.ts           # Resolucao de tenant
+│       │   │   └── tenant.ts           # Tenant resolution
 │       │   ├── pages/
 │       │   │   ├── index.tsx           # Home page
 │       │   │   ├── admin.tsx           # Admin page (CMS)
-│       │   │   └── api/admin/config.ts # API para salvar config
-│       │   └── styles/           # Estilos globais SCSS
-│       └── public/               # Assets estaticos (logos)
+│       │   │   └── api/admin/config.ts # API to save config
+│       │   └── styles/           # Global SCSS styles
+│       └── public/               # Static assets (logos)
 │
 ├── packages/
-│   ├── design-system/            # Design System Compartilhado
+│   ├── design-system/            # Shared Design System
 │   │   └── src/
 │   │       ├── components/       # Button, Card, Chart (BEM)
 │   │       ├── tokens/           # Colors, Spacing, Typography
 │   │       └── styles/           # Base SCSS + Breakpoints
 │   │
-│   ├── types/                    # TypeScript Types Compartilhados
+│   ├── types/                    # Shared TypeScript Types
 │   │   └── src/index.ts          # TenantConfig, ChartProps<T>, etc
 │   │
-│   ├── payments-module/          # Microfrontend de Pagamentos
+│   ├── payments-module/          # Payments Microfrontend
 │   │   └── src/
 │   │       ├── PaymentsDashboard.tsx
 │   │       └── PaymentsDashboard.module.scss
 │   │
-│   └── admin-module/             # Microfrontend de Admin/CMS
+│   └── admin-module/             # Admin/CMS Microfrontend
 │       └── src/
 │           ├── AdminPanel.tsx
 │           └── AdminPanel.module.scss
 │
 ├── cms/
-│   └── tenants/                  # Configuracoes JSON dos tenants
+│   └── tenants/                  # Tenant JSON configurations
 │       ├── default.json
 │       ├── tenant-a.json
 │       └── tenant-b.json
 │
-└── docs/                         # Documentacao
+└── docs/                         # Documentation
     ├── ARCHITECTURE.md
     ├── STYLEGUIDE.md
     └── adr/                      # Architectural Decision Records
@@ -64,46 +64,46 @@ tech-challenge-shipay/
 
 ### @shipay/shell (apps/shell)
 
-Aplicacao principal Next.js que:
+Main Next.js application that:
 
-- Resolve o tenant via subdomain/cookie/query
-- Carrega configuracao do tenant (JSON)
-- Injeta tema via CSS variables
-- Renderiza paginas com componentes fixos
+- Resolves tenant via subdomain/cookie/query
+- Loads tenant configuration (JSON)
+- Injects theme via CSS variables
+- Renders pages with fixed components
 
-**Tecnologias:** Next.js 14 (LTS), React 18, Pages Router
+**Technologies:** Next.js 14 (LTS), React 18, Pages Router
 
 ### @shipay/design-system (packages/design-system)
 
-Componentes UI reutilizaveis:
+Reusable UI components:
 
 - Button, Card, Chart, Section, ThemeProvider
 - Tokens (colors, spacing, typography, breakpoints)
-- Estilos base (CSS variables)
-- SCSS mixins para breakpoints (`@include sm`, `@include md`, etc.)
+- Base styles (CSS variables)
+- SCSS mixins for breakpoints (`@include sm`, `@include md`, etc.)
 
-**Tecnologias:** React, SCSS, CSS Modules, BEM
+**Technologies:** React, SCSS, CSS Modules, BEM
 
 ### @shipay/payments-module (packages/payments-module)
 
-Microfrontend isolado para pagamentos:
+Isolated payments microfrontend:
 
 - PaymentsDashboard component
-- Consome design-system
-- Isolado em package proprio (preparado para runtime federation)
+- Consumes design-system
+- Isolated in its own package (prepared for runtime federation)
 
 ### @shipay/admin-module (packages/admin-module)
 
-Microfrontend de administracao:
+Admin microfrontend:
 
-- AdminPanel component (formulario de edicao de tema)
-- Usa design-system para componentes
-- Usa types para interfaces
-- Chama API `/api/admin/config` para persistir mudancas
+- AdminPanel component (theme editing form)
+- Uses design-system for components
+- Uses types for interfaces
+- Calls `/api/admin/config` API to persist changes
 
 ### @shipay/types (packages/types)
 
-Tipos TypeScript compartilhados:
+Shared TypeScript types:
 
 - TenantConfig, TenantTheme
 - ChartProps, ButtonProps
@@ -111,48 +111,48 @@ Tipos TypeScript compartilhados:
 
 ---
 
-## Resolucao de Tenant
+## Tenant Resolution
 
-### Fluxo
+### Flow
 
 ```
-1. Request chega
-2. getServerSideProps executa
-3. resolveTenantId() verifica (em ordem):
+1. Request arrives
+2. getServerSideProps executes
+3. resolveTenantId() checks (in order):
    a. Subdomain (tenant-a.app.com)
    b. Cookie (shipay_tenant)
    c. Query param (?tenant=X)
    d. Default
-4. Valida contra whitelist
-5. Carrega JSON do tenant
-6. Retorna config como props
+4. Validates against whitelist
+5. Loads tenant JSON
+6. Returns config as props
 ```
 
-### Medidas de Seguranca
+### Security Measures
 
-| Medida              | Descricao                           | Arquivo                      |
+| Measure             | Description                         | File                         |
 | ------------------- | ----------------------------------- | ---------------------------- |
-| **Whitelist**       | Apenas tenant IDs pre-aprovados     | `tenant.ts:VALID_TENANTS`    |
-| **Sanitizacao**     | Regex remove caracteres especiais   | `tenant.ts:sanitizeTenantId` |
-| **HttpOnly Cookie** | Previne acesso via JavaScript (XSS) | `tenant.ts`                  |
-| **Secure Flag**     | Cookie apenas via HTTPS em producao | `tenant.ts`                  |
-| **SameSite=Strict** | Previne CSRF                        | `tenant.ts`                  |
+| **Whitelist**       | Only pre-approved tenant IDs        | `tenant.ts:VALID_TENANTS`    |
+| **Sanitization**    | Regex removes special characters    | `tenant.ts:sanitizeTenantId` |
+| **HttpOnly Cookie** | Prevents JavaScript access (XSS)    | `tenant.ts`                  |
+| **Secure Flag**     | Cookie only via HTTPS in production | `tenant.ts`                  |
+| **SameSite=Strict** | Prevents CSRF                       | `tenant.ts`                  |
 
 ---
 
-## Injecao de Tema
+## Theme Injection
 
-### Fluxo
+### Flow
 
 ```
-1. ThemeProvider recebe theme do tenant
-2. Converte theme em CSS variables
-3. Injeta via style attribute no container
-4. Componentes usam var(--color-primary), etc
-5. Mudanca de tenant = mudanca instantanea
+1. ThemeProvider receives theme from tenant
+2. Converts theme to CSS variables
+3. Injects via style attribute on container
+4. Components use var(--color-primary), etc
+5. Tenant change = instant change
 ```
 
-### Configuracao do Tenant (cms/tenants/\*.json)
+### Tenant Configuration (cms/tenants/\*.json)
 
 ```json
 {
@@ -169,9 +169,9 @@ Tipos TypeScript compartilhados:
 }
 ```
 
-### Overrides por Tenant
+### Per-Tenant Overrides
 
-ThemeProvider usa `generateCSSVariables(theme)` para injetar todas as variaveis:
+ThemeProvider uses `generateCSSVariables(theme)` to inject all variables:
 
 ```tsx
 // packages/design-system/src/components/ThemeProvider/ThemeProvider.tsx
@@ -185,29 +185,29 @@ return <div style={cssVariables as React.CSSProperties}>{children}</div>;
 
 ### Tokens
 
-Definidos em `packages/design-system/src/styles/base.scss`:
+Defined in `packages/design-system/src/styles/base.scss`:
 
 ```scss
 :root {
-  // Cores (sobrescritas por tenant)
+  // Colors (overridden by tenant)
   --color-primary: #3b82f6;
   --color-secondary: #6b7280;
   --color-background: #ffffff;
   --color-text: #171717;
 
-  // Espacamento
+  // Spacing
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-4: 1rem;
   --spacing-6: 1.5rem;
   --spacing-8: 2rem;
 
-  // Tipografia
+  // Typography
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
 
-  // Outros
+  // Others
   --border-radius: 0.5rem;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --transition-fast: 150ms ease;
@@ -216,7 +216,7 @@ Definidos em `packages/design-system/src/styles/base.scss`:
 
 ### Breakpoints
 
-Definidos em `packages/design-system/src/styles/_breakpoints.scss`:
+Defined in `packages/design-system/src/styles/_breakpoints.scss`:
 
 ```scss
 @include xs {
@@ -231,66 +231,66 @@ Definidos em `packages/design-system/src/styles/_breakpoints.scss`:
 } // >= 1280px
 ```
 
-> CSS variables nao funcionam em media queries, por isso uso SCSS mixins.
+> CSS variables don't work in media queries, so I use SCSS mixins.
 
 ---
 
-## Qualidade de Abstração
+## Abstraction Quality
 
 ### Design Tokens
 
-Tokens organizados em `packages/design-system/src/tokens/`:
+Tokens organized in `packages/design-system/src/tokens/`:
 
-| Arquivo         | Conteúdo                          |
-| --------------- | --------------------------------- |
-| `colors.ts`     | Paleta neutral, brand e semântica |
-| `spacing.ts`    | Escala de espaçamento (base 4px)  |
-| `typography.ts` | Fontes, tamanhos e pesos          |
+| File            | Content                             |
+| --------------- | ----------------------------------- |
+| `colors.ts`     | Neutral, brand and semantic palette |
+| `spacing.ts`    | Spacing scale (base 4px)            |
+| `typography.ts` | Fonts, sizes and weights            |
 
-A função `generateCSSVariables(theme)` converte 5 cores do tenant em CSS variables, derivando automaticamente variantes (opacidade, inversão).
+The `generateCSSVariables(theme)` function converts 5 tenant colors into CSS variables, automatically deriving variants (opacity, inversion).
 
 ### Interfaces (Props)
 
-Centralizadas em `@shipay/types` para garantir consistência entre packages:
+Centralized in `@shipay/types` to ensure consistency across packages:
 
 ```typescript
-// Variantes com union types e defaults
+// Variants with union types and defaults
 interface ButtonProps {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
 }
 
-// Estados assíncronos padronizados
+// Standardized async states
 interface ChartState {
   loading?: boolean;
   error?: Error | string | null;
   empty?: { message: string };
 }
 
-// Genéricos para dados agnósticos
+// Generics for agnostic data
 interface ChartProps<T> {
   data: T[];
   mapDataPoint: (item: T) => ChartDataPoint;
 }
 ```
 
-### Fluxo de Abstração
+### Abstraction Flow
 
 ```
-Props (TypeScript) → CSS Variables (tokens) → SCSS + BEM (estilos)
+Props (TypeScript) → CSS Variables (tokens) → SCSS + BEM (styles)
 ```
 
-Componentes mapeiam props para classes BEM (`button--primary`), que consomem CSS variables (`var(--color-primary)`).
+Components map props to BEM classes (`button--primary`), which consume CSS variables (`var(--color-primary)`).
 
 ---
 
-## Decisões Arquiteturais (ADRs)
+## Architectural Decisions (ADRs)
 
-| ADR                                             | Decisão                                  |
-| ----------------------------------------------- | ---------------------------------------- |
-| [ADR-001](adr/ADR-001-monorepo-structure.md)    | Estrutura monorepo com pnpm workspaces   |
-| [ADR-002](adr/ADR-002-design-tokens.md)         | Design tokens via CSS Variables          |
-| [ADR-003](adr/ADR-003-build-time-federation.md) | Build-time Federation para MVP           |
-| [ADR-004](adr/ADR-004-tenant-resolution.md)     | Resolução de tenant via subdomain/cookie |
-| [ADR-005](adr/ADR-005-chart-abstraction.md)     | Interface genérica para gráficos         |
-| [ADR-006](adr/ADR-006-scss-bem.md)              | SCSS com BEM para estilos                |
+| ADR                                                 | Decision                                |
+| --------------------------------------------------- | --------------------------------------- |
+| [ADR-001](adr/ADR-001-tenant-resolution.md)         | Monorepo structure with pnpm workspaces |
+| [ADR-002](adr/ADR-002-css-variables.md)             | Design tokens via CSS Variables         |
+| [ADR-003](adr/ADR-003-build-time-federation.md)     | Build-time Federation for MVP           |
+| [ADR-004](adr/ADR-004-pages-router.md)              | Tenant resolution via subdomain/cookie  |
+| [ADR-005](adr/ADR-005-scss-bem-methodology.md)      | Generic interface for charts            |
+| [ADR-006](adr/ADR-006-stable-framework-versions.md) | SCSS with BEM for styles                |

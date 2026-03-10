@@ -2,83 +2,83 @@
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-Next.js oferece dois paradigmas de roteamento:
+Next.js offers two routing paradigms:
 
-- **Pages Router**: Tradicional, estavel, usa `getServerSideProps`
-- **App Router**: Novo, usa React Server Components (RSC)
+- **Pages Router**: Traditional, stable, uses `getServerSideProps`
+- **App Router**: New, uses React Server Components (RSC)
 
-## Decisao
+## Decision
 
-Uso o **Pages Router** com `getServerSideProps` para resolucao de tenant server-side.
+I use **Pages Router** with `getServerSideProps` for server-side tenant resolution.
 
 ```typescript
-// SSR simples com resolucao de tenant
+// Simple SSR with tenant resolution
 export const getServerSideProps = withTenant(async (ctx, tenant) => {
   return { customProp: "value" };
 });
 ```
 
-## Justificativa
+## Rationale
 
-### Por que Pages Router?
+### Why Pages Router?
 
-1. **Simplicidade para SSR**
-   - `getServerSideProps` é direto
-   - Separacao clara entre codigo servidor e cliente
-   - Padroes bem documentados
+1. **SSR Simplicity**
+   - `getServerSideProps` is straightforward
+   - Clear separation between server and client code
+   - Well-documented patterns
 
-2. **Necessidades de Resolucao de Tenant**
-   - Precisamos ler cookies/headers em cada request
-   - Pages Router torna isso explicito e simples
+2. **Tenant Resolution Needs**
+   - We need to read cookies/headers on each request
+   - Pages Router makes this explicit and simple
 
-3. **Estabilidade**
-   - Pages Router e maduro e battle-tested
-   - App Router ainda esta evoluindo
-   - Menos edge cases e bugs
+3. **Stability**
+   - Pages Router is mature and battle-tested
+   - App Router is still evolving
+   - Fewer edge cases and bugs
 
-4. **Familiaridade do Time**
-   - Maioria dos desenvolvedores React conhece Pages Router
-   - Menor friccao de onboarding
+4. **Team Familiarity**
+   - Most React developers know Pages Router
+   - Less onboarding friction
 
-### Por que nao App Router?
+### Why Not App Router?
 
-1. **Complexidade vs Valor**
-   - RSC adiciona complexidade sem beneficio claro para nosso caso de uso
-   - Nao temos padroes pesados de data fetching
-   - Nossas paginas sao relativamente simples
+1. **Complexity vs Value**
+   - RSC adds complexity without clear benefit for our use case
+   - We don't have heavy data fetching patterns
+   - Our pages are relatively simple
 
-2. **Desafios de Cache**
-   - Cache agressivo do App Router pode conflitar com resolucao de tenant
-   - Precisamos de dados frescos de tenant em cada request
+2. **Cache Challenges**
+   - App Router's aggressive caching may conflict with tenant resolution
+   - We need fresh tenant data on each request
 
-3. **Compatibilidade de Bibliotecas**
-   - Algumas bibliotecas ainda tem problemas com RSC
-   - Solucoes CSS-in-JS requerem tratamento cuidadoso
+3. **Library Compatibility**
+   - Some libraries still have issues with RSC
+   - CSS-in-JS solutions require careful handling
 
-## Consequencias
+## Consequences
 
-### Positivas
+### Positive
 
-- Modelo mental mais simples
-- Comportamento server-side previsivel
-- Teste facil com `getServerSideProps`
-- Amplo suporte da comunidade
+- Simpler mental model
+- Predictable server-side behavior
+- Easy testing with `getServerSideProps`
+- Wide community support
 
-### Negativas
+### Negative
 
-- Pode perder otimizacoes futuras de RSC
-- Pode requerer migracao depois
-- Alguns recursos mais novos do Next.js requerem App Router
+- May miss future RSC optimizations
+- May require migration later
+- Some newer Next.js features require App Router
 
-## Consideracoes de Migracao
+## Migration Considerations
 
-Se migracao para App Router se tornar necessaria:
+If migration to App Router becomes necessary:
 
-1. Converter pages para estrutura de diretorio `app/`
-2. Substituir `getServerSideProps` por server components
-3. Atualizar resolucao de tenant para usar API de headers/cookies
-4. Testar comportamento de cache cuidadosamente
+1. Convert pages to `app/` directory structure
+2. Replace `getServerSideProps` with server components
+3. Update tenant resolution to use headers/cookies API
+4. Carefully test caching behavior

@@ -1,55 +1,55 @@
-# ADR-001: Estrategia de Resolucao de Tenant
+# ADR-001: Tenant Resolution Strategy
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-Precisamos de uma forma confiavel de identificar qual tenant esta acessando a plataforma multi-tenant. A solucao deve ser:
+We need a reliable way to identify which tenant is accessing the multi-tenant platform. The solution must be:
 
-- Segura contra ataques de injecao
-- SEO-friendly para producao
-- Facil de testar durante desenvolvimento
-- Persistente entre sessoes do usuario
+- Secure against injection attacks
+- SEO-friendly for production
+- Easy to test during development
+- Persistent across user sessions
 
-## Decisao
+## Decision
 
-Implementei uma **resolucao de tenant em tres camadas** com a seguinte prioridade:
+I implemented a **three-layer tenant resolution** with the following priority:
 
-1. **Subdominio** (Primario - Producao)
+1. **Subdomain** (Primary - Production)
    - `tenant-a.shipay.emanuel.app.br` → `tenant-a`
-   - SEO-friendly, separacao clara de marca
-   - Cada tenant tem sua propria URL
+   - SEO-friendly, clear brand separation
+   - Each tenant has its own URL
 
-2. **Cookie Seguro** (Fallback - Persistencia de Sessao)
+2. **Secure Cookie** (Fallback - Session Persistence)
    - HttpOnly, Secure, SameSite=Strict
-   - Permite persistencia de sessao quando subdominio nao esta disponivel
-   - Expiracao de 30 dias
+   - Allows session persistence when subdomain is not available
+   - 30-day expiration
 
 3. **Query Parameter**
    - `?tenant=tenant-a`
-   - Facilita testes e demonstracoes sem configuracao de DNS
+   - Facilitates testing and demos without DNS configuration
 
-## Medidas de Seguranca
+## Security Measures
 
-- **Validacao por lista de permitidos**: Apenas tenant IDs pre-aprovados sao aceitos
-- **Sanitizacao de input**: Regex remove caracteres especiais
-- **Seguranca de cookie**: HttpOnly previne XSS, SameSite previne CSRF
+- **Whitelist validation**: Only pre-approved tenant IDs are accepted
+- **Input sanitization**: Regex removes special characters
+- **Cookie security**: HttpOnly prevents XSS, SameSite prevents CSRF
 
-## Consequencias
+## Consequences
 
-### Positivas
+### Positive
 
-- Separacao clara entre producao (subdominio) e desenvolvimento/testes (query param)
-- Seguro por padrao com multiplas camadas de protecao
-- Facil adicionar novos tenants (basta adicionar na lista e criar arquivo de config)
+- Clear separation between production (subdomain) and development/testing (query param)
+- Secure by default with multiple protection layers
+- Easy to add new tenants (just add to the list and create config file)
 
-### Negativas
+### Negative
 
-- Requer configuracao de DNS wildcard para producao
-- Lista de tenants precisa ser mantida (poderia migrar para banco de dados)
+- Requires wildcard DNS configuration for production
+- Tenant list needs to be maintained (could migrate to database)
 
-## Implementacao
+## Implementation
 
-Veja `apps/shell/src/lib/tenant.ts` para a implementacao completa.
+See `apps/shell/src/lib/tenant.ts` for the complete implementation.

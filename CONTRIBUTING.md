@@ -3,39 +3,39 @@
 ## Setup
 
 ```bash
-# Requisitos
+# Requirements
 node >= 20
 pnpm >= 9
 
-# Instalacao
+# Installation
 pnpm install
 
-# Desenvolvimento
+# Development
 pnpm dev
 ```
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 apps/shell/          # Next.js SSR application
 packages/
-  design-system/     # Componentes compartilhados
-  payments-module/   # Microfrontend de pagamentos
-  types/             # TypeScript types compartilhados
-cms/tenants/         # Configuracoes de tenant (JSON)
-docs/                # Documentacao
+  design-system/     # Shared components
+  payments-module/   # Payments microfrontend
+  types/             # Shared TypeScript types
+cms/tenants/         # Tenant configurations (JSON)
+docs/                # Documentation
 ```
 
-## Comandos
+## Commands
 
-| Comando          | Descricao                          |
-| ---------------- | ---------------------------------- |
-| `pnpm dev`       | Inicia servidor de desenvolvimento |
-| `pnpm build`     | Build de producao                  |
-| `pnpm test`      | Executa testes (watch mode)        |
-| `pnpm test:run`  | Executa testes uma vez             |
-| `pnpm lint`      | Verifica linting                   |
-| `pnpm typecheck` | Verifica tipos TypeScript          |
+| Command          | Description              |
+| ---------------- | ------------------------ |
+| `pnpm dev`       | Start development server |
+| `pnpm build`     | Production build         |
+| `pnpm test`      | Run tests (watch mode)   |
+| `pnpm test:run`  | Run tests once           |
+| `pnpm lint`      | Check linting            |
+| `pnpm typecheck` | Check TypeScript types   |
 
 ---
 
@@ -43,136 +43,136 @@ docs/                # Documentacao
 
 ### Branch Naming
 
-Todas as branches devem seguir o padrao:
+All branches must follow the pattern:
 
 ```
-<tipo>/<descricao-curta>
+<type>/<short-description>
 ```
 
-| Tipo        | Uso                      | Exemplo                        |
-| ----------- | ------------------------ | ------------------------------ |
-| `feature/`  | Nova funcionalidade      | `feature/add-logout-button`    |
-| `fix/`      | Correcao de bug          | `fix/tenant-cookie-expiration` |
-| `refactor/` | Refatoracao de codigo    | `refactor/migrate-to-scss`     |
-| `docs/`     | Apenas documentacao      | `docs/update-readme`           |
-| `chore/`    | Tarefas de manutencao    | `chore/upgrade-dependencies`   |
-| `hotfix/`   | Correcao urgente em prod | `hotfix/security-patch`        |
+| Type        | Usage              | Example                        |
+| ----------- | ------------------ | ------------------------------ |
+| `feature/`  | New feature        | `feature/add-logout-button`    |
+| `fix/`      | Bug fix            | `fix/tenant-cookie-expiration` |
+| `refactor/` | Code refactoring   | `refactor/migrate-to-scss`     |
+| `docs/`     | Documentation only | `docs/update-readme`           |
+| `chore/`    | Maintenance tasks  | `chore/upgrade-dependencies`   |
+| `hotfix/`   | Urgent prod fix    | `hotfix/security-patch`        |
 
-**Regras:**
+**Rules:**
 
-- Use kebab-case (palavras separadas por hifen)
-- Maximo 50 caracteres
-- Sem caracteres especiais (exceto hifen)
-- Sempre em ingles
+- Use kebab-case (words separated by hyphens)
+- Maximum 50 characters
+- No special characters (except hyphens)
+- Always in English
 
-**Exemplos:**
+**Examples:**
 
 ```bash
-# Correto
+# Correct
 git checkout -b feature/add-dark-mode
 git checkout -b fix/button-loading-state
 git checkout -b refactor/payments-dashboard
 
-# Errado
-git checkout -b addDarkMode          # sem tipo
-git checkout -b feature/Add_Dark_Mode # underscore e maiusculas
-git checkout -b feature/add-dark-mode-to-the-application-for-better-ux # muito longo
+# Wrong
+git checkout -b addDarkMode          # no type
+git checkout -b feature/Add_Dark_Mode # underscore and uppercase
+git checkout -b feature/add-dark-mode-to-the-application-for-better-ux # too long
 ```
 
 ---
 
 ### Conventional Commits
 
-Todos os commits devem seguir [Conventional Commits](https://www.conventionalcommits.org/):
+All commits must follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-<tipo>(<escopo>): <descricao>
+<type>(<scope>): <description>
 
-[corpo opcional]
+[optional body]
 
-[rodape opcional]
+[optional footer]
 ```
 
-#### Tipos
+#### Types
 
-| Tipo       | Quando usar                         | Exemplo                                  |
+| Type       | When to use                         | Example                                  |
 | ---------- | ----------------------------------- | ---------------------------------------- |
-| `feat`     | Nova funcionalidade                 | `feat(button): add loading spinner`      |
-| `fix`      | Correcao de bug                     | `fix(tenant): resolve cookie expiration` |
-| `refactor` | Refatoracao sem mudar comportamento | `refactor(card): simplify class logic`   |
-| `docs`     | Apenas documentacao                 | `docs: update contributing guide`        |
-| `style`    | Formatacao (sem mudanca de logica)  | `style: fix indentation`                 |
-| `test`     | Adicionar ou corrigir testes        | `test(button): add loading state tests`  |
-| `chore`    | Tarefas de manutencao               | `chore: upgrade vitest to v2`            |
-| `perf`     | Melhoria de performance             | `perf(chart): memoize calculations`      |
-| `ci`       | Mudancas em CI/CD                   | `ci: add preview deployment`             |
-| `build`    | Mudancas no build                   | `build: update turbo config`             |
+| `feat`     | New feature                         | `feat(button): add loading spinner`      |
+| `fix`      | Bug fix                             | `fix(tenant): resolve cookie expiration` |
+| `refactor` | Refactoring without behavior change | `refactor(card): simplify class logic`   |
+| `docs`     | Documentation only                  | `docs: update contributing guide`        |
+| `style`    | Formatting (no logic change)        | `style: fix indentation`                 |
+| `test`     | Add or fix tests                    | `test(button): add loading state tests`  |
+| `chore`    | Maintenance tasks                   | `chore: upgrade vitest to v2`            |
+| `perf`     | Performance improvement             | `perf(chart): memoize calculations`      |
+| `ci`       | CI/CD changes                       | `ci: add preview deployment`             |
+| `build`    | Build changes                       | `build: update turbo config`             |
 
-#### Escopos
+#### Scopes
 
-| Escopo          | Pacote                     |
+| Scope           | Package                    |
 | --------------- | -------------------------- |
 | `shell`         | `apps/shell`               |
 | `design-system` | `packages/design-system`   |
 | `payments`      | `packages/payments-module` |
 | `types`         | `packages/types`           |
-| `deps`          | Dependencias               |
-| (vazio)         | Mudancas globais           |
+| `deps`          | Dependencies               |
+| (empty)         | Global changes             |
 
-#### Regras da Mensagem
+#### Message Rules
 
-1. **Tipo**: obrigatorio, minusculo
-2. **Escopo**: opcional, entre parenteses
-3. **Descricao**: obrigatoria, imperativo, minuscula, sem ponto final
-4. **Limite**: 72 caracteres na primeira linha
+1. **Type**: required, lowercase
+2. **Scope**: optional, in parentheses
+3. **Description**: required, imperative, lowercase, no period at end
+4. **Limit**: 72 characters on first line
 
-**Exemplos:**
+**Examples:**
 
 ```bash
-# Correto
+# Correct
 git commit -m "feat(button): add size variants"
 git commit -m "fix(shell): resolve hydration mismatch"
 git commit -m "docs: add accessibility section to readme"
 git commit -m "refactor(payments): migrate styles to scss"
 
-# Errado
-git commit -m "Fixed bug"                    # sem tipo, passado
-git commit -m "feat: Add new feature."       # maiuscula, ponto final
-git commit -m "FEAT(BUTTON): ADD SIZES"      # maiusculas
-git commit -m "feat(button): added sizes"    # passado ao inves de imperativo
+# Wrong
+git commit -m "Fixed bug"                    # no type, past tense
+git commit -m "feat: Add new feature."       # uppercase, period
+git commit -m "FEAT(BUTTON): ADD SIZES"      # all uppercase
+git commit -m "feat(button): added sizes"    # past tense instead of imperative
 ```
 
 ---
 
 ### Git Hooks (Husky)
 
-O projeto usa **Husky** para validar commits automaticamente:
+The project uses **Husky** to validate commits automatically:
 
-| Hook         | Validacao                                |
-| ------------ | ---------------------------------------- |
-| `pre-commit` | Prettier nos arquivos staged             |
-| `commit-msg` | Formato do commit (conventional commits) |
+| Hook         | Validation                           |
+| ------------ | ------------------------------------ |
+| `pre-commit` | Prettier on staged files             |
+| `commit-msg` | Commit format (conventional commits) |
 
-> **Nota:** ESLint é executado via `pnpm lint` (turbo) por pacote, não no pre-commit.
+> **Note:** ESLint is run via `pnpm lint` (turbo) per package, not in pre-commit.
 
-#### Como funciona
+#### How It Works
 
 ```bash
-# Ao fazer commit, automaticamente:
-# 1. pre-commit: roda lint-staged nos arquivos modificados
-# 2. commit-msg: valida se a mensagem segue o padrao
+# When committing, automatically:
+# 1. pre-commit: runs lint-staged on modified files
+# 2. commit-msg: validates message format
 
 git commit -m "feat(button): add hover effect"
-# ✅ Passa - formato correto
+# ✅ Passes - correct format
 
 git commit -m "added hover effect"
-# ❌ Falha - formato incorreto
+# ❌ Fails - incorrect format
 ```
 
-#### Bypass (apenas em emergencias)
+#### Bypass (emergencies only)
 
 ```bash
-# Pular hooks (NAO recomendado)
+# Skip hooks (NOT recommended)
 git commit --no-verify -m "emergency fix"
 ```
 
@@ -180,39 +180,39 @@ git commit --no-verify -m "emergency fix"
 
 ## Pull Requests
 
-### Criando um PR
+### Creating a PR
 
-1. Crie uma branch a partir de `master`:
+1. Create a branch from `main`:
 
    ```bash
-   git checkout master
-   git pull origin master
+   git checkout main
+   git pull origin main
    git checkout -b feature/my-feature
    ```
 
-2. Faca commits seguindo o padrao
+2. Make commits following the standard
 
-3. Garanta que todos os checks passam:
+3. Ensure all checks pass:
 
    ```bash
    pnpm build && pnpm test:run && pnpm lint
    ```
 
-4. Push e abra o PR:
+4. Push and open the PR:
    ```bash
    git push -u origin feature/my-feature
    ```
 
-### Titulo do PR
+### PR Title
 
-Siga o mesmo padrao de commits:
+Follow the same commit pattern:
 
 ```
 feat(design-system): add Card component
 fix(shell): resolve tenant resolution bug
 ```
 
-### Template de PR
+### PR Template
 
 ```markdown
 ## Summary
@@ -235,78 +235,78 @@ fix(shell): resolve tenant resolution bug
 
 ### Code Review
 
-- Minimo 1 aprovacao
-- Todos os checks devem passar
-- Sem conflitos com master
-- Squash merge preferido
+- Minimum 1 approval
+- All checks must pass
+- No conflicts with main
+- Squash merge preferred
 
 ---
 
-## Boas Praticas
+## Best Practices
 
-### Codigo
+### Code
 
-| Pratica                  | Descricao                           |
-| ------------------------ | ----------------------------------- |
-| **TypeScript strict**    | Sem `any`, tipos explicitos         |
-| **Named exports**        | Preferir sobre default exports      |
-| **Componentes pequenos** | Uma responsabilidade por componente |
-| **BEM para CSS**         | Nomenclatura consistente            |
-| **CSS Variables**        | Usar tokens do design system        |
-| **Testes**               | Cobertura para novos componentes    |
+| Practice              | Description                      |
+| --------------------- | -------------------------------- |
+| **TypeScript strict** | No `any`, explicit types         |
+| **Named exports**     | Prefer over default exports      |
+| **Small components**  | One responsibility per component |
+| **BEM for CSS**       | Consistent naming                |
+| **CSS Variables**     | Use design system tokens         |
+| **Tests**             | Coverage for new components      |
 
 ### Commits
 
-| Pratica        | Descricao                                   |
-| -------------- | ------------------------------------------- |
-| **Atomicos**   | Um commit = uma mudanca logica              |
-| **Frequentes** | Commitar cedo e frequentemente              |
-| **Revisaveis** | Cada commit deve ser revisavel isoladamente |
-| **Sem WIP**    | Evitar "WIP", "fix", "update" genericos     |
+| Practice       | Description                                   |
+| -------------- | --------------------------------------------- |
+| **Atomic**     | One commit = one logical change               |
+| **Frequent**   | Commit early and often                        |
+| **Reviewable** | Each commit should be reviewable in isolation |
+| **No WIP**     | Avoid generic "WIP", "fix", "update"          |
 
 ### Branches
 
-| Pratica                | Descricao                                  |
-| ---------------------- | ------------------------------------------ |
-| **Curta duracao**      | Branches devem viver no maximo alguns dias |
-| **Atualizadas**        | Fazer rebase com master frequentemente     |
-| **Deletar apos merge** | Manter repositorio limpo                   |
+| Practice               | Description                             |
+| ---------------------- | --------------------------------------- |
+| **Short-lived**        | Branches should live at most a few days |
+| **Up to date**         | Rebase with main frequently             |
+| **Delete after merge** | Keep repository clean                   |
 
 ### PRs
 
-| Pratica         | Descricao                                 |
-| --------------- | ----------------------------------------- |
-| **Pequenos**    | PRs menores = reviews mais rapidos        |
-| **Descritivos** | Explicar o "porque", nao apenas o "o que" |
-| **Screenshots** | Incluir para mudancas visuais             |
-| **Testaveis**   | Passos claros para QA                     |
+| Practice        | Description                            |
+| --------------- | -------------------------------------- |
+| **Small**       | Smaller PRs = faster reviews           |
+| **Descriptive** | Explain the "why", not just the "what" |
+| **Screenshots** | Include for visual changes             |
+| **Testable**    | Clear steps for QA                     |
 
 ---
 
-## Criando Componentes
+## Creating Components
 
-Ver [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md) para padroes de codigo detalhados.
+See [docs/STYLEGUIDE.md](docs/STYLEGUIDE.md) for detailed code standards.
 
-### Checklist de Novo Componente
+### New Component Checklist
 
-- [ ] Arquivo `.tsx` com tipagem completa
-- [ ] Arquivo `.module.scss` com BEM
-- [ ] Props documentadas com JSDoc
-- [ ] `aria-label` para elementos interativos
-- [ ] Estados: loading, error, disabled
-- [ ] Testes com `@testing-library/react`
-- [ ] Export no `index.ts` do pacote
-
----
-
-## Decisoes Arquiteturais
-
-Decisoes importantes estao documentadas em ADRs em [docs/adr/](docs/adr/).
+- [ ] `.tsx` file with complete typing
+- [ ] `.module.scss` file with BEM
+- [ ] Props documented with JSDoc
+- [ ] `aria-label` for interactive elements
+- [ ] States: loading, error, disabled
+- [ ] Tests with `@testing-library/react`
+- [ ] Export in package's `index.ts`
 
 ---
 
-## Duvidas
+## Architectural Decisions
 
-- Consulte a documentacao em `/docs`
-- Abra uma issue para discussao
-- Pergunte no code review
+Important decisions are documented in ADRs at [docs/adr/](docs/adr/).
+
+---
+
+## Questions
+
+- Check the documentation in `/docs`
+- Open an issue for discussion
+- Ask in code review

@@ -1,64 +1,64 @@
-# ADR-005: SCSS com Metodologia BEM
+# ADR-005: SCSS with BEM Methodology
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-Precisavamos de uma metodologia CSS que fornecesse manutenibilidade, escalabilidade e colaboracao em equipe para nosso design system multi-tenant. A solucao de estilizacao precisava funcionar bem com CSS custom properties para theming enquanto mantinha o codebase organizado e previsivel.
+We needed a CSS methodology that provides maintainability, scalability, and team collaboration for our multi-tenant design system. The styling solution needed to work well with CSS custom properties for theming while keeping the codebase organized and predictable.
 
-Opcoes consideradas:
+Options considered:
 
-- **Tailwind CSS**: Framework CSS utility-first
-- **CSS-in-JS** (styled-components, emotion): Geracao de CSS em runtime
-- **SCSS + BEM**: CSS pre-compilado com convencao de nomenclatura
+- **Tailwind CSS**: Utility-first CSS framework
+- **CSS-in-JS** (styled-components, emotion): Runtime CSS generation
+- **SCSS + BEM**: Pre-compiled CSS with naming convention
 
-## Decisao
+## Decision
 
-Uso **SCSS com BEM (Block Element Modifier)** para estilizacao de componentes.
+I use **SCSS with BEM (Block Element Modifier)** for component styling.
 
-## Justificativa
+## Rationale
 
-### Por que nao Tailwind CSS?
+### Why Not Tailwind CSS?
 
-- **Explosao de classes**: Strings longas de className reduzem legibilidade
-- **Curva de aprendizado**: Time precisa memorizar classes utilitarias
-- **Complexidade de theming**: Design tokens customizados requerem configuracao
-- **CSS output maior**: Inclui muitas utilities nao usadas em producao
+- **Class explosion**: Long className strings reduce readability
+- **Learning curve**: Team needs to memorize utility classes
+- **Theming complexity**: Custom design tokens require configuration
+- **Larger CSS output**: Includes many unused utilities in production
 
-### Por que nao CSS-in-JS?
+### Why Not CSS-in-JS?
 
-Ver [ADR-002](ADR-002-css-variables.md) para justificativa detalhada.
+See [ADR-002](ADR-002-css-variables.md) for detailed rationale.
 
-### Por que SCSS + BEM?
+### Why SCSS + BEM?
 
-- **Zero runtime**: Compilado em build time, sem execucao de JavaScript
-- **Previsibilidade**: Class names descrevem claramente proposito e relacionamentos
-- **Sem guerras de especificidade**: Hierarquia de seletores plana evita conflitos
-- **Padrao da industria**: Familiar para maioria dos desenvolvedores front-end
-- **Suporte de IDE**: Excelente autocomplete e suporte a linting
-- **Integracao com CSS Variables**: Funciona perfeitamente com nosso sistema de theming
+- **Zero runtime**: Compiled at build time, no JavaScript execution
+- **Predictability**: Class names clearly describe purpose and relationships
+- **No specificity wars**: Flat selector hierarchy avoids conflicts
+- **Industry standard**: Familiar to most front-end developers
+- **IDE support**: Excellent autocomplete and linting support
+- **CSS Variables integration**: Works perfectly with our theming system
 
-## Consequencias
+## Consequences
 
-### Positivas
+### Positive
 
-- **Nomenclatura clara**: Desenvolvedores entendem estrutura do componente pelos class names
-- **Manutenibilidade**: Facil encontrar e modificar estilos
-- **Sem custo runtime**: Melhor performance que CSS-in-JS
-- **Escopo por CSS Modules**: Sem poluicao de namespace global
-- **Funciona com CSS variables**: Suporta nosso theming multi-tenant
+- **Clear naming**: Developers understand component structure from class names
+- **Maintainability**: Easy to find and modify styles
+- **No runtime cost**: Better performance than CSS-in-JS
+- **Scoped by CSS Modules**: No global namespace pollution
+- **Works with CSS variables**: Supports our multi-tenant theming
 
-### Negativas
+### Negative
 
-- **Verbosidade**: Class names podem ser mais longos que utility classes
-- **Nomenclatura manual**: Requer disciplina para seguir convencoes
-- **Sem estilos dinamicos**: Valores dinamicos complexos precisam de inline styles
+- **Verbosity**: Class names can be longer than utility classes
+- **Manual naming**: Requires discipline to follow conventions
+- **No dynamic styles**: Complex dynamic values need inline styles
 
-## Breakpoints Responsivos
+## Responsive Breakpoints
 
-CSS custom properties nao podem ser usadas em media queries, entao uso SCSS mixins:
+CSS custom properties cannot be used in media queries, so I use SCSS mixins:
 
 ```scss
 @use "@shipay/design-system/styles/breakpoints" as *;

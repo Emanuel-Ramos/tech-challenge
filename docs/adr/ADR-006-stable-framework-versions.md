@@ -1,58 +1,58 @@
-# ADR-006: Versoes Estaveis de Framework (Next.js 14 LTS)
+# ADR-006: Stable Framework Versions (Next.js 14 LTS)
 
 ## Status
 
-Aceito
+Accepted
 
-## Contexto
+## Context
 
-Ao iniciar o projeto, precisavamos decidir quais versoes do Next.js e React usar. As opcoes eram:
+When starting the project, we needed to decide which Next.js and React versions to use. The options were:
 
-1. **Bleeding edge** (Next.js 16, React 19): Recursos mais recentes, mas potencialmente instavel
-2. **Estavel/LTS** (Next.js 14, React 18): Battle-tested, amplamente adotado, estavel
+1. **Bleeding edge** (Next.js 16, React 19): Latest features, but potentially unstable
+2. **Stable/LTS** (Next.js 14, React 18): Battle-tested, widely adopted, stable
 
-## Decisao
+## Decision
 
-Escolhi **Next.js 14.2.x (LTS)** com **React 18.3.x** para este projeto.
+I chose **Next.js 14.2.x (LTS)** with **React 18.3.x** for this project.
 
-## Justificativa
+## Rationale
 
-### Por que NAO usar as versoes mais recentes?
+### Why NOT Use the Latest Versions?
 
-| Preocupacao               | Next.js 16 + React 19        | Next.js 14 + React 18           |
-| ------------------------- | ---------------------------- | ------------------------------- |
-| **Estabilidade**          | Novo, bugs potenciais        | Battle-tested                   |
-| **Comunidade**            | Recursos limitados           | Docs/Stack Overflow extensos    |
-| **Adocao enterprise**     | Rara                         | Padrao da industria             |
-| **Breaking changes**      | Frequentes                   | API estavel                     |
-| **Bibliotecas terceiras** | Problemas de compatibilidade | Suporte completo do ecossistema |
+| Concern                   | Next.js 16 + React 19 | Next.js 14 + React 18         |
+| ------------------------- | --------------------- | ----------------------------- |
+| **Stability**             | New, potential bugs   | Battle-tested                 |
+| **Community**             | Limited resources     | Extensive docs/Stack Overflow |
+| **Enterprise adoption**   | Rare                  | Industry standard             |
+| **Breaking changes**      | Frequent              | Stable API                    |
+| **Third-party libraries** | Compatibility issues  | Full ecosystem support        |
 
-### Mentalidade Enterprise
+### Enterprise Mindset
 
-Em ambientes de producao, estabilidade é primordial:
+In production environments, stability is paramount:
 
-1. **Gestao de Risco**: Novas versoes podem introduzir regressoes
-2. **Onboarding de Time**: Mais desenvolvedores estao familiarizados com React 18
-3. **Debugging**: Mais conhecimento da comunidade para troubleshooting
-4. **Suporte de Longo Prazo**: Versoes LTS recebem patches de seguranca por mais tempo
+1. **Risk Management**: New versions may introduce regressions
+2. **Team Onboarding**: More developers are familiar with React 18
+3. **Debugging**: More community knowledge for troubleshooting
+4. **Long-Term Support**: LTS versions receive security patches longer
 
-### O que Ganhamos com Next.js 14
+### What We Get with Next.js 14
 
-- **Maturidade do App Router**: Server components estaveis (se necessario)
-- **Pages Router**: Totalmente suportado, battle-tested
-- **Turbopack**: Disponivel para dev (opcional)
-- **Patches de seguranca**: Manutencao ativa
+- **App Router Maturity**: Stable server components (if needed)
+- **Pages Router**: Fully supported, battle-tested
+- **Turbopack**: Available for dev (optional)
+- **Security Patches**: Active maintenance
 
-## Consequencias
+## Consequences
 
-### Positivas
+### Positive
 
-- Comportamento previsivel em producao
-- Mais facil contratar desenvolvedores familiarizados com a stack
-- Mais respostas no Stack Overflow e tutoriais disponiveis
-- Menor risco de encontrar bugs nao documentados
+- Predictable behavior in production
+- Easier to hire developers familiar with the stack
+- More Stack Overflow answers and tutorials available
+- Lower risk of hitting undocumented bugs
 
-### Negativas
+### Negative
 
-- Perdendo algumas otimizacoes de performance do React Compiler
-- Precisara fazer upgrade eventualmente quando Next.js 14 atingir EOL
+- Missing some React Compiler performance optimizations
+- Will need to upgrade eventually when Next.js 14 reaches EOL

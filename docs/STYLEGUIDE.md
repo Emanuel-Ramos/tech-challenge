@@ -1,28 +1,28 @@
-# Guia de Estilo
+# Style Guide
 
 ## TypeScript
 
-### Nomenclatura
+### Naming Conventions
 
-| Tipo                | Convencao   | Exemplo                         |
-| ------------------- | ----------- | ------------------------------- |
-| Componentes         | PascalCase  | `Button`, `PaymentsDashboard`   |
-| Funcoes             | camelCase   | `formatCurrency`, `handleClick` |
-| Constantes          | UPPER_SNAKE | `API_URL`, `MAX_RETRIES`        |
-| Tipos/Interfaces    | PascalCase  | `ButtonProps`, `TenantConfig`   |
-| Arquivos componente | PascalCase  | `Button.tsx`, `Card.tsx`        |
-| Arquivos util       | camelCase   | `tenant.ts`, `formatters.ts`    |
+| Type             | Convention  | Example                         |
+| ---------------- | ----------- | ------------------------------- |
+| Components       | PascalCase  | `Button`, `PaymentsDashboard`   |
+| Functions        | camelCase   | `formatCurrency`, `handleClick` |
+| Constants        | UPPER_SNAKE | `API_URL`, `MAX_RETRIES`        |
+| Types/Interfaces | PascalCase  | `ButtonProps`, `TenantConfig`   |
+| Component files  | PascalCase  | `Button.tsx`, `Card.tsx`        |
+| Utility files    | camelCase   | `tenant.ts`, `formatters.ts`    |
 
 ### Interfaces vs Types
 
 ```typescript
-// Interface para objetos e props
+// Interface for objects and props
 interface ButtonProps {
   variant: "primary" | "secondary";
   onClick?: () => void;
 }
 
-// Type para unions e aliases
+// Type for unions and aliases
 type ButtonVariant = "primary" | "secondary" | "ghost";
 type ID = string | number;
 ```
@@ -30,18 +30,18 @@ type ID = string | number;
 ### Exports
 
 ```typescript
-// Named exports (preferido)
+// Named exports (preferred)
 export function Button() {}
 export interface ButtonProps {}
 
-// Evitar default exports
-// export default Button  // NAO
+// Avoid default exports
+// export default Button  // NO
 ```
 
 ### Props
 
 ```typescript
-// Desestruturar com valores default
+// Destructure with default values
 export function Button({ variant = "primary", size = "md", disabled = false }: ButtonProps) {
   // ...
 }
@@ -49,20 +49,20 @@ export function Button({ variant = "primary", size = "md", disabled = false }: B
 
 ## SCSS + BEM
 
-### Nomenclatura BEM
+### BEM Naming
 
 ```scss
-// Block - componente standalone
+// Block - standalone component
 .button {
 }
 
-// Element - parte do componente (__)
+// Element - part of the component (__)
 .button__icon {
 }
 .button__label {
 }
 
-// Modifier - variacao (--)
+// Modifier - variation (--)
 .button--primary {
 }
 .button--large {
@@ -71,22 +71,22 @@ export function Button({ variant = "primary", size = "md", disabled = false }: B
 }
 ```
 
-### Estrutura do Arquivo SCSS
+### SCSS File Structure
 
 ```scss
 @use "@shipay/design-system/styles/breakpoints" as *;
 
 .component {
-  // Propriedades mobile-first
+  // Mobile-first properties
   display: flex;
   padding: var(--spacing-4);
 
-  // Breakpoints inline (mobile-first)
+  // Inline breakpoints (mobile-first)
   @include md {
     padding: var(--spacing-6);
   }
 
-  // Estados
+  // States
   &:hover {
   }
   &:focus-visible {
@@ -109,7 +109,7 @@ export function Button({ variant = "primary", size = "md", disabled = false }: B
 
 ### Breakpoints (Mobile-First)
 
-Uso SCSS mixins para breakpoints. CSS custom properties **nao funcionam** em media queries.
+I use SCSS mixins for breakpoints. CSS custom properties **don't work** in media queries.
 
 ```scss
 @use "@shipay/design-system/styles/breakpoints" as *;
@@ -145,44 +145,44 @@ Uso SCSS mixins para breakpoints. CSS custom properties **nao funcionam** em med
 }
 ```
 
-| Mixin         | Breakpoint | Uso              |
+| Mixin         | Breakpoint | Usage            |
 | ------------- | ---------- | ---------------- |
-| `@include xs` | >= 480px   | Mobile grande    |
+| `@include xs` | >= 480px   | Large mobile     |
 | `@include sm` | >= 640px   | Tablet portrait  |
 | `@include md` | >= 768px   | Tablet landscape |
 | `@include lg` | >= 1024px  | Desktop          |
-| `@include xl` | >= 1280px  | Desktop grande   |
+| `@include xl` | >= 1280px  | Large desktop    |
 
-**Import obrigatorio:**
+**Required import:**
 
 ```scss
-// No topo de cada arquivo .module.scss
+// At the top of each .module.scss file
 @use "@shipay/design-system/styles/breakpoints" as *;
 
-// Dentro do design-system, use caminho relativo:
+// Inside design-system, use relative path:
 @use "../../styles/breakpoints" as *;
 ```
 
 ### CSS Variables
 
 ```scss
-// SEMPRE usar tokens do design system
+// ALWAYS use design system tokens
 .button {
-  // Correto
+  // Correct
   padding: var(--spacing-4);
   color: var(--color-text);
   border-radius: var(--border-radius);
 
-  // Errado - valores hardcoded
+  // Wrong - hardcoded values
   // padding: 16px;
   // color: #333;
 }
 ```
 
-### Tokens Disponiveis
+### Available Tokens
 
 ```scss
-// Cores
+// Colors
 --color-primary
 --color-secondary
 --color-background
@@ -191,38 +191,38 @@ Uso SCSS mixins para breakpoints. CSS custom properties **nao funcionam** em med
 --color-error
 --color-success
 
-// Espacamento
+// Spacing
 --spacing-1  // 0.25rem
 --spacing-2  // 0.5rem
 --spacing-4  // 1rem
 --spacing-6  // 1.5rem
 --spacing-8  // 2rem
 
-// Tipografia
+// Typography
 --font-size-sm
 --font-size-base
 --font-size-lg
 --font-size-xl
 
-// Outros
+// Others
 --border-radius
 --shadow-sm
 --transition-fast
 ```
 
-## Componentes React
+## React Components
 
-### Estrutura de Pasta
+### Folder Structure
 
 ```
 ComponentName/
 ├── ComponentName.tsx
 ├── ComponentName.module.scss
-├── ComponentName.test.tsx    # se houver testes
-└── index.ts                  # re-export (opcional)
+├── ComponentName.test.tsx    # if tests exist
+└── index.ts                  # re-export (optional)
 ```
 
-### Template de Componente
+### Component Template
 
 ```tsx
 import styles from "./ComponentName.module.scss";
@@ -243,66 +243,66 @@ export function ComponentName({ title, variant = "primary" }: ComponentNameProps
 }
 ```
 
-### Acessibilidade
+### Accessibility
 
 ```tsx
-// Sempre incluir aria-labels em elementos interativos
-<button aria-label="Fechar modal">X</button>
+// Always include aria-labels on interactive elements
+<button aria-label="Close modal">X</button>
 
-// Usar roles semanticos
-<div role="img" aria-label="Descricao do grafico">
+// Use semantic roles
+<div role="img" aria-label="Chart description">
 
-// Estados de loading
+// Loading states
 <button aria-busy={loading} disabled={loading}>
 
-// Focus visible para navegacao por teclado
+// Focus visible for keyboard navigation
 &:focus-visible {
   outline: 2px solid var(--color-primary);
 }
 ```
 
-## Testes
+## Tests
 
-### Stack de Testes
+### Test Stack
 
-| Ferramenta                    | Uso                                        |
-| ----------------------------- | ------------------------------------------ |
-| **Vitest**                    | Test runner (compativel com Jest)          |
-| **@testing-library/react**    | Renderizacao e queries                     |
-| **@testing-library/jest-dom** | Matchers extras (`toBeInTheDocument`, etc) |
+| Tool                          | Usage                                     |
+| ----------------------------- | ----------------------------------------- |
+| **Vitest**                    | Test runner (Jest compatible)             |
+| **@testing-library/react**    | Rendering and queries                     |
+| **@testing-library/jest-dom** | Extra matchers (`toBeInTheDocument`, etc) |
 
-### Gerando Testes com Claude Code
+### Generating Tests with Claude Code
 
-Use a skill `/generate-tests` para gerar testes automaticamente seguindo os padroes do projeto:
+Use the `/generate-tests` skill to automatically generate tests following project patterns:
 
 ```bash
-# No Claude Code, execute:
+# In Claude Code, run:
 /generate-tests packages/design-system/src/components/Button/Button.tsx
 ```
 
-A skill ira:
+The skill will:
 
-1. Ler o componente e entender suas props
-2. Analisar padroes de testes existentes no projeto
-3. Gerar um arquivo `.test.tsx` completo
+1. Read the component and understand its props
+2. Analyze existing test patterns in the project
+3. Generate a complete `.test.tsx` file
 
-### Rodando Testes
+### Running Tests
 
 ```bash
-# Rodar todos os testes
+# Run all tests
 pnpm test
 
-# Rodar uma vez (sem watch)
+# Run once (no watch)
 pnpm test:run
 
-# Com coverage
+# With coverage
 pnpm test:coverage
 
-# Interface visual
+# Visual interface
 pnpm test:ui
 ```
 
-### Estrutura do Arquivo de Teste
+### Test File Structure
 
 ```typescript
 import { describe, it, expect, vi } from "vitest";
@@ -310,23 +310,23 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { ComponentName } from "./ComponentName";
 
 describe("ComponentName", () => {
-  describe("renderizacao", () => {
-    it("renderiza corretamente com props obrigatorias", () => {
+  describe("rendering", () => {
+    it("renders correctly with required props", () => {
       render(<ComponentName title="Test" />);
       expect(screen.getByText("Test")).toBeInTheDocument();
     });
   });
 
-  describe("variantes", () => {
-    it("aplica variante primary por padrao", () => {
+  describe("variants", () => {
+    it("applies primary variant by default", () => {
       render(<ComponentName />);
       const element = screen.getByRole("button");
       expect(element.className).toContain("primary");
     });
   });
 
-  describe("interacoes", () => {
-    it("chama onClick quando clicado", () => {
+  describe("interactions", () => {
+    it("calls onClick when clicked", () => {
       const handleClick = vi.fn();
       render(<ComponentName onClick={handleClick} />);
       fireEvent.click(screen.getByRole("button"));
@@ -334,65 +334,65 @@ describe("ComponentName", () => {
     });
   });
 
-  describe("acessibilidade", () => {
-    it("tem aria-label correto", () => {
-      render(<ComponentName aria-label="Acao" />);
-      expect(screen.getByRole("button")).toHaveAttribute("aria-label", "Acao");
+  describe("accessibility", () => {
+    it("has correct aria-label", () => {
+      render(<ComponentName aria-label="Action" />);
+      expect(screen.getByRole("button")).toHaveAttribute("aria-label", "Action");
     });
   });
 });
 ```
 
-### O que testar
+### What to Test
 
-| Categoria          | Exemplos                                          |
-| ------------------ | ------------------------------------------------- |
-| **Renderizacao**   | Renderiza children, renderiza com props opcionais |
-| **Variantes**      | Aplica classes BEM corretas para cada variante    |
-| **Estados**        | Loading, disabled, error, empty                   |
-| **Interacoes**     | onClick, onChange, onSubmit                       |
-| **Acessibilidade** | aria-label, aria-busy, roles, focus               |
+| Category          | Examples                                      |
+| ----------------- | --------------------------------------------- |
+| **Rendering**     | Renders children, renders with optional props |
+| **Variants**      | Applies correct BEM classes for each variant  |
+| **States**        | Loading, disabled, error, empty               |
+| **Interactions**  | onClick, onChange, onSubmit                   |
+| **Accessibility** | aria-label, aria-busy, roles, focus           |
 
-### Queries (ordem de preferencia)
+### Queries (order of preference)
 
 ```typescript
-// 1. Acessiveis (preferir)
-screen.getByRole("button", { name: "Enviar" });
+// 1. Accessible (prefer)
+screen.getByRole("button", { name: "Submit" });
 screen.getByLabelText("Email");
-screen.getByText("Ola");
+screen.getByText("Hello");
 
-// 2. Semanticas
+// 2. Semantic
 screen.getByAltText("Logo");
 screen.getByTitle("Tooltip");
 
-// 3. Test IDs (ultimo recurso)
+// 3. Test IDs (last resort)
 screen.getByTestId("custom-element");
 ```
 
-### Testando Classes BEM (CSS Modules)
+### Testing BEM Classes (CSS Modules)
 
-CSS Modules geram nomes como `_button_abc123`. Use `toContain`:
+CSS Modules generate names like `_button_abc123`. Use `toContain`:
 
 ```typescript
-// Correto
+// Correct
 expect(element.className).toContain("button--primary");
 
-// Errado (nao funciona com CSS Modules)
+// Wrong (doesn't work with CSS Modules)
 expect(element).toHaveClass("button--primary");
 ```
 
 ### Mocks
 
 ```typescript
-// Mock de funcao
+// Function mock
 const handleClick = vi.fn();
 
-// Mock de modulo
+// Module mock
 vi.mock("@/lib/api", () => ({
   fetchData: vi.fn().mockResolvedValue({ data: [] }),
 }));
 
-// Limpar mocks entre testes
+// Clear mocks between tests
 afterEach(() => {
   vi.clearAllMocks();
 });
@@ -400,21 +400,21 @@ afterEach(() => {
 
 ## Imports
 
-### Ordem
+### Order
 
 ```typescript
 // 1. React/Next
 import { useState } from "react";
 import Image from "next/image";
 
-// 2. Bibliotecas externas
+// 2. External libraries
 import { format } from "date-fns";
 
-// 3. Packages internos
+// 3. Internal packages
 import { Button, Card } from "@shipay/design-system";
 import type { TenantConfig } from "@shipay/types";
 
-// 4. Imports relativos
+// 4. Relative imports
 import { Header } from "@/components/Header";
 import styles from "./Component.module.scss";
 ```
@@ -424,18 +424,18 @@ import styles from "./Component.module.scss";
 ### Branches
 
 ```
-feature/nome-da-feature
-fix/descricao-do-bug
-refactor/area-refatorada
+feature/feature-name
+fix/bug-description
+refactor/refactored-area
 ```
 
-## Checklist antes do PR
+## PR Checklist
 
-- [ ] `pnpm build` passa
-- [ ] `pnpm test` passa
-- [ ] `pnpm lint` passa
-- [ ] Sem `console.log` em producao
-- [ ] Props tipadas corretamente
-- [ ] Acessibilidade verificada
-- [ ] BEM aplicado nos estilos
-- [ ] Usando CSS variables (sem valores hardcoded)
+- [ ] `pnpm build` passes
+- [ ] `pnpm test` passes
+- [ ] `pnpm lint` passes
+- [ ] No `console.log` in production
+- [ ] Props correctly typed
+- [ ] Accessibility verified
+- [ ] BEM applied to styles
+- [ ] Using CSS variables (no hardcoded values)
